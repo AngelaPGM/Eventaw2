@@ -7,6 +7,7 @@ import es.taw.eventaw.entity.Rol;
 import es.taw.eventaw.entity.Usuario;
 import es.taw.eventaw.entity.Usuarioevento;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
 import java.util.List;
 
+@Controller
 public class UsuarioeventoController {
     private UsuarioeventoRepository usuarioeventoRepository;
     private UsuarioRepository usuarioRepository;
@@ -63,6 +65,6 @@ public class UsuarioeventoController {
         //Si no me equivoco las unica foreign keys que tiene usuario son el rol y el usuario evento, que puede ser nula
         this.usuarioeventoRepository.save(inputData);
 
-        return "inicio";
+        return "inicioUEvento";
     }
 }
