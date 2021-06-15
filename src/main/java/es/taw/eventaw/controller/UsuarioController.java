@@ -29,6 +29,10 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public String doLogin(@ModelAttribute("user") Usuario usuario, Model model, HttpSession session) {
+        String strTo = this.service.login(usuario, model, session), errorLog="";
+        if(strTo.equals("login")) errorLog="Datos no validos.";
+
+        model.addAttribute("errorLog", errorLog);
         return this.service.login(usuario, model, session);
     }
 }

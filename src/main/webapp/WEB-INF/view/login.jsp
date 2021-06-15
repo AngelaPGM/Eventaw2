@@ -25,7 +25,7 @@
     <div class="container-login">
         <div class="wrap-login">
             <%
-                    String errorLog = "";
+                String errorLog = (String) request.getAttribute("errorLog");
             %>
             <form:form class="login-form" method="POST" action="/login" modelAttribute="user">
                 <!-- Logo y texto -->
@@ -36,7 +36,7 @@
 
                 <!-- Alerta error al iniciar sesion -->
                 <%
-                    if (errorLog != null) {%>
+                    if (null != errorLog) {%>
                 <div class=" alert alert-danger vertical-align-middle">
                     <strong>¡Error!</strong> <%= errorLog%>
                 </div>
