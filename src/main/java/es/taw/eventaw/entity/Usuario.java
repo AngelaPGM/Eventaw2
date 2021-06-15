@@ -1,5 +1,7 @@
 package es.taw.eventaw.entity;
 
+import es.taw.eventaw.dto.UsuarioDTO;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,6 +17,16 @@ public class Usuario {
     private Collection<Mensaje> mensajesById;
     private Rol rolByRol;
     private Collection<Usuarioevento> usuarioeventosById;
+
+    @Transient
+    public UsuarioDTO getDTO() {
+        UsuarioDTO dto = new UsuarioDTO();
+        dto.setId(this.id);
+        dto.setCorreo(this.correo);
+        dto.setContrasenya(this.contrasenya);
+        dto.setRolByRol(this.rolByRol);
+        return dto;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -114,4 +126,6 @@ public class Usuario {
     public void setUsuarioeventosById(Collection<Usuarioevento> usuarioeventosById) {
         this.usuarioeventosById = usuarioeventosById;
     }
+
+
 }
