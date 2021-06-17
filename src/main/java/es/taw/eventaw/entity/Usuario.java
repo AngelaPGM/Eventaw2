@@ -18,16 +18,6 @@ public class Usuario {
     private Rol rolByRol;
     private Collection<Usuarioevento> usuarioeventosById;
 
-    @Transient
-    public UsuarioDTO getDTO() {
-        UsuarioDTO dto = new UsuarioDTO();
-        dto.setId(this.id);
-        dto.setCorreo(this.correo);
-        dto.setContrasenya(this.contrasenya);
-        dto.setRolByRol(this.rolByRol);
-        return dto;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
@@ -127,5 +117,13 @@ public class Usuario {
         this.usuarioeventosById = usuarioeventosById;
     }
 
-
+    @Transient
+    public UsuarioDTO getDTO() {
+        UsuarioDTO dto = new UsuarioDTO();
+        dto.setId(this.id);
+        dto.setCorreo(this.correo);
+        dto.setContrasenya(this.contrasenya);
+        dto.setRolByRol(this.rolByRol);
+        return dto;
+    }
 }

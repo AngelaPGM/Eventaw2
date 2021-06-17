@@ -2,7 +2,9 @@ package es.taw.eventaw.controller;
 
 import es.taw.eventaw.dao.EventoRepository;
 import es.taw.eventaw.dao.UsuarioRepository;
+import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.entity.Usuario;
+import es.taw.eventaw.service.EventoService;
 import es.taw.eventaw.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +18,20 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class UsuarioController {
+    private UsuarioService usuarioService;
+    private EventoService eventoService;
 
     @Autowired
-    private UsuarioService service;
+    public void setUsuarioService(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
+
+    @Autowired
+    public void setEventoService(EventoService eventoService) {
+        this.eventoService = eventoService;
+    }
+
+
 
     @GetMapping("/")
     public String doInit(Model model) {
@@ -29,10 +42,39 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public String doLogin(@ModelAttribute("user") Usuario usuario, Model model, HttpSession session) {
-        String strTo = this.service.login(usuario, model, session), errorLog="";
-        if(strTo.equals("login")) errorLog="Datos no validos.";
+       UsuarioDTO userDTO = this.usuarioService.comprobarCredenciales(usuario.getCorreo(), usuario.getContrasenya());
+        String strTo = "login";
 
-        model.addAttribute("errorLog", errorLog);
-        return this.service.login(usuario, model, session);
+        if (userDTO == null) {
+            model.addAttribute("errorLog", "Credenciales no validas.");
+        } else {
+            session.setAttribute("userDTO", userDTO);
+            switch (userDTO.getRolByRol().getId()) {
+                case 1: //Admin
+                    strTo = ""; //ESCRIBIR AQUI EL REDIRECT A ADMIN
+                    break;
+
+                case 2: //Usuarioevento
+                    strTo = "inicioUEvento";
+                    model.addAttribute("eventosFuturos", this.eventoService.findEventosFuturos());
+                    break;
+
+                case 3: //Creador eventos
+                    strTo = "inicioCreador";
+                    //model.addAttribute("misEventos", user.getEventosById());
+                   // model.addAttribute("todosEventos", this.eventoService.findAll());
+                    break;
+
+                case 4: //Teleoperador
+                    strTo = ""; //ESCRIBIR AQUI EL REDIRECT A TELEOPERADOR
+                    break;
+
+                default: //Analista
+                    strTo = ""; //ESCRIBIR AQUI EL REDIRECT A ANALISTA
+                    break;
+            }
+        }
+
+        return strTo;
     }
 }

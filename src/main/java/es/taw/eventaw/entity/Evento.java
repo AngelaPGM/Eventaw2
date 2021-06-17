@@ -1,5 +1,8 @@
 package es.taw.eventaw.entity;
 
+import es.taw.eventaw.dto.EventoDTO;
+import es.taw.eventaw.dto.UsuarioDTO;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -172,5 +175,26 @@ public class Evento {
 
     public void setEventoEtiquetasById(Collection<EventoEtiqueta> eventoEtiquetasById) {
         this.eventoEtiquetasById = eventoEtiquetasById;
+    }
+
+    @Transient
+    public EventoDTO getDTO() {
+        EventoDTO dto = new EventoDTO();
+        dto.setId(this.id);
+        dto.setTitulo(this.titulo);
+        dto.setDescripcion(this.descripcion);
+        dto.setCiudad(this.ciudad);
+        dto.setFecha(this.fecha);
+        dto.setFechacompra(this.fechacompra);
+        dto.setPrecio(this.precio);
+        dto.setAforo(this.aforo);
+        dto.setMaxentradasusuario(this.maxentradasusuario);
+        dto.setNumfilas(this.numfilas);
+        dto.setAsientosfila(this.asientosfila);
+        dto.setEntradasById(this.entradasById);
+        dto.setUsuarioByCreador(this.usuarioByCreador);
+        dto.setEventoEtiquetasById(this.eventoEtiquetasById);
+
+        return dto;
     }
 }
