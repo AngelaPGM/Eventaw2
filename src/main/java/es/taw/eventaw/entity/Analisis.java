@@ -1,5 +1,7 @@
 package es.taw.eventaw.entity;
 
+import es.taw.eventaw.dto.AnalisisDTO;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
@@ -173,5 +175,17 @@ public class Analisis {
     @Override
     public int hashCode() {
         return Objects.hash(id, nombre, fechamayor, fechamenor, fechaigual, preciomayor, preciomenor, precioigual, ciudadevento, ciudadusuario, edadmayor, edadmenor, edadigual, sexo);
+    }
+
+    @Transient
+    public AnalisisDTO getDTO(){
+        AnalisisDTO dto = new AnalisisDTO();
+        dto.setId(id);
+        dto.setNombre(nombre);
+        dto.setFechamayor(fechamayor);
+        dto.setFechamenor(fechamenor);
+        dto.setPreciomayor(preciomayor);
+        dto.setPreciomenor(preciomenor);
+        return dto;
     }
 }

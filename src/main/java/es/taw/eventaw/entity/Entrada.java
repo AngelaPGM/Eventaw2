@@ -1,5 +1,7 @@
 package es.taw.eventaw.entity;
 
+import es.taw.eventaw.dto.EntradaDTO;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -73,5 +75,16 @@ public class Entrada {
 
     public void setEventoByEvento(Evento eventoByEvento) {
         this.eventoByEvento = eventoByEvento;
+    }
+
+    @Transient
+    public EntradaDTO getDTO(){
+        EntradaDTO dto = new EntradaDTO();
+        dto.setId(id);
+        dto.setNumfila(numfila);
+        dto.setAsientofila(asientofila);
+        dto.setUsuarioeventoByUsuario(usuarioeventoByUsuario);
+        dto.setEventoByEvento(eventoByEvento);
+        return dto;
     }
 }

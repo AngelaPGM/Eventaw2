@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="es.taw.eventaw.entity.Entrada" %><%--
+<%@ page import="es.taw.eventaw.dto.EntradaDTO" %><%--
   Created by IntelliJ IDEA.
   User: rafa
   Date: 5/6/21
@@ -12,15 +12,15 @@
     <title>Title</title>
 </head>
 <%
-    List<Entrada> listaEntradas = (List) request.getAttribute("listaEntradas");
+    List<EntradaDTO> listaEntradas = (List) request.getAttribute("listaEntradas");
 %>
 <body>
     <%
-        for(Entrada e: listaEntradas){
+        for(EntradaDTO e: listaEntradas){
     %>
     <tr>
-        <td><%= e.getEvento()%></td>
-        <td><%= e.getUsuario()%></td>
+        <td><%= e.getEventoByEvento().getId() %></td>
+        <td><%= e.getUsuarioeventoByUsuario().getId() %></td>
     </tr>
     <%
         }

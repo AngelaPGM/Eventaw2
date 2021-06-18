@@ -70,7 +70,7 @@ public class UsuarioController {
                     break;
 
                 default: //Analista
-                    strTo = ""; //ESCRIBIR AQUI EL REDIRECT A ANALISTA
+                    strTo = "redirect:analisis/"; //ESCRIBIR AQUI EL REDIRECT A ANALISTA
                     break;
             }
         }

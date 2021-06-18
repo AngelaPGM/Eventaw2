@@ -1,5 +1,6 @@
 <%@ page import="es.taw.eventaw.entity.Analisis" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="es.taw.eventaw.dto.AnalisisDTO" %><%--
   Created by IntelliJ IDEA.
   User: rafa
   Date: 5/6/21
@@ -12,22 +13,22 @@
     <title>Title</title>
 </head>
 <%
-    List<Analisis> listaAnalisis = (List) request.getAttribute("listaAnalisis");
+    List<AnalisisDTO> listaAnalisis = (List) request.getAttribute("listaAnalisis");
 %>
 <body>
     <table border="1">
         <tr>
             <th>id</th>
         </tr>
-        <% for (Analisis a: listaAnalisis){%>
+        <% for (AnalisisDTO a: listaAnalisis){%>
             <tr>
                 <td><%=a.getId()%></td>
-                <td><a href="/ver/<%=a.getId()%>">Resultados</a></td>
+                <td><a href="/analisis/ver/<%=a.getId()%>">Resultados</a></td>
             </tr>
         <%
             }
         %>
     </table>
-    <a href="/crear">Nuevo análisis</a>
+    <a href="/analisis/crear">Nuevo análisis</a>
 </body>
 </html>
