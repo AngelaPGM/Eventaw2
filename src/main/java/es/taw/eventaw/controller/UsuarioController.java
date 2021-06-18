@@ -74,7 +74,12 @@ public class UsuarioController {
                     break;
             }
         }
-
         return strTo;
+    }
+
+    @GetMapping("/logout")
+    public String doLogout(HttpSession session, Model model) {
+        session.removeAttribute("userDTO");
+        return doInit(model);
     }
 }
