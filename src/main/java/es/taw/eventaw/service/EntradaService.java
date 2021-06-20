@@ -32,7 +32,20 @@ public class EntradaService {
     }
 
     public List<EntradaDTO> findByAnalisis(AnalisisDTO analisisDTO){
-        List<Entrada> listaEntradas = this.entradaRepository.findEntradasByAnalisis(analisisDTO);
+        List<Entrada> listaEntradas = null; //this.entradaRepository.findEntradasByAnalisis(analisisDTO.getFechamayor());
+
+        if(analisisDTO.getFechamayor() != null){
+            List<Entrada> listaFechaMayor = this.entradaRepository.findEntradasFechaMayor(analisisDTO.getFechamayor());
+        }
+        if(analisisDTO.getFechamenor() != null){
+            List<Entrada> listaFechaMenor = this.entradaRepository.findEntradasFechaMenor(analisisDTO.getFechamenor());
+        }
+        if(analisisDTO.getPreciomayor() != null){
+            List<Entrada> listaPrecioMayor = this.entradaRepository.findEntradasPrecioMayor(analisisDTO.getPreciomayor());
+        }
+        if(analisisDTO.getPreciomenor() != null){
+            List<Entrada> listaPrecioMenor = this.entradaRepository.findEntradasPrecioMenor(analisisDTO.getPreciomenor());
+        }
         return listaToDto(listaEntradas);
     }
 }

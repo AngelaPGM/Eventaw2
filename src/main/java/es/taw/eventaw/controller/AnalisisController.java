@@ -5,11 +5,16 @@ import es.taw.eventaw.dto.EntradaDTO;
 import es.taw.eventaw.service.AnalisisService;
 import es.taw.eventaw.service.EntradaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +35,17 @@ public class AnalisisController {
         this.entradaService = entradaService;
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        // change the format according to your need.
+        dateFormat.setLenient(false);
+
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
     @GetMapping("/")
-    public String listarAnalisis (Model model, HttpSession session) {
+    public String listarAnalisis (Model model) {
         List<AnalisisDTO> lista = this.analisisService.listarAnalisis();
         model.addAttribute("listaAnalisis", lista);
         return "analista";
@@ -39,14 +53,18 @@ public class AnalisisController {
 
     @GetMapping("/crear")
     public String doCrear(Model model){
-        AnalisisDTO a = new AnalisisDTO();
-        model.addAttribute("a", a);
+        AnalisisDTO analisis = new AnalisisDTO();
+        model.addAttribute("analisis", analisis);
         return "analisis";
     }
 
     @PostMapping("/guardar")
-    public String doGuardar(@ModelAttribute("a") AnalisisDTO a){
-        this.analisisService.doGuardar(a);
+    public String doGuardar(@ModelAttribute("analisis") AnalisisDTO a){
+        try {
+            this.analisisService.doGuardar(a);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return "analisis";
     }
 
@@ -60,6 +78,14 @@ public class AnalisisController {
 
         return "analisis";
     }
+
+    @GetMapping("/borrar/{id}")
+    public String doBorrar(@PathVariable("id") Integer id, Model model){
+        this.analisisService.doBorrar(id);
+        return "redirect:/analisis/";
+    }
+
+
 
     /*
     @Autowired

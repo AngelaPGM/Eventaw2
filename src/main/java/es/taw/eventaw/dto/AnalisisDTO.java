@@ -1,6 +1,7 @@
 package es.taw.eventaw.dto;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class AnalisisDTO {
     private Integer id;
@@ -29,7 +30,7 @@ public class AnalisisDTO {
         this.nombre = nombre;
     }
 
-    public Date getFechamayor() {
+    public Date getFechamayor(){
         return fechamayor;
     }
 
@@ -37,7 +38,7 @@ public class AnalisisDTO {
         this.fechamayor = fechamayor;
     }
 
-    public Date getFechamenor() {
+    public Date getFechamenor(){
         return fechamenor;
     }
 

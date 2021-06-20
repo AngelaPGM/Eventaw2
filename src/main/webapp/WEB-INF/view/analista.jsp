@@ -23,7 +23,9 @@
         <% for (AnalisisDTO a: listaAnalisis){%>
             <tr>
                 <td><%=a.getId()%></td>
-                <td><a href="/analisis/ver/<%=a.getId()%>">Resultados</a></td>
+                <td><%=a.getNombre()%></td>
+                <td><a href="/analisis/ver/<%=a.getId()%>">Ver resultados</a></td>
+                <td><a href="/analisis/borrar/<%=a.getId()%>">Eliminar</a></td>
             </tr>
         <%
             }

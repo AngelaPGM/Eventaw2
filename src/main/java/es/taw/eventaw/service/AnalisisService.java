@@ -6,6 +6,7 @@ import es.taw.eventaw.entity.Analisis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class AnalisisService {
         return dto;
     }
 
-    public void doGuardar(AnalisisDTO dto){
+    public void doGuardar(AnalisisDTO dto) throws ParseException {
         Analisis analisis;
         if (dto.getId() == null) {
             analisis = new Analisis();
@@ -57,5 +58,10 @@ public class AnalisisService {
         analisis.setPreciomenor(dto.getPreciomenor());
 
         this.analisisRepository.save(analisis);
+    }
+
+    public void doBorrar(Integer id){
+        Analisis analisis = this.analisisRepository.getById(id);
+        this.analisisRepository.delete(analisis);
     }
 }
