@@ -49,7 +49,7 @@ public class UsuarioeventoController {
 
     @PostMapping("/guardar")
     public String doGuardar(@ModelAttribute("usuarioDTO") UsuarioeventoDTO inputData, Model model, HttpSession session) {
-        if(inputData.getUsuarioByIdusuario().getContrasenya().equals(inputData.getUsuarioByIdusuario().getContrasenya2())){
+        if(inputData.getUsuarioDTO().getContrasenya().equals(inputData.getUsuarioDTO().getContrasenya2())){
             UsuarioDTO userDTO = this.usuarioService.nuevoUsuario(inputData);
             session.setAttribute("userDTO", userDTO);
 

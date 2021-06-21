@@ -125,6 +125,7 @@ public class Usuario {
         dto.setContrasenya(this.contrasenya);
         dto.setRolByRol(this.rolByRol);
         dto.setUsuarioeventoDTO(this.usuarioeventosById.getDTO());
+        dto.getUsuarioeventoDTO().setUsuarioDTO(dto);
         return dto;
     }
 }
