@@ -146,7 +146,7 @@ public class Usuarioevento {
         dto.setFechanacimiento(this.fechanacimiento);
         dto.setSexo(this.sexo);
         dto.setEntradasById(this.entradasById);
-        dto.setUsuarioByIdusuario(this.usuarioByIdusuario);
+        dto.setUsuarioByIdusuario(this.usuarioByIdusuario.getDTO());
         return dto;
     }
 }

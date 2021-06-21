@@ -29,7 +29,7 @@
 <div class="fondo-login">
   <div class="container-registro">
     <div class="wrap-registro">
-      <form:form class="register-form" method="POST" action="/usuarioEvento/guardar" modelAttribute="usuario">
+      <form:form class="register-form" method="POST" action="/usuarioEvento/guardar" modelAttribute="usuarioEventoDTO">
                         <span class="login-form-title">
                            <img class="img-zoom" src="images/Eventaw.png" alt="Logo" style="width: 30%;"><br/>
                             Nueva cuenta
@@ -107,10 +107,16 @@
           <div class="col-5">
             Contraseña: <span style="color:#a64bf4">(*)</span>
           </div>
+          <div class="col-5">
+            Repita la Contraseña: <span style="color:#a64bf4">(*)</span>
+          </div>
         </div>
         <div class="row justify-content-around">
           <div class="col-6  wrap-input2" style="width: 45%;">
             <form:input path="usuarioByIdusuario.contrasenya" class="input2" type="password" name="pass1"/>
+          </div>
+          <div class="col-6  wrap-input2" style="width: 45%;">
+            <form:input path="usuarioByIdusuario.contrasenya2" class="input2" type="password" name="pass2"/>
           </div>
         </div>
 
