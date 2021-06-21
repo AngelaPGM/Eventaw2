@@ -124,7 +124,7 @@ public class Usuarioevento {
         this.entradasById = entradasById;
     }
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "IDUSUARIO", referencedColumnName = "ID", nullable = false)
     public Usuario getUsuarioByIdusuario() {
         return usuarioByIdusuario;
@@ -146,7 +146,7 @@ public class Usuarioevento {
         dto.setFechanacimiento(this.fechanacimiento);
         dto.setSexo(this.sexo);
         dto.setEntradasById(this.entradasById);
-        dto.setUsuarioByIdusuario(this.usuarioByIdusuario.getDTO());
+        dto.setUsuarioDTO(this.usuarioByIdusuario.getDTO());
         return dto;
     }
 }

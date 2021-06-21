@@ -50,8 +50,8 @@ public class UsuarioService {
         Usuario user = new Usuario();
         Rol rol = this.rolRepository.getById(2);//Si borro esto me da una violacion de campo NotNull
         user.setRolByRol(rol);
-        user.setCorreo(inputDataDTO.getUsuarioByIdusuario().getCorreo());
-        user.setContrasenya(inputDataDTO.getUsuarioByIdusuario().getContrasenya());
+        //user.setCorreo(inputDataDTO.getUsuarioByIdusuario().getCorreo());
+        //user.setContrasenya(inputDataDTO.getUsuarioByIdusuario().getContrasenya());
         this.usuarioRepository.save(user);
         this.usuarioeventoService.nuevoUsuarioevento(user, inputDataDTO);
 

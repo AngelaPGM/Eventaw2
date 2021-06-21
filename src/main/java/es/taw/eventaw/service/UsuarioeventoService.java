@@ -40,7 +40,7 @@ public class UsuarioeventoService {
 
         List<Usuarioevento> aux = new ArrayList<>();
         aux.add(usuarioevento);
-        user.setUsuarioeventosById(aux);
+        //user.setUsuarioeventosById(aux);
 
         this.usuarioeventoRepository.save(usuarioevento);
         this.usuarioRepository.save(user);
