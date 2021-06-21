@@ -1,8 +1,10 @@
 package es.taw.eventaw.controller;
 
+import es.taw.eventaw.dao.EventoRepository;
 import es.taw.eventaw.dao.RolRepository;
 import es.taw.eventaw.dao.UsuarioRepository;
 import es.taw.eventaw.dao.UsuarioeventoRepository;
+import es.taw.eventaw.entity.Evento;
 import es.taw.eventaw.entity.Rol;
 import es.taw.eventaw.entity.Usuario;
 import es.taw.eventaw.entity.Usuarioevento;
@@ -14,13 +16,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
 public class UsuarioeventoController {
+    @Autowired
     private UsuarioeventoRepository usuarioeventoRepository;
     private UsuarioRepository usuarioRepository;
     private RolRepository rolRepository;
+    private EventoRepository eventoRepository;
+
+    @Autowired
+    public void setEventoRepository(EventoRepository eventoRepository) {
+        this.eventoRepository = eventoRepository;
+    }
 
     @Autowired
     public void setRolRepository(RolRepository rolRepository) {
@@ -49,10 +59,9 @@ public class UsuarioeventoController {
     }
 
     @PostMapping("/usuarioEvento/guardar")
-    public String doGuardar(@ModelAttribute("usuario") Usuarioevento inputData) {
+    public String doGuardar(@ModelAttribute("usuario") Usuarioevento inputData, Model model) {
         Usuario usuarioNuevo = new Usuario();
 
-        //usuarioNuevo.setRol(2);//AQUI HAY QUE PASARLE EL OBJETO ROL CON ID 2!!
         Rol rol = this.rolRepository.getById(2);//Si borro esto me da una violacion de campo NotNull
         usuarioNuevo.setRolByRol(rol);
         usuarioNuevo.setCorreo(inputData.getUsuarioByIdusuario().getCorreo());
@@ -61,9 +70,11 @@ public class UsuarioeventoController {
         aux.add(inputData);
         usuarioNuevo.setUsuarioeventosById(aux);//Esto es raro porque parece que permite a un usuario tener varios UsuarioEventos (si no paso una lista peta)
         inputData.setUsuarioByIdusuario(usuarioNuevo);
-        this.usuarioRepository.save(usuarioNuevo);//Falla al hacer el insert (violation of foreing key contraint for key (2)
-        //Si no me equivoco las unica foreign keys que tiene usuario son el rol y el usuario evento, que puede ser nula
+        this.usuarioRepository.save(usuarioNuevo);
         this.usuarioeventoRepository.save(inputData);
+
+        List<Evento> eventosFuturos = this.eventoRepository.findEventoByFechaAfter(new Date());
+        model.addAttribute("eventosFuturos", eventosFuturos);
 
         return "inicioUEvento";
     }
