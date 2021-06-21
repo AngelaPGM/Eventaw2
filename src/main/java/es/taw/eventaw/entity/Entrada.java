@@ -83,8 +83,12 @@ public class Entrada {
         dto.setId(id);
         dto.setNumfila(numfila);
         dto.setAsientofila(asientofila);
-        dto.setUsuarioeventoByUsuario(usuarioeventoByUsuario);
-        dto.setEventoByEvento(eventoByEvento);
+        //dto.setUsuarioeventoByUsuario(usuarioeventoByUsuario);
+        //dto.setEventoByEvento(eventoByEvento);
+        dto.setFechaEvento(eventoByEvento.getFecha());
+        dto.setPrecioEvento(eventoByEvento.getPrecio());
+        dto.setFechaUsuario(usuarioeventoByUsuario.getFechanacimiento());
+        dto.setSexo(usuarioeventoByUsuario.getSexo());
         return dto;
     }
 }

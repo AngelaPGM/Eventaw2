@@ -31,20 +31,61 @@ public class EntradaService {
         }
     }
 
+    public List<EntradaDTO> findAll(){
+        return listaToDto(this.entradaRepository.findAll());
+    }
+
     public List<EntradaDTO> findByAnalisis(AnalisisDTO analisisDTO){
-        List<Entrada> listaEntradas = null; //this.entradaRepository.findEntradasByAnalisis(analisisDTO.getFechamayor());
+        List<Entrada> listaEntradas = null;
+
+        boolean activo = false;
 
         if(analisisDTO.getFechamayor() != null){
-            List<Entrada> listaFechaMayor = this.entradaRepository.findEntradasFechaMayor(analisisDTO.getFechamayor());
+            activo = true;
+            listaEntradas = this.entradaRepository.findEntradasFechaMayor(analisisDTO.getFechamayor());
         }
         if(analisisDTO.getFechamenor() != null){
-            List<Entrada> listaFechaMenor = this.entradaRepository.findEntradasFechaMenor(analisisDTO.getFechamenor());
+            if(!activo){
+                activo = true;
+                listaEntradas = this.entradaRepository.findEntradasFechaMenor(analisisDTO.getFechamenor());
+            }else{
+                List<Entrada> listaFechaMenor = this.entradaRepository.findEntradasFechaMenor(analisisDTO.getFechamenor());
+                for(Entrada e: listaEntradas){
+                    if(!listaFechaMenor.contains(e)){
+                        if(listaEntradas.contains(e)) listaEntradas.remove(e);
+                    }
+                }
+            }
         }
         if(analisisDTO.getPreciomayor() != null){
-            List<Entrada> listaPrecioMayor = this.entradaRepository.findEntradasPrecioMayor(analisisDTO.getPreciomayor());
+            if(!activo){
+                activo = true;
+                listaEntradas = this.entradaRepository.findEntradasPrecioMayor(analisisDTO.getPreciomayor());
+            }else{
+                List<Entrada> listaPrecioMayor = this.entradaRepository.findEntradasPrecioMayor(analisisDTO.getPreciomayor());
+                for(Entrada e: listaEntradas){
+                    if(!listaPrecioMayor.contains(e)){
+                        if(listaEntradas.contains(e)) listaEntradas.remove(e);
+                    }
+                }
+            }
         }
         if(analisisDTO.getPreciomenor() != null){
-            List<Entrada> listaPrecioMenor = this.entradaRepository.findEntradasPrecioMenor(analisisDTO.getPreciomenor());
+            if(!activo){
+                activo = true;
+                listaEntradas = this.entradaRepository.findEntradasPrecioMenor(analisisDTO.getPreciomenor());
+            }else{
+                List<Entrada> listaPrecioMenor = this.entradaRepository.findEntradasPrecioMenor(analisisDTO.getPreciomenor());
+                for(Entrada e: listaEntradas){
+                    if(!listaPrecioMenor.contains(e)){
+                        if(listaEntradas.contains(e)) listaEntradas.remove(e);
+                    }
+                }
+            }
+        }
+
+        if(!activo){    //Ningun filtro activo, mostramos todos
+            listaEntradas = this.entradaRepository.findAll();
         }
         return listaToDto(listaEntradas);
     }

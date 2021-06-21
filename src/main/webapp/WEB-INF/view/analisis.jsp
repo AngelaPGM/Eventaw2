@@ -38,18 +38,26 @@
     <%
         if(listaEntradas != null){
     %>
-    <%
-        for(EntradaDTO e: listaEntradas){
-    %>
-    <tr>
-        <td><%= e.getEventoByEvento().getId() %></td>
-        <td><%= e.getUsuarioeventoByUsuario().getId() %></td>
-    </tr>
-    <%
-        }
-    %>
-    <%
-        }
-    %>
+    <table border="1">
+        <tr>
+            <th>FECHA EVENTO</th>
+            <th>PRECIO EVENTO</th>
+            <th>USUARIO</th>
+        </tr>
+        <%
+            for(EntradaDTO e: listaEntradas){
+        %>
+        <tr>
+            <td><%= e.getFechaEvento() %></td>
+            <td><%= e.getPrecioEvento() %></td>
+            <td><%= e.getSexo() %></td>
+        </tr>
+        <%
+            }
+        %>
+        <%
+            }
+        %>
+    </table>
 </body>
 </html>
