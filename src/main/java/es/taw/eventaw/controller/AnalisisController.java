@@ -64,9 +64,8 @@ public class AnalisisController {
     @PostMapping("/guardar")
     public String doGuardar(@ModelAttribute("analisis") AnalisisDTO a){
         Integer id = this.analisisService.doGuardar(a);
-        //No podemos guardar
+
         return "redirect:/analisis/ver/"+id;
-        //return "analisis";
     }
 
     @GetMapping("/ver/{id}")

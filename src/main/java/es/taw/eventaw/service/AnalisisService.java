@@ -55,6 +55,9 @@ public class AnalisisService {
         analisis.setFechamenor(dto.getFechamenor());
         analisis.setPreciomayor(dto.getPreciomayor());
         analisis.setPreciomenor(dto.getPreciomenor());
+        analisis.setEdadmayor(dto.getNacimientomayor());
+        analisis.setEdadmenor(dto.getNacimientomenor());
+        analisis.setSexo(dto.getSexo());
 
         this.analisisRepository.save(analisis);
 

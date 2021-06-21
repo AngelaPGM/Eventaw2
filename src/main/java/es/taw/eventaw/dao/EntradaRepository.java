@@ -22,6 +22,15 @@ public interface EntradaRepository extends JpaRepository<Entrada, Integer> {
     @Query("select e from Entrada e where e.eventoByEvento.precio <= :menor")
     public List<Entrada> findEntradasPrecioMenor(@Param("menor") Double menor);
 
+    @Query("select e from Entrada e where e.usuarioeventoByUsuario.fechanacimiento >= :mayor")
+    public List<Entrada> findEntradasEdadMayor(@Param("mayor") Date mayor);
+
+    @Query("select e from Entrada e where e.usuarioeventoByUsuario.fechanacimiento <= :menor")
+    public List<Entrada> findEntradasEdadMenor(@Param("menor") Date menor);
+
+    @Query("select e from Entrada e where e.usuarioeventoByUsuario.sexo like :sexo")
+    public List<Entrada> findEntradasSexo(@Param("sexo") String sexo);
+
     public List<Entrada> findEntradaByUsuarioeventoByUsuarioAndEventoByEventoAfter(Integer id, java.util.Date date);
 
     public List<Entrada> findEntradaByUsuarioeventoByUsuarioAndEventoByEventoBefore(Integer id, java.util.Date date);

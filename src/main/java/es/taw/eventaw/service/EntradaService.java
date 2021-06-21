@@ -37,6 +37,14 @@ public class EntradaService {
         return listaToDto(this.entradaRepository.findAll());
     }
 
+    private List<Entrada> tamiz(List<Entrada> a, List<Entrada> filtro){
+        List<Entrada> aux = new ArrayList<>();
+        for(Entrada e: a){
+            if(filtro.contains(e)) aux.add(e);
+        }
+        return aux;
+    }
+
     public List<EntradaDTO> findByAnalisis(AnalisisDTO analisisDTO){
         List<Entrada> listaEntradas = null;
 
@@ -51,12 +59,7 @@ public class EntradaService {
                 activo = true;
                 listaEntradas = this.entradaRepository.findEntradasFechaMenor(analisisDTO.getFechamenor());
             }else{
-                List<Entrada> listaFechaMenor = this.entradaRepository.findEntradasFechaMenor(analisisDTO.getFechamenor());
-                for(Entrada e: listaEntradas){
-                    if(!listaFechaMenor.contains(e)){
-                        if(listaEntradas.contains(e)) listaEntradas.remove(e);
-                    }
-                }
+                listaEntradas = tamiz(listaEntradas, this.entradaRepository.findEntradasFechaMenor(analisisDTO.getFechamenor()) );
             }
         }
         if(analisisDTO.getPreciomayor() != null){
@@ -64,12 +67,7 @@ public class EntradaService {
                 activo = true;
                 listaEntradas = this.entradaRepository.findEntradasPrecioMayor(analisisDTO.getPreciomayor());
             }else{
-                List<Entrada> listaPrecioMayor = this.entradaRepository.findEntradasPrecioMayor(analisisDTO.getPreciomayor());
-                for(Entrada e: listaEntradas){
-                    if(!listaPrecioMayor.contains(e)){
-                        if(listaEntradas.contains(e)) listaEntradas.remove(e);
-                    }
-                }
+                listaEntradas = tamiz(listaEntradas, this.entradaRepository.findEntradasPrecioMayor(analisisDTO.getPreciomayor()) );
             }
         }
         if(analisisDTO.getPreciomenor() != null){
@@ -77,15 +75,33 @@ public class EntradaService {
                 activo = true;
                 listaEntradas = this.entradaRepository.findEntradasPrecioMenor(analisisDTO.getPreciomenor());
             }else{
-                List<Entrada> listaPrecioMenor = this.entradaRepository.findEntradasPrecioMenor(analisisDTO.getPreciomenor());
-                for(Entrada e: listaEntradas){
-                    if(!listaPrecioMenor.contains(e)){
-                        if(listaEntradas.contains(e)) listaEntradas.remove(e);
-                    }
-                }
+                listaEntradas = tamiz(listaEntradas, this.entradaRepository.findEntradasPrecioMenor(analisisDTO.getPreciomenor()) );
             }
         }
-
+        if(analisisDTO.getNacimientomayor() != null){
+            if(!activo){
+                activo = true;
+                listaEntradas = this.entradaRepository.findEntradasEdadMayor(analisisDTO.getNacimientomayor());
+            }else{
+                listaEntradas = tamiz(listaEntradas, this.entradaRepository.findEntradasEdadMayor(analisisDTO.getNacimientomayor()) );
+            }
+        }
+        if(analisisDTO.getNacimientomenor() != null){
+            if(!activo){
+                activo = true;
+                listaEntradas = this.entradaRepository.findEntradasEdadMenor(analisisDTO.getNacimientomenor());
+            }else{
+                listaEntradas = tamiz(listaEntradas, this.entradaRepository.findEntradasEdadMenor(analisisDTO.getNacimientomenor()) );
+            }
+        }
+        if(analisisDTO.getSexo() != null){
+            if(!activo){
+                activo = true;
+                listaEntradas = this.entradaRepository.findEntradasSexo(analisisDTO.getSexo());
+            }else{
+                listaEntradas = tamiz(listaEntradas, this.entradaRepository.findEntradasSexo(analisisDTO.getSexo()) );
+            }
+        }
         if(!activo){    //Ningun filtro activo, mostramos todos
             listaEntradas = this.entradaRepository.findAll();
         }

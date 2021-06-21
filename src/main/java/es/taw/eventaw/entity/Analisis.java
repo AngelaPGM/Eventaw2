@@ -186,6 +186,9 @@ public class Analisis {
         dto.setFechamenor(fechamenor);
         dto.setPreciomayor(preciomayor);
         dto.setPreciomenor(preciomenor);
+        dto.setNacimientomayor(edadmayor);
+        dto.setNacimientomenor(edadmenor);
+        dto.setSexo(sexo);
         return dto;
     }
 }
