@@ -3,11 +3,13 @@ package es.taw.eventaw.service;
 import es.taw.eventaw.dao.EntradaRepository;
 import es.taw.eventaw.dto.AnalisisDTO;
 import es.taw.eventaw.dto.EntradaDTO;
+import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.entity.Entrada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -47,5 +49,15 @@ public class EntradaService {
             List<Entrada> listaPrecioMenor = this.entradaRepository.findEntradasPrecioMenor(analisisDTO.getPreciomenor());
         }
         return listaToDto(listaEntradas);
+    }
+
+    public List<EntradaDTO> getEntradasFuturas(UsuarioDTO userDTO) {
+        List<Entrada> entradasfuturas = this.entradaRepository.findEntradaByUsuarioeventoByUsuarioAndEventoByEventoAfter(userDTO.getId(), new Date());
+        return this.listaToDto(entradasfuturas);
+    }
+
+    public List<EntradaDTO> getEntradasPasadas(UsuarioDTO userDTO) {
+        List<Entrada> entradasPasadas = this.entradaRepository.findEntradaByUsuarioeventoByUsuarioAndEventoByEventoBefore(userDTO.getId(), new Date());
+        return this.listaToDto(entradasPasadas);
     }
 }

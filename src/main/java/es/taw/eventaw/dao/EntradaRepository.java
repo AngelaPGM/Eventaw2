@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Date;
 import java.util.List;
 
@@ -21,4 +22,8 @@ public interface EntradaRepository extends JpaRepository<Entrada, Integer> {
 
     @Query("select e from Entrada e where e.eventoByEvento.fecha <= :menor")
     public List<Entrada> findEntradasPrecioMenor(@Param("menor") Double menor);
+
+    public List<Entrada> findEntradaByUsuarioeventoByUsuarioAndEventoByEventoAfter(Integer id, java.util.Date date);
+
+    public List<Entrada> findEntradaByUsuarioeventoByUsuarioAndEventoByEventoBefore(Integer id, java.util.Date date);
 }
