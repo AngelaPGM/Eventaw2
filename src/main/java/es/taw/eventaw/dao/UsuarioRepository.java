@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     Usuario findUsuarioByCorreoAndContrasenya(String correo, String contrasenya);
+
+
 }
