@@ -28,9 +28,9 @@
 <div class="topnav fixed-top">
     <ul>
         <li><a class="active">Inicio</a></li>
-        <li style="float:right"><a  href="ServletCierreSesion">Cerrar sesión</a></li>
-        <li style="float:right"><a href="ServletCrudUsuario?id=<%= usuario.getId() %>">Mi perfil</a></li>
-        <li style="float:right"><a href="ServletNuevaConversacion">CHAT TELEOPERADOR</a></li>
+        <li style="float:right"><a  href="/login">Cerrar sesión</a></li>
+        <li style="float:right"><a href="Sin hacer">Mi perfil</a></li>
+        <li style="float:right"><a href="Sin hacer">CHAT TELEOPERADOR</a></li>
     </ul>
 </div>
 </body>

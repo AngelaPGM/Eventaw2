@@ -29,7 +29,7 @@
 <div class="fondo-login">
   <div class="container-registro">
     <div class="wrap-registro">
-      <form:form class="register-form" method="POST" action="/usuarioEvento/guardar" modelAttribute="usuario">
+      <form:form class="register-form" method="POST" action="/usuarioEvento/guardar" modelAttribute="usuarioEventoDTO">
                         <span class="login-form-title">
                            <img class="img-zoom" src="images/Eventaw.png" alt="Logo" style="width: 30%;"><br/>
                             Nueva cuenta
@@ -52,10 +52,10 @@
         </div>
         <div class="row p-b-20 justify-content-around">
           <div class="col-3 wrap-input2">
-            <form:input path="nombre" class="input2" type="text" name="nombre"/>
+            <form:input path="nombre" class="input2" type="text" name="nombre" required="required"/>
           </div>
           <div class="col-4 wrap-input2  ">
-            <form:input path="apellido1" class="input2" type="text" name="ape1"/>
+            <form:input path="apellido1" class="input2" type="text" name="ape1" required="required"/>
           </div>
           <div class="col-4 wrap-input2 ">
             <form:input path="apellido2" class="input2" type="text" name="ape2"/>
@@ -68,10 +68,10 @@
         </div>
         <div class="row justify-content-around p-b-20">
           <div class="col-8 wrap-input2">
-            <form:input path="domicilio" class="input2" type="text" name="domicilio"/>
+            <form:input path="domicilio" class="input2" type="text" name="domicilio" required="required"/>
           </div>
           <div class="col-3 wrap-input2">
-            <form:input path="ciudad" class="input2" type="text" name="ciudad"/>
+            <form:input path="ciudad" class="input2" type="text" name="ciudad" required="required"/>
           </div>
         </div>
 
@@ -82,7 +82,7 @@
         <div class="row justify-content-around">
 
           <div class="col-4 wrap-input2 ">
-            <form:input path="fechanacimiento" class="input2" type="date" name="fNac" max="<%= formato.format(new Date())%>"/>
+            <form:input path="fechanacimiento" class="input2" type="date" name="fNac" max="<%= formato.format(new Date())%>" required="required"/>
           </div>
 
           <div class="col-3">
@@ -100,17 +100,23 @@
         </div>
         <div class="row justify-content-around">
           <div class="col-11 wrap-input2">
-            <form:input path="usuarioByIdusuario.correo" class="input2" type="email" name="email"/>
+            <form:input path="usuarioByIdusuario.correo" class="input2" type="email" name="email" required="required"/>
           </div>
         </div>
         <div class="row justify-content-around m-t-20">
           <div class="col-5">
             Contraseña: <span style="color:#a64bf4">(*)</span>
           </div>
+          <div class="col-5">
+            Repita la Contraseña: <span style="color:#a64bf4">(*)</span>
+          </div>
         </div>
         <div class="row justify-content-around">
           <div class="col-6  wrap-input2" style="width: 45%;">
-            <form:input path="usuarioByIdusuario.contrasenya" class="input2" type="password" name="pass1"/>
+            <form:input path="usuarioByIdusuario.contrasenya" class="input2" type="password" name="pass1" required="required"/>
+          </div>
+          <div class="col-6  wrap-input2" style="width: 45%;">
+            <form:input path="usuarioByIdusuario.contrasenya2" class="input2" type="password" name="pass2" required="required"/>
           </div>
         </div>
 

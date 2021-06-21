@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Mon Jun 21 22:05:43 CEST 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-017a-302d-c436-000011187d10 
-on database directory /Users/rafa/IdeaProjects/Eventaw2/eventawbd with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@2c13da15 
-Loaded from file:/Users/rafa/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
-java.vendor=Amazon.com Inc.
-java.runtime.version=11.0.11+9-LTS
-user.dir=/Users/rafa/IdeaProjects/Eventaw2
-os.name=Mac OS X
-os.arch=x86_64
-os.version=11.2
+Mon Jun 21 18:56:10 UTC 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-017a-2fee-1434-000007708d00 
+on database directory C:\Users\angep\IdeaProjects\Eventaw2\eventawbd with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7aec35a 
+Loaded from file:/C:/Users/angep/AppData/Roaming/JetBrains/IntelliJIdea2021.1/jdbc-drivers/Apache%20Derby/10.14.1.0/derby-10.14.1.0.jar
+java.vendor=JetBrains s.r.o.
+java.runtime.version=11.0.11+9-b1341.57
+user.dir=C:\Users\angep\IdeaProjects\Eventaw2
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

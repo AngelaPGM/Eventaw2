@@ -16,7 +16,7 @@ public class Usuario {
     private Collection<Evento> eventosById;
     private Collection<Mensaje> mensajesById;
     private Rol rolByRol;
-    private Collection<Usuarioevento> usuarioeventosById;
+    private Usuarioevento usuarioeventosById;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -108,12 +108,12 @@ public class Usuario {
         this.rolByRol = rolByRol;
     }
 
-    @OneToMany(mappedBy = "usuarioByIdusuario")
-    public Collection<Usuarioevento> getUsuarioeventosById() {
+    @OneToOne(mappedBy = "usuarioByIdusuario")
+    public Usuarioevento getUsuarioeventosById() {
         return usuarioeventosById;
     }
 
-    public void setUsuarioeventosById(Collection<Usuarioevento> usuarioeventosById) {
+    public void setUsuarioeventosById(Usuarioevento usuarioeventosById) {
         this.usuarioeventosById = usuarioeventosById;
     }
 
@@ -124,6 +124,8 @@ public class Usuario {
         dto.setCorreo(this.correo);
         dto.setContrasenya(this.contrasenya);
         dto.setRolByRol(this.rolByRol);
+        dto.setUsuarioeventoDTO(this.usuarioeventosById.getDTO());
+        dto.getUsuarioeventoDTO().setUsuarioDTO(dto);
         return dto;
     }
 }

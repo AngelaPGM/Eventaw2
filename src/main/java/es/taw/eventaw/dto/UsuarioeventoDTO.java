@@ -16,7 +16,7 @@ public class UsuarioeventoDTO {
     private Date fechanacimiento;
     private String sexo;
     private Collection<Entrada> entradasById;
-    private Usuario usuarioByIdusuario;
+    private UsuarioDTO usuarioDTO;
 
     public UsuarioeventoDTO() {
     }
@@ -93,11 +93,11 @@ public class UsuarioeventoDTO {
         this.entradasById = entradasById;
     }
 
-    public Usuario getUsuarioByIdusuario() {
-        return usuarioByIdusuario;
+    public UsuarioDTO getUsuarioDTO() {
+        return usuarioDTO;
     }
 
-    public void setUsuarioByIdusuario(Usuario usuarioByIdusuario) {
-        this.usuarioByIdusuario = usuarioByIdusuario;
+    public void setUsuarioDTO(UsuarioDTO usuarioDTO) {
+        this.usuarioDTO = usuarioDTO;
     }
 }

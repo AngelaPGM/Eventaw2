@@ -1,5 +1,8 @@
 package es.taw.eventaw.entity;
 
+import es.taw.eventaw.dto.UsuarioDTO;
+import es.taw.eventaw.dto.UsuarioeventoDTO;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -121,7 +124,7 @@ public class Usuarioevento {
         this.entradasById = entradasById;
     }
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "IDUSUARIO", referencedColumnName = "ID", nullable = false)
     public Usuario getUsuarioByIdusuario() {
         return usuarioByIdusuario;
@@ -130,4 +133,20 @@ public class Usuarioevento {
     public void setUsuarioByIdusuario(Usuario usuarioByIdusuario) {
         this.usuarioByIdusuario = usuarioByIdusuario;
     }
+
+    @Transient
+    public UsuarioeventoDTO getDTO() {
+        UsuarioeventoDTO dto = new UsuarioeventoDTO();
+        dto.setId(this.id);
+        dto.setNombre(this.nombre);
+        dto.setApellido1(this.apellido1);
+        dto.setApellido2(this.apellido2);
+        dto.setDomicilio(this.domicilio);
+        dto.setCiudad(this.ciudad);
+        dto.setFechanacimiento(this.fechanacimiento);
+        dto.setSexo(this.sexo);
+        dto.setEntradasById(this.entradasById);
+        return dto;
+    }
 }
+

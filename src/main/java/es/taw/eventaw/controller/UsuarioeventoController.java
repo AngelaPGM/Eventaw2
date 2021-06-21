@@ -1,46 +1,53 @@
 package es.taw.eventaw.controller;
 
+import es.taw.eventaw.dao.EventoRepository;
 import es.taw.eventaw.dao.RolRepository;
 import es.taw.eventaw.dao.UsuarioRepository;
 import es.taw.eventaw.dao.UsuarioeventoRepository;
+import es.taw.eventaw.dto.EntradaDTO;
+import es.taw.eventaw.dto.EventoDTO;
+import es.taw.eventaw.dto.UsuarioDTO;
+import es.taw.eventaw.dto.UsuarioeventoDTO;
+import es.taw.eventaw.entity.Evento;
 import es.taw.eventaw.entity.Rol;
 import es.taw.eventaw.entity.Usuario;
 import es.taw.eventaw.entity.Usuarioevento;
+import es.taw.eventaw.service.EntradaService;
+import es.taw.eventaw.service.EventoService;
+import es.taw.eventaw.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
+@RequestMapping("/usuarioEvento")
 public class UsuarioeventoController {
-    private UsuarioeventoRepository usuarioeventoRepository;
-    private UsuarioRepository usuarioRepository;
-    private RolRepository rolRepository;
+    private UsuarioService usuarioService;
+    private EntradaService entradaService;
 
     @Autowired
-    public void setRolRepository(RolRepository rolRepository) {
-        this.rolRepository = rolRepository;
+    public void setEntradaService(EntradaService entradaService) {
+        this.entradaService = entradaService;
     }
 
     @Autowired
-    public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+    public void setUsuarioService(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
-    @Autowired
-    public void setUsuarioeventoRepository(UsuarioeventoRepository usuarioeventoRepository) {
-        this.usuarioeventoRepository = usuarioeventoRepository;
-    }
-
-    @GetMapping("/usuarioEvento/registrarFormulario")
+    @GetMapping("/registrarFormulario")
     public String cargarFormulario(Model model) {
-        Usuarioevento ueEmpty = new Usuarioevento();
-        model.addAttribute("usuario", ueEmpty);
+        UsuarioeventoDTO ueEmpty = new UsuarioeventoDTO();
+        model.addAttribute("usuarioEventoDTO", ueEmpty);
         List<String> sexos = new ArrayList<>();
         sexos.add("H");
         sexos.add("M");
@@ -48,23 +55,25 @@ public class UsuarioeventoController {
         return "registroUsuario";
     }
 
-    @PostMapping("/usuarioEvento/guardar")
-    public String doGuardar(@ModelAttribute("usuario") Usuarioevento inputData) {
-        Usuario usuarioNuevo = new Usuario();
+    @PostMapping("/guardar")
+    public String doGuardar(@ModelAttribute("usuarioDTO") UsuarioeventoDTO inputData, Model model, HttpSession session) {
+        if(inputData.getUsuarioDTO().getContrasenya().equals(inputData.getUsuarioDTO().getContrasenya2())){
+            UsuarioDTO userDTO = this.usuarioService.nuevoUsuario(inputData);
+            session.setAttribute("userDTO", userDTO);
 
-        //usuarioNuevo.setRol(2);//AQUI HAY QUE PASARLE EL OBJETO ROL CON ID 2!!
-        Rol rol = this.rolRepository.getById(2);//Si borro esto me da una violacion de campo NotNull
-        usuarioNuevo.setRolByRol(rol);
-        usuarioNuevo.setCorreo(inputData.getUsuarioByIdusuario().getCorreo());
-        usuarioNuevo.setContrasenya(inputData.getUsuarioByIdusuario().getContrasenya());
-        List<Usuarioevento> aux = new ArrayList<>();
-        aux.add(inputData);
-        usuarioNuevo.setUsuarioeventosById(aux);//Esto es raro porque parece que permite a un usuario tener varios UsuarioEventos (si no paso una lista peta)
-        inputData.setUsuarioByIdusuario(usuarioNuevo);
-        this.usuarioRepository.save(usuarioNuevo);//Falla al hacer el insert (violation of foreing key contraint for key (2)
-        //Si no me equivoco las unica foreign keys que tiene usuario son el rol y el usuario evento, que puede ser nula
-        this.usuarioeventoRepository.save(inputData);
+            return "redirect:/inicioUEvento";
+        } else {
+            model.addAttribute("errorLog", "Las contraseñas no coinciden");
+            return "registroUsuario";
+        }
+    }
 
-        return "inicioUEvento";
+    @GetMapping("/misEntradas")
+    public String doMisEntradas(Model model, HttpSession session){
+        List<EntradaDTO> entradasFuturas = this.entradaService.getEntradasFuturas((UsuarioDTO)session.getAttribute("userDTO"));
+        List<EntradaDTO> entradasPasadas = this.entradaService.getEntradasPasadas((UsuarioDTO)session.getAttribute("userDTO"));
+        model.addAttribute("entradasFuturas", entradasFuturas);
+        model.addAttribute("entradasPasadas", entradasPasadas);
+        return "entrada";
     }
 }

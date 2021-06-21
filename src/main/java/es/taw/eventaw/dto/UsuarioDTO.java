@@ -8,12 +8,13 @@ public class UsuarioDTO {
     private Integer id;
     private String correo;
     private String contrasenya;
+    private String contrasenya2;
     private Collection<Conversacion> conversacionsById;
     private Collection<Conversacion> conversacionsById_0;
     private Collection<EventoDTO> eventosById;
     private Collection<Mensaje> mensajesById;
     private Rol rolByRol;
-    private Collection<Usuarioevento> usuarioeventosById;
+    private UsuarioeventoDTO usuarioeventoDTO;
 
     public UsuarioDTO() {
     }
@@ -41,6 +42,10 @@ public class UsuarioDTO {
     public void setContrasenya(String contrasenya) {
         this.contrasenya = contrasenya;
     }
+
+    public String getContrasenya2() { return contrasenya2; }
+
+    public void setContrasenya2(String contrasenya2) { this.contrasenya2 = contrasenya2; }
 
     public Collection<Conversacion> getConversacionsById() {
         return conversacionsById;
@@ -82,11 +87,11 @@ public class UsuarioDTO {
         this.rolByRol = rolByRol;
     }
 
-    public Collection<Usuarioevento> getUsuarioeventosById() {
-        return usuarioeventosById;
+    public UsuarioeventoDTO getUsuarioeventoDTO() {
+        return usuarioeventoDTO;
     }
 
-    public void setUsuarioeventosById(Collection<Usuarioevento> usuarioeventosById) {
-        this.usuarioeventosById = usuarioeventosById;
+    public void setUsuarioeventoDTO(UsuarioeventoDTO usuarioeventoDTO) {
+        this.usuarioeventoDTO = usuarioeventoDTO;
     }
 }
