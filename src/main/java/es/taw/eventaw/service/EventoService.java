@@ -39,4 +39,27 @@ public class EventoService {
         }
         return listaDTO;
     }
+
+    public List<EventoDTO> filtradoNombre(String titulo, Date fechaIni, Date fechaFin) {
+        List<Evento> filtrados = new ArrayList<>();
+
+        if(titulo != null && fechaIni != null && fechaFin != null){//Filtrado completo
+            filtrados = this.eventoRepository.findEventoByTituloAndFechaAfterAndFechaBefore(titulo, fechaIni, fechaFin);
+        } else if(titulo != null && fechaIni != null && fechaFin == null){// Nombre y Fecha Inicio
+            filtrados = this.eventoRepository.findEventoByTituloAndFechaAfter(titulo, fechaIni);
+        } else if(titulo != null && fechaIni == null && fechaFin != null){// Nombre y Fecha Final
+            filtrados = this.eventoRepository.findEventoByTituloAndFechaBefore(titulo, fechaFin);
+        } else if(titulo != null && fechaIni == null && fechaFin == null){//Solo Nombre
+            filtrados = this.eventoRepository.findEventoByTitulo(titulo);
+        } else if(titulo == null && fechaIni != null && fechaFin != null){// Solo Fechas
+            filtrados = this.eventoRepository.findEventoByFechaAfterAndFechaBefore(fechaIni, fechaFin);
+        } else if(titulo == null && fechaIni != null && fechaFin == null){// Solo Fecha Inicio
+            filtrados = this.eventoRepository.findEventoByFechaAfter(fechaIni);
+        } else if(titulo == null && fechaIni == null && fechaFin != null){// Solo Fecha Final
+            filtrados = this.eventoRepository.findEventoByFechaBefore(fechaFin);
+        }
+
+        return this.toListaDTO(filtrados);
+    }
+
 }

@@ -1,7 +1,5 @@
 package es.taw.eventaw.controller;
 
-import es.taw.eventaw.dao.EventoRepository;
-import es.taw.eventaw.dao.UsuarioRepository;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.entity.Usuario;
 import es.taw.eventaw.service.EventoService;

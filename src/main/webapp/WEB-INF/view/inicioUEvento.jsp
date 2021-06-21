@@ -62,16 +62,16 @@
                 <h1 class="bg-text" style="color:#b997f6;"> Eventos disponibles: </h1>
             </div>
         </div>
-        <form:form action="/evento/filtrar" modelAtributte="">
+        <form:form method="POST" action="/evento/filtrar" modelAtributte="eventoDTO">
             <div class="row justify-content-center">
                 <div class="col-5 wrap-input2 ">
-                    <input class="input2" type="text" name="buscadorNombre" placeholder="Buscar eventos por nombre y/o fecha"/>
+                    <form:input path="nombre" class="input2" type="text" name="buscadorNombre" placeholder="Buscar eventos por nombre y/o fecha"/>
                 </div>
                 <div class="col-2 wrap-input2 wrap-separacion10" >
-                    <input class="input2"   type="date" id="start" name="fechaInicio">
+                    <form:input path="fecha" class="input2"   type="date" id="start" name="fechaInicio"/>
                 </div>
                 <div class="col-2 wrap-input2 wrap-separacion10" >
-                    <input class="input2"   type="date" id="fin" name="fechaFinal">
+                    <form:input path="fechacompra" class="input2"   type="date" id="fin" name="fechaFinal"/>
                 </div>
                 <div class="col-2">
                     <div class="wrap-login100-form-btn">
