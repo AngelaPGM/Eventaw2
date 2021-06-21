@@ -32,7 +32,6 @@ public class UsuarioController {
     }
 
 
-
     @GetMapping("/")
     public String doInit(Model model) {
         Usuario user = new Usuario();
@@ -42,7 +41,7 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public String doLogin(@ModelAttribute("user") Usuario usuario, Model model, HttpSession session) {
-       UsuarioDTO userDTO = this.usuarioService.comprobarCredenciales(usuario.getCorreo(), usuario.getContrasenya());
+        UsuarioDTO userDTO = this.usuarioService.comprobarCredenciales(usuario.getCorreo(), usuario.getContrasenya());
         String strTo = "login";
 
         if (userDTO == null) {
@@ -55,14 +54,13 @@ public class UsuarioController {
                     break;
 
                 case 2: //Usuarioevento
-                    strTo = "inicioUEvento";
-                    model.addAttribute("eventosFuturos", this.eventoService.findEventosFuturos());
+                    strTo = this.doInicioUEvento(model);
                     break;
 
                 case 3: //Creador eventos
                     strTo = "inicioCreador";
                     //model.addAttribute("misEventos", user.getEventosById());
-                   // model.addAttribute("todosEventos", this.eventoService.findAll());
+                    // model.addAttribute("todosEventos", this.eventoService.findAll());
                     break;
 
                 case 4: //Teleoperador
@@ -81,5 +79,16 @@ public class UsuarioController {
     public String doLogout(HttpSession session, Model model) {
         session.removeAttribute("userDTO");
         return doInit(model);
+    }
+
+    @GetMapping("/perfil")
+    public String doPerfil() {
+        return "perfilUsuario";
+    }
+
+    @GetMapping("/inicioUEvento")
+    public String doInicioUEvento(Model model) {
+        model.addAttribute("eventosFuturos", this.eventoService.findEventosFuturos());
+        return "inicioUEvento";
     }
 }

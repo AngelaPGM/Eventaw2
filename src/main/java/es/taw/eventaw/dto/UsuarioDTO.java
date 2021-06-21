@@ -13,7 +13,7 @@ public class UsuarioDTO {
     private Collection<EventoDTO> eventosById;
     private Collection<Mensaje> mensajesById;
     private Rol rolByRol;
-    private Collection<Usuarioevento> usuarioeventosById;
+    private Usuarioevento usuarioeventoById;
 
     public UsuarioDTO() {
     }
@@ -82,11 +82,11 @@ public class UsuarioDTO {
         this.rolByRol = rolByRol;
     }
 
-    public Collection<Usuarioevento> getUsuarioeventosById() {
-        return usuarioeventosById;
+    public Usuarioevento getUsuarioeventoById() {
+        return usuarioeventoById;
     }
 
-    public void setUsuarioeventosById(Collection<Usuarioevento> usuarioeventosById) {
-        this.usuarioeventosById = usuarioeventosById;
+    public void setUsuarioeventosById(Usuarioevento usuarioeventoById) {
+        this.usuarioeventoById = usuarioeventoById;
     }
 }
