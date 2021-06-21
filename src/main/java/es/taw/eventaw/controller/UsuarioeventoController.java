@@ -29,13 +29,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/usuarioEvento")
 public class UsuarioeventoController {
-    private EventoService eventoService;
     private UsuarioService usuarioService;
-
-    @Autowired
-    public void setEventoService(EventoService eventoService) {
-        this.eventoService = eventoService;
-    }
 
     @Autowired
     public void setUsuarioService(UsuarioService usuarioService) {

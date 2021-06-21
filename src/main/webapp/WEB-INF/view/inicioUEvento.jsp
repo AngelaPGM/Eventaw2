@@ -62,7 +62,7 @@
                 <h1 class="bg-text" style="color:#b997f6;"> Eventos disponibles: </h1>
             </div>
         </div>
-        <form:form action="sin hacer">
+        <form:form action="/evento/filtrar" modelAtributte="">
             <div class="row justify-content-center">
                 <div class="col-5 wrap-input2 ">
                     <input class="input2" type="text" name="buscadorNombre" placeholder="Buscar eventos por nombre y/o fecha"/>
