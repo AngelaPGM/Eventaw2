@@ -1,7 +1,6 @@
 package es.taw.eventaw.service;
 
 import es.taw.eventaw.dao.EventoRepository;
-import es.taw.eventaw.dao.UsuarioRepository;
 import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.entity.Evento;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,7 @@
 <%@ page import="es.taw.eventaw.dto.EventoDTO" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.text.DecimalFormat" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="es.taw.eventaw.dto.EtiquetaDTO" %><%--
+<%@ page import="java.util.Date" %><%--
   Created by IntelliJ IDEA.
   User: Pepe
   Date: 08/06/2021

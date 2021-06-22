@@ -1,6 +1,5 @@
 package es.taw.eventaw.entity;
 
-import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.dto.UsuarioeventoDTO;
 
 import javax.persistence.*;
@@ -145,7 +144,6 @@ public class Usuarioevento {
         dto.setCiudad(this.ciudad);
         dto.setFechanacimiento(this.fechanacimiento);
         dto.setSexo(this.sexo);
-        dto.setEntradasDTOById(this.entradasById);
         return dto;
     }
 }

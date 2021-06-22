@@ -1,22 +1,13 @@
 package es.taw.eventaw.service;
 
-import es.taw.eventaw.controller.UsuarioeventoController;
 import es.taw.eventaw.dao.RolRepository;
 import es.taw.eventaw.dao.UsuarioRepository;
-import es.taw.eventaw.dao.UsuarioeventoRepository;
-import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.dto.UsuarioeventoDTO;
 import es.taw.eventaw.entity.Rol;
 import es.taw.eventaw.entity.Usuario;
-import es.taw.eventaw.entity.Usuarioevento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UsuarioService {

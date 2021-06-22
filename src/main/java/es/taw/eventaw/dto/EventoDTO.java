@@ -1,8 +1,6 @@
 package es.taw.eventaw.dto;
 
-
 import java.sql.Date;
-import java.util.Collection;
 
 public class EventoDTO {
     private Integer id;
@@ -16,9 +14,6 @@ public class EventoDTO {
     private Integer maxentradasusuario;
     private Integer numfilas;
     private Integer asientosfila;
-    private Collection<EntradaDTO> entradasDTOById;
-    private UsuarioDTO usuarioDTOByCreador;
-    private Collection<EventoEtiquetaDTO> eventoEtiquetasDTOById;
 
     public EventoDTO() {
     }
@@ -109,29 +104,5 @@ public class EventoDTO {
 
     public void setAsientosfila(Integer asientosfila) {
         this.asientosfila = asientosfila;
-    }
-
-    public Collection<EntradaDTO> getEntradasDTOById() {
-        return entradasDTOById;
-    }
-
-    public void setEntradasDTOById(Collection<EntradaDTO> entradasDTOById) {
-        this.entradasDTOById = entradasDTOById;
-    }
-
-    public UsuarioDTO getUsuarioDTOByCreador() {
-        return usuarioDTOByCreador;
-    }
-
-    public void setUsuarioDTOByCreador(UsuarioDTO usuarioDTOByCreador) {
-        this.usuarioDTOByCreador = usuarioDTOByCreador;
-    }
-
-    public Collection<EventoEtiquetaDTO> getEventoEtiquetasDTOById() {
-        return eventoEtiquetasDTOById;
-    }
-
-    public void setEventoEtiquetasDTOById(Collection<EventoEtiquetaDTO> eventoEtiquetasDTOById) {
-        this.eventoEtiquetasDTOById = eventoEtiquetasDTOById;
     }
 }

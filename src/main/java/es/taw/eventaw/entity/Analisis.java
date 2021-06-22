@@ -178,7 +178,7 @@ public class Analisis {
     }
 
     @Transient
-    public AnalisisDTO getDTO(){
+    public AnalisisDTO getDTO() {
         AnalisisDTO dto = new AnalisisDTO();
         dto.setId(this.id);
         dto.setNombre(this.nombre);

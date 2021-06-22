@@ -123,13 +123,12 @@ public class Usuario {
         dto.setId(this.id);
         dto.setCorreo(this.correo);
         dto.setContrasenya(this.contrasenya);
-        dto.setConversacionsDTOById(this.conversacionsById);
-        dto.setConversacionsDTOById_0(this.conversacionsById_0);
-        dto.setEventosDTOById(this.eventosById);
-        dto.setMensajesDTOById(this.mensajesById);
         dto.setRolDTOByRol(this.rolByRol.getDTO());
-        dto.setUsuarioeventoDTO(this.usuarioeventosById.getDTO());
-        dto.getUsuarioeventoDTO().setUsuarioDTO(dto);
+
+        if(dto.getRolDTOByRol().getId() == 2){
+            dto.setUsuarioeventoDTOById(this.usuarioeventosById.getDTO());
+            dto.getUsuarioeventoDTOById().setUsuarioDTO(dto);
+        }
         return dto;
     }
 }
