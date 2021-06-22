@@ -4,6 +4,7 @@ public class EntradaDTO {
     private Integer id;
     private Integer numfila;
     private Integer asientofila;
+    private EventoDTO eventoDTO;
 
     public EntradaDTO() {
     }
@@ -30,5 +31,13 @@ public class EntradaDTO {
 
     public void setAsientofila(Integer asientofila) {
         this.asientofila = asientofila;
+    }
+
+    public EventoDTO getEventoDTO() {
+        return eventoDTO;
+    }
+
+    public void setEventoDTO(EventoDTO eventoDTO) {
+        this.eventoDTO = eventoDTO;
     }
 }

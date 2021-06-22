@@ -35,8 +35,8 @@
 <div class="topnav fixed-top">
     <ul>
         <li><a href="ServletRedirectInicio">Inicio</a></li>
-        <li style="float:right"><a href="ServletCierreSesion">Cerrar sesión</a></li>
-        <li style="float:right"><a href="perfilUsuario.jsp?editar=0">Mi perfil</a></li>
+        <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
+        <li style="float:right"><a href="/perfil">Mi perfil</a></li>
         <li style="float:right"><a  class="active">Mis entradas</a></li>
         <li style="float:right"><a href="ServletNuevaConversacion">CHAT TELEOPERADOR</a></li>
     </ul>
@@ -110,14 +110,14 @@
                 for (EntradaDTO e : entradasFuturas) {
             %>
             <tr>
-                <td><%= e.getEventoByEvento().getTitulo()%></td>
-                <td><%= e.getEventoByEvento().getDescripcion()%></td>
-                <td><%= e.getEventoByEvento().getCiudad()%></td>
-                <td><%= new SimpleDateFormat("dd/MM/yyyy").format(e.getEventoByEvento().getFecha())%></td>
+                <td><%= e.getEventoDTO().getTitulo()%></td>
+                <td><%= e.getEventoDTO().getDescripcion()%></td>
+                <td><%= e.getEventoDTO().getCiudad()%></td>
+                <td><%= new SimpleDateFormat("dd/MM/yyyy").format(e.getEventoDTO().getFecha())%></td>
 
                 <td><%= (e.getNumfila()==null?"-":e.getNumfila())%></td>
                 <td><%= (e.getAsientofila()==null?"-":e.getAsientofila())%></td>
-                <td><%= new DecimalFormat("#0.00").format(e.getEventoByEvento().getPrecio())%> €</td>
+                <td><%= new DecimalFormat("#0.00").format(e.getEventoDTO().getPrecio())%> €</td>
             </tr>
             <%
                 }
@@ -150,13 +150,13 @@
                 for (EntradaDTO e : entradasPasadas) {
             %>
             <tr>
-                <td><%= e.getEventoByEvento().getTitulo()%></td>
-                <td><%= e.getEventoByEvento().getDescripcion()%></td>
-                <td><%= e.getEventoByEvento().getCiudad()%></td>
-                <td><%= new SimpleDateFormat("dd/MM/yyyy").format(e.getEventoByEvento().getFecha())%></td>
+                <td><%= e.getEventoDTO().getTitulo()%></td>
+                <td><%= e.getEventoDTO().getDescripcion()%></td>
+                <td><%= e.getEventoDTO().getCiudad()%></td>
+                <td><%= new SimpleDateFormat("dd/MM/yyyy").format(e.getEventoDTO().getFecha())%></td>
                 <td><%= e.getNumfila()%></td>
                 <td><%= e.getAsientofila()%></td>
-                <td><%= new DecimalFormat("#0.00").format(e.getEventoByEvento().getPrecio())%> €</td>
+                <td><%= new DecimalFormat("#0.00").format(e.getEventoDTO().getPrecio())%> €</td>
             </tr>
             <%
                 }
