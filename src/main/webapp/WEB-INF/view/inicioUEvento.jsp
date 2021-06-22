@@ -94,7 +94,62 @@
                 <h1 style="color: #9e9e9e"> Actualmente no hay eventos disponibles</h1>
             </div>
             <%  } else { %>
+            <table class="center table table-striped align-middle" id="tabla-custom" style="font-size:1.2rem">
+                <thead>
+                <tr>
+                    <th>NOMBRE</th>
+                    <th>DESCRIPCI&Oacute;N</th>
+                    <th>CIUDAD</th>
+                    <th>FECHA</th>
+                    <th>PLAZAS DISPONIBLES</th>
+                    <th>PRECIO</th>
+                    <th>COMPRA HASTA</th>
+                    <th>COMPRAR ENTRADA</th>
+                </tr>
+                </thead>
+                <tbody>
 
+                <%
+                    for (EventoDTO ev : eventosFuturos) {
+                %>
+                <tr>
+                    <td> <%= ev.getTitulo()%></td>
+                    <td>  <%= ev.getDescripcion()%> </td>
+                    <td>  <%= ev.getCiudad()%> </td>
+                    <td>  <%= formato.format(ev.getFecha())%> </td>
+
+
+                    <%
+                        plazasDisp = ev.getAforo() - ev.getEntradasDTO().size();
+                    %>
+                    <td> <%=  plazasDisp == 0 ? "Aforo completo" : plazasDisp%> </td>
+                    <td>  <%= new DecimalFormat("#0.00").format(ev.getPrecio())%> € </td>
+                    <td>  <%
+                        if (ev.getFechacompra().after(new Date())) {%>
+                        <%= formato.format(ev.getFechacompra())%>
+                        <% } else { %>
+                        PLAZO ACABADO
+                        <% }
+                        %>  </td>
+                    <td>  <%
+                        if (ev.getFechacompra().after(new Date()) && plazasDisp > 0) {
+
+                    %>
+
+                        <a class="btn  btn-primary"
+                           href="ServletEvento?id=<%= ev.getId()%>"> COMPRAR</a>
+                        <% } else { %>
+                        <a class="btn  btn-primary disabled" style="background-color:gray; border-color: gray"
+                           href=""> COMPRAR</a>
+                        <% }
+                        %>
+                    </td>
+                </tr>
+                <%
+                    }
+                %>
+                </tbody>
+            </table>
             <% }
             %>
         </div>

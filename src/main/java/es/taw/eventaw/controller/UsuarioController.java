@@ -56,9 +56,7 @@ public class UsuarioController {
                     break;
 
                 case 3: //Creador eventos
-                    strTo = "inicioCreador";
-                    //model.addAttribute("misEventos", user.getEventosById());
-                    // model.addAttribute("todosEventos", this.eventoService.findAll());
+                    strTo = this.doInicioCreador(model, session);
                     break;
 
                 case 4: //Teleoperador
@@ -83,5 +81,12 @@ public class UsuarioController {
     public String doInicioUEvento(Model model) {
         model.addAttribute("eventosFuturos", this.eventoService.findEventosFuturos());
         return "inicioUEvento";
+    }
+
+    @GetMapping("/inicioCreador")
+    public String doInicioCreador(Model model, HttpSession session){
+        model.addAttribute("misEventos", this.usuarioService.getEventos((UsuarioDTO) session.getAttribute("userDTO")));
+        model.addAttribute("todosEventos", this.eventoService.findAll());
+        return "inicioCreador";
     }
 }

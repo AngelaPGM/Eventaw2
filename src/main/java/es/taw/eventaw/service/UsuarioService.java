@@ -77,4 +77,40 @@ public class UsuarioService {
         this.usuarioRepository.save(usuario);
 
     }
+
+    public List<EventoDTO> getEventos(UsuarioDTO userDTO) {
+        Optional<Usuario> usuarioOptional = this.usuarioRepository.findById(userDTO.getId());
+        List<EventoDTO> eventosDTO = new ArrayList<>();
+        if(usuarioOptional.isPresent()){
+            Usuario usuario = usuarioOptional.get();
+            List<Evento> aux = (List<Evento>) usuario.getEventosById();
+            eventosDTO = this.listaToDto(aux);
+        }
+        return eventosDTO;
+    }
+
+    private List<EventoDTO> listaToDto(List<Evento> lista){
+        if(lista == null){
+            return new ArrayList<>();
+        }else{
+            List<EventoDTO> listaDto = new ArrayList<>();
+            for(Evento e: lista){
+                listaDto.add(e.getDTO());
+            }
+            return listaDto;
+        }
+    }
+
+    public void updateUsuario(Usuario usuario) {
+        this.usuarioRepository.save(usuario);
+    }
+
+    public Usuario findByUsuario(UsuarioDTO creador) {
+        Optional<Usuario> usuarioOtp = this.usuarioRepository.findById(creador.getId());
+        if(usuarioOtp.isPresent()){
+            Usuario usuario = usuarioOtp.get();
+            return usuario;
+        }
+        return null;
+    }
 }

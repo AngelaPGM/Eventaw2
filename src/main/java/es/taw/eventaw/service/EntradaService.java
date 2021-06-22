@@ -117,4 +117,10 @@ public class EntradaService {
         List<Entrada> entradasPasadas = this.entradaRepository.findEntradaByUsuarioeventoByUsuarioAndEventoByEventoBefore(userDTO.getId(), new Date());
         return this.listaToDto(entradasPasadas);
     }
+
+    public void removeAllFromList(List<Entrada> entradas) {
+        for(Entrada e : entradas){
+            this.entradaRepository.delete(e);
+        }
+    }
 }

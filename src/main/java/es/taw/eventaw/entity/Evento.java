@@ -190,6 +190,11 @@ public class Evento {
         dto.setMaxentradasusuario(this.maxentradasusuario);
         dto.setNumfilas(this.numfilas);
         dto.setAsientosfila(this.asientosfila);
+        dto.setCreadorDTO(this.usuarioByCreador.getDTO());
+        //List<EventoDTO> aux = dto.getCreadorDTO().getEventosDTO();
+        //aux.add(dto);
+        //dto.getCreadorDTO().setEventosDTO(aux);
+        dto.getCreadorDTO().getEventosDTO().add(dto);
         return dto;
     }
 }
