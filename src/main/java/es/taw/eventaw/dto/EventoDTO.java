@@ -1,8 +1,5 @@
 package es.taw.eventaw.dto;
 
-import es.taw.eventaw.entity.Entrada;
-import es.taw.eventaw.entity.EventoEtiqueta;
-import es.taw.eventaw.entity.Usuario;
 
 import java.sql.Date;
 import java.util.Collection;
@@ -19,9 +16,9 @@ public class EventoDTO {
     private Integer maxentradasusuario;
     private Integer numfilas;
     private Integer asientosfila;
-    private Collection<Entrada> entradasById;
-    private Usuario usuarioByCreador;
-    private Collection<EventoEtiqueta> eventoEtiquetasById;
+    private Collection<EntradaDTO> entradasDTOById;
+    private UsuarioDTO usuarioDTOByCreador;
+    private Collection<EventoEtiquetaDTO> eventoEtiquetasDTOById;
 
     public EventoDTO() {
     }
@@ -114,27 +111,27 @@ public class EventoDTO {
         this.asientosfila = asientosfila;
     }
 
-    public Collection<Entrada> getEntradasById() {
-        return entradasById;
+    public Collection<EntradaDTO> getEntradasDTOById() {
+        return entradasDTOById;
     }
 
-    public void setEntradasById(Collection<Entrada> entradasById) {
-        this.entradasById = entradasById;
+    public void setEntradasDTOById(Collection<EntradaDTO> entradasDTOById) {
+        this.entradasDTOById = entradasDTOById;
     }
 
-    public Usuario getUsuarioByCreador() {
-        return usuarioByCreador;
+    public UsuarioDTO getUsuarioDTOByCreador() {
+        return usuarioDTOByCreador;
     }
 
-    public void setUsuarioByCreador(Usuario usuarioByCreador) {
-        this.usuarioByCreador = usuarioByCreador;
+    public void setUsuarioDTOByCreador(UsuarioDTO usuarioDTOByCreador) {
+        this.usuarioDTOByCreador = usuarioDTOByCreador;
     }
 
-    public Collection<EventoEtiqueta> getEventoEtiquetasById() {
-        return eventoEtiquetasById;
+    public Collection<EventoEtiquetaDTO> getEventoEtiquetasDTOById() {
+        return eventoEtiquetasDTOById;
     }
 
-    public void setEventoEtiquetasById(Collection<EventoEtiqueta> eventoEtiquetasById) {
-        this.eventoEtiquetasById = eventoEtiquetasById;
+    public void setEventoEtiquetasDTOById(Collection<EventoEtiquetaDTO> eventoEtiquetasDTOById) {
+        this.eventoEtiquetasDTOById = eventoEtiquetasDTOById;
     }
 }

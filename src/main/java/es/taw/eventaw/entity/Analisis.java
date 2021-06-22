@@ -180,12 +180,12 @@ public class Analisis {
     @Transient
     public AnalisisDTO getDTO(){
         AnalisisDTO dto = new AnalisisDTO();
-        dto.setId(id);
-        dto.setNombre(nombre);
-        dto.setFechamayor(fechamayor);
-        dto.setFechamenor(fechamenor);
-        dto.setPreciomayor(preciomayor);
-        dto.setPreciomenor(preciomenor);
+        dto.setId(this.id);
+        dto.setNombre(this.nombre);
+        dto.setFechamayor(this.fechamayor);
+        dto.setFechamenor(this.fechamenor);
+        dto.setPreciomayor(this.preciomayor);
+        dto.setPreciomenor(this.preciomenor);
         return dto;
     }
 }

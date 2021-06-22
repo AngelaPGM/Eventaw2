@@ -1,5 +1,8 @@
 package es.taw.eventaw.entity;
 
+import es.taw.eventaw.dto.RolDTO;
+import es.taw.eventaw.dto.UsuarioDTO;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -51,5 +54,14 @@ public class Rol {
 
     public void setUsuariosById(Collection<Usuario> usuariosById) {
         this.usuariosById = usuariosById;
+    }
+
+    @Transient
+    public RolDTO getDTO() {
+        RolDTO dto = new RolDTO();
+        dto.setId(this.id);
+        dto.setTipo(this.tipo);
+        dto.setUsuariosById(this.getDTO().getUsuariosById());
+        return dto;
     }
 }

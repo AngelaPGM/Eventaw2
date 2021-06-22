@@ -1,5 +1,7 @@
 package es.taw.eventaw.entity;
 
+import es.taw.eventaw.dto.EtiquetaDTO;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -51,5 +53,14 @@ public class Etiqueta {
 
     public void setEventoEtiquetasById(Collection<EventoEtiqueta> eventoEtiquetasById) {
         this.eventoEtiquetasById = eventoEtiquetasById;
+    }
+
+    @Transient
+    public EtiquetaDTO getDTO() {
+        EtiquetaDTO dto = new EtiquetaDTO();
+        dto.setId(this.id);
+        dto.setNombre(this.nombre);
+        dto.setEventoEtiquetasDTOById(this.getDTO().getEventoEtiquetasDTOById());
+        return dto;
     }
 }

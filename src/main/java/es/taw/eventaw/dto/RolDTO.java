@@ -1,13 +1,11 @@
 package es.taw.eventaw.dto;
 
-import es.taw.eventaw.entity.Usuario;
-
 import java.util.Collection;
 
 public class RolDTO {
     private Integer id;
     private String tipo;
-    private Collection<Usuario> usuariosById;
+    private Collection<UsuarioDTO> usuariosById;
 
     public RolDTO() {
     }
@@ -28,11 +26,11 @@ public class RolDTO {
         this.tipo = tipo;
     }
 
-    public Collection<Usuario> getUsuariosById() {
+    public Collection<UsuarioDTO> getUsuariosById() {
         return usuariosById;
     }
 
-    public void setUsuariosById(Collection<Usuario> usuariosById) {
+    public void setUsuariosById(Collection<UsuarioDTO> usuariosById) {
         this.usuariosById = usuariosById;
     }
 }

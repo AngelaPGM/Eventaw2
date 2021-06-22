@@ -1,7 +1,6 @@
 package es.taw.eventaw.dto;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 public class AnalisisDTO {
     private Integer id;

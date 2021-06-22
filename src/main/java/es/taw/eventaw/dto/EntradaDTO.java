@@ -1,14 +1,11 @@
 package es.taw.eventaw.dto;
 
-import es.taw.eventaw.entity.Evento;
-import es.taw.eventaw.entity.Usuarioevento;
-
 public class EntradaDTO {
     private Integer id;
     private Integer numfila;
     private Integer asientofila;
-    private Usuarioevento usuarioeventoByUsuario;
-    private Evento eventoByEvento;
+    private UsuarioeventoDTO usuarioeventoDTOByUsuario;
+    private EventoDTO eventoDTOByEvento;
 
     public EntradaDTO() {
     }
@@ -37,19 +34,19 @@ public class EntradaDTO {
         this.asientofila = asientofila;
     }
 
-    public Usuarioevento getUsuarioeventoByUsuario() {
-        return usuarioeventoByUsuario;
+    public UsuarioeventoDTO getUsuarioeventoDTOByUsuario() {
+        return usuarioeventoDTOByUsuario;
     }
 
-    public void setUsuarioeventoByUsuario(Usuarioevento usuarioeventoByUsuario) {
-        this.usuarioeventoByUsuario = usuarioeventoByUsuario;
+    public void setUsuarioeventoDTOByUsuario(UsuarioeventoDTO usuarioeventoDTOByUsuario) {
+        this.usuarioeventoDTOByUsuario = usuarioeventoDTOByUsuario;
     }
 
-    public Evento getEventoByEvento() {
-        return eventoByEvento;
+    public EventoDTO getEventoDTOByEvento() {
+        return eventoDTOByEvento;
     }
 
-    public void setEventoByEvento(Evento eventoByEvento) {
-        this.eventoByEvento = eventoByEvento;
+    public void setEventoDTOByEvento(EventoDTO eventoDTOByEvento) {
+        this.eventoDTOByEvento = eventoDTOByEvento;
     }
 }

@@ -145,7 +145,8 @@ public class Usuarioevento {
         dto.setCiudad(this.ciudad);
         dto.setFechanacimiento(this.fechanacimiento);
         dto.setSexo(this.sexo);
-        dto.setEntradasById(this.entradasById);
+        dto.setEntradasDTOById(this.getDTO().getEntradasDTOById());
+        dto.setUsuarioDTO(this.getDTO().getUsuarioDTO());
         return dto;
     }
 }
