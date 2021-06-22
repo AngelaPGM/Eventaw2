@@ -79,11 +79,6 @@ public class UsuarioController {
         return doInit(model);
     }
 
-    @GetMapping("/perfil")
-    public String doPerfil() {
-        return "perfilUsuario";
-    }
-
     @GetMapping("/inicioUEvento")
     public String doInicioUEvento(Model model) {
         model.addAttribute("eventosFuturos", this.eventoService.findEventosFuturos());

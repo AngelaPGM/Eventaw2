@@ -64,4 +64,10 @@ public class UsuarioeventoController {
       //  model.addAttribute("entradasPasadas", entradasPasadas);
         return "entrada";
     }
+
+    @GetMapping("/perfil")
+    public String doPerfil() {
+        return "perfilUsuario";
+    }
+
 }

@@ -15,7 +15,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Mi perfil</title>
 
     <!-- COPIAR ESTO PARA METER CSS Y BOOTSTRAP -->
@@ -29,17 +28,17 @@
 %>
 <body>
 <!-- Barra navegacion -->
+<!-- Barra navegacion -->
 <div class="topnav fixed-top">
     <ul>
-        <li><a href="/inicioUEvento">Inicio</a></li>
-        <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
+        <li><a href="ServletRedirectInicio">Inicio</a></li>
+        <li style="float:right"><a href="ServletCierreSesion">Cerrar sesión</a></li>
         <li style="float:right"><a class="active">Mi perfil</a></li>
-        <li style="float:right"><a href="sin hacer">MIS ENTRADAS</a></li>
-        <li style="float:right"><a href="sin hacer">CHAT TELEOPERADOR</a></li>
+        <li style="float:right"><a href="misEntradas.jsp?filtrado=0">MIS ENTRADAS</a></li>
+        <li style="float:right"><a href="ServletNuevaConversacion">CHAT TELEOPERADOR</a></li>
+
     </ul>
 </div>
-
-
 
 </body>
 </html>
