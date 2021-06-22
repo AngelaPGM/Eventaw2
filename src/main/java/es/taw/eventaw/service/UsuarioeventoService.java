@@ -2,6 +2,7 @@ package es.taw.eventaw.service;
 
 import es.taw.eventaw.dao.UsuarioRepository;
 import es.taw.eventaw.dao.UsuarioeventoRepository;
+import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.dto.UsuarioeventoDTO;
 import es.taw.eventaw.entity.Usuario;
 import es.taw.eventaw.entity.Usuarioevento;
@@ -38,11 +39,32 @@ public class UsuarioeventoService {
         usuarioevento.setApellido2(inputDataDTO.getApellido2());
         usuarioevento.setUsuarioByIdusuario(user);
 
-        List<Usuarioevento> aux = new ArrayList<>();
-        aux.add(usuarioevento);
-        //user.setUsuarioeventosById(aux);
 
         this.usuarioeventoRepository.save(usuarioevento);
         this.usuarioRepository.save(user);
+    }
+
+    public void guardarUsuarioevento(UsuarioDTO dto) {
+        Usuarioevento uevento;
+
+        if (dto.getUsuarioeventoDTOById().getId() == null) {
+            uevento = new Usuarioevento();
+        } else {
+            uevento = this.usuarioeventoRepository.findById(dto.getUsuarioeventoDTOById().getId()).orElse(new Usuarioevento());
+        }
+
+        uevento.setId(dto.getUsuarioeventoDTOById().getId());
+        uevento.setNombre(dto.getUsuarioeventoDTOById().getNombre());
+        uevento.setApellido1(dto.getUsuarioeventoDTOById().getApellido1());
+        uevento.setApellido2(dto.getUsuarioeventoDTOById().getApellido2());
+        uevento.setDomicilio(dto.getUsuarioeventoDTOById().getDomicilio());
+        uevento.setCiudad(dto.getUsuarioeventoDTOById().getCiudad());
+        uevento.setFechanacimiento(dto.getUsuarioeventoDTOById().getFechanacimiento());
+        uevento.setSexo(dto.getUsuarioeventoDTOById().getSexo());
+
+       //Usuario u = this.usuarioRepository.findUsuarioById(dto.getUsuarioDTO().getId());
+     // uevento.setUsuarioByIdusuario(u);
+
+        this.usuarioeventoRepository.save(uevento);
     }
 }

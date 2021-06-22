@@ -35,7 +35,7 @@
     <ul>
         <li><a class="active">Inicio</a></li>
         <li style="float:right"><a  href="/logout">Cerrar sesión</a></li>
-        <li style="float:right"><a href="/perfil">Mi perfil</a></li>
+        <li style="float:right"><a href="/usuarioEvento/perfil">Mi perfil</a></li>
         <li style="float:right"><a href="/usuarioEvento/misEntradas">MIS ENTRADAS</a></li>
         <li style="float:right"><a href="sin hacer">CHAT TELEOPERADOR</a></li>
     </ul>

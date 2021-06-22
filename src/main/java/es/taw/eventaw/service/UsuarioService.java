@@ -37,15 +37,44 @@ public class UsuarioService {
         return userDTO;
     }
 
-    public UsuarioDTO nuevoUsuario(UsuarioeventoDTO inputDataDTO){
+    public UsuarioDTO nuevoUsuario(UsuarioeventoDTO inputDataDTO) {
         Usuario user = new Usuario();
         Rol rol = this.rolRepository.getById(2);//Si borro esto me da una violacion de campo NotNull
         user.setRolByRol(rol);
-        //user.setCorreo(inputDataDTO.getUsuarioByIdusuario().getCorreo());
-        //user.setContrasenya(inputDataDTO.getUsuarioByIdusuario().getContrasenya());
+        user.setCorreo(inputDataDTO.getUsuarioDTO().getCorreo());
+        user.setContrasenya(inputDataDTO.getUsuarioDTO().getContrasenya());
         this.usuarioRepository.save(user);
         this.usuarioeventoService.nuevoUsuarioevento(user, inputDataDTO);
 
         return user.getDTO();
+    }
+
+    public void guardarUsuario(UsuarioDTO dto) {
+        Usuario usuario;
+        Rol r;
+
+        if (dto.getId() == null) {
+            usuario = new Usuario();
+            r = this.rolRepository.findById(2).orElse(null);
+            dto.setId(0);
+            dto.setRolDTOByRol(r.getDTO());
+            dto.getUsuarioeventoDTOById().setId(0);
+            dto.getUsuarioeventoDTOById().setUsuarioDTO(dto);
+
+        } else {
+            usuario = this.usuarioRepository.findById(dto.getId()).orElse(new Usuario());
+             r = this.rolRepository.findById(dto.getRolDTOByRol().getId()).orElse(null);
+
+        }
+
+        usuario.setId(dto.getId());
+        usuario.setCorreo(dto.getCorreo());
+        usuario.setContrasenya(dto.getContrasenya());
+        usuario.setRolByRol(r);
+
+
+        this.usuarioeventoService.guardarUsuarioevento(dto);
+        this.usuarioRepository.save(usuario);
+
     }
 }
