@@ -3,6 +3,7 @@ package es.taw.eventaw.entity;
 import es.taw.eventaw.dto.EntradaDTO;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -83,6 +84,10 @@ public class Entrada {
         dto.setId(id);
         dto.setNumfila(numfila);
         dto.setAsientofila(asientofila);
+        dto.setEventoDTO(this.eventoByEvento.getDTO());
+        List<EntradaDTO> aux = dto.getEventoDTO().getEntradasDTO();
+        aux.add(dto);
+        dto.getEventoDTO().setEntradasDTO(aux);
         return dto;
     }
 }

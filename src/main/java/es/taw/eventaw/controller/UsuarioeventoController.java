@@ -1,5 +1,6 @@
 package es.taw.eventaw.controller;
 
+import es.taw.eventaw.dto.EntradaDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.dto.UsuarioeventoDTO;
 import es.taw.eventaw.service.EntradaService;
@@ -58,10 +59,10 @@ public class UsuarioeventoController {
 
     @GetMapping("/misEntradas")
     public String doMisEntradas(Model model, HttpSession session){
-       // List<EntradaDTO> entradasFuturas = this.entradaService.getEntradasFuturas((UsuarioDTO)session.getAttribute("userDTO"));
-        //List<EntradaDTO> entradasPasadas = this.entradaService.getEntradasPasadas((UsuarioDTO)session.getAttribute("userDTO"));
-       // model.addAttribute("entradasFuturas", entradasFuturas);
-      //  model.addAttribute("entradasPasadas", entradasPasadas);
+       List<EntradaDTO> entradasFuturas = this.entradaService.getEntradasFuturas((UsuarioDTO)session.getAttribute("userDTO"));
+       List<EntradaDTO> entradasPasadas = this.entradaService.getEntradasPasadas((UsuarioDTO)session.getAttribute("userDTO"));
+       model.addAttribute("entradasFuturas", entradasFuturas);
+       model.addAttribute("entradasPasadas", entradasPasadas);
         return "entrada";
     }
 

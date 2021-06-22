@@ -1,6 +1,7 @@
 package es.taw.eventaw.dto;
 
 import java.sql.Date;
+import java.util.List;
 
 public class EventoDTO {
     private Integer id;
@@ -14,6 +15,7 @@ public class EventoDTO {
     private Integer maxentradasusuario;
     private Integer numfilas;
     private Integer asientosfila;
+    private List<EntradaDTO> entradasDTO;
 
     public EventoDTO() {
     }
@@ -104,5 +106,13 @@ public class EventoDTO {
 
     public void setAsientosfila(Integer asientosfila) {
         this.asientosfila = asientosfila;
+    }
+
+    public List<EntradaDTO> getEntradasDTO() {
+        return entradasDTO;
+    }
+
+    public void setEntradasDTO(List<EntradaDTO> entradasDTO) {
+        this.entradasDTO = entradasDTO;
     }
 }
