@@ -2,12 +2,20 @@ package es.taw.eventaw.service;
 
 import es.taw.eventaw.dao.RolRepository;
 import es.taw.eventaw.dao.UsuarioRepository;
+import es.taw.eventaw.dto.EntradaDTO;
+import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.dto.UsuarioeventoDTO;
+import es.taw.eventaw.entity.Entrada;
+import es.taw.eventaw.entity.Evento;
 import es.taw.eventaw.entity.Rol;
 import es.taw.eventaw.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -47,5 +55,28 @@ public class UsuarioService {
         this.usuarioeventoService.nuevoUsuarioevento(user, inputDataDTO);
 
         return user.getDTO();
+    }
+
+    public List<EventoDTO> getEventos(UsuarioDTO userDTO) {
+        Optional<Usuario> usuarioOptional = this.usuarioRepository.findById(userDTO.getId());
+        List<EventoDTO> eventosDTO = new ArrayList<>();
+        if(usuarioOptional.isPresent()){
+            Usuario usuario = usuarioOptional.get();
+            List<Evento> aux = (List<Evento>) usuario.getEventosById();
+            eventosDTO = this.listaToDto(aux);
+        }
+        return eventosDTO;
+    }
+
+    private List<EventoDTO> listaToDto(List<Evento> lista){
+        if(lista == null){
+            return new ArrayList<>();
+        }else{
+            List<EventoDTO> listaDto = new ArrayList<>();
+            for(Evento e: lista){
+                listaDto.add(e.getDTO());
+            }
+            return listaDto;
+        }
     }
 }

@@ -5,9 +5,7 @@ import es.taw.eventaw.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +24,12 @@ public class EventoController {
         List<EventoDTO> filtrados = this.eventoService.filtradoNombre(inputData.getTitulo(), inputData.getFecha(), inputData.getFechacompra());
         model.addAttribute("eventosFuturos",filtrados);
         return "inicioUEvento";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String doEditar(@PathVariable Integer id, Model model){
+        model.addAttribute("evento", this.eventoService.findEventobyId(id));
+        model.addAttribute("error", "");
+        return "formularioEvento";
     }
 }

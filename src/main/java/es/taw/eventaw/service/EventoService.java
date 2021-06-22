@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EventoService {
@@ -61,4 +62,12 @@ public class EventoService {
         return this.toListaDTO(filtrados);
     }
 
+    public EventoDTO findEventobyId(Integer id) {
+        Optional<Evento> eventoOpt = this.eventoRepository.findById(id);
+        if(eventoOpt.isPresent()){
+            Evento evento = eventoOpt.get();
+            return evento.getDTO();
+        }
+        return null;
+    }
 }

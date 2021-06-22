@@ -1,6 +1,7 @@
 package es.taw.eventaw.dto;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventoDTO {
@@ -109,6 +110,7 @@ public class EventoDTO {
     }
 
     public List<EntradaDTO> getEntradasDTO() {
+        if(entradasDTO == null) return new ArrayList<>();
         return entradasDTO;
     }
 
