@@ -102,7 +102,12 @@ public class EventoService {
     }
 
     public void save(EventoDTO eventoDTO, UsuarioDTO creador) throws ParseException {
-        Evento evento = new Evento();
+        Evento evento;
+        if(eventoDTO.getId() == null){
+            evento = new Evento();
+        } else {
+            evento = this.eventoRepository.findById(eventoDTO.getId()).orElse(new Evento());
+        }
         evento.setAforo(eventoDTO.getAforo());
         evento.setAsientosfila(eventoDTO.getAsientosfila());
         evento.setCiudad(eventoDTO.getCiudad());

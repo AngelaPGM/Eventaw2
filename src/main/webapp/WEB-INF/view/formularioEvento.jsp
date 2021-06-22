@@ -63,7 +63,7 @@
     <div class="container-perfil">
         <div class="wrap-registro justify-content-center text-center" style="width: 1200px">
             <form:form method="POST" action="/evento/guardar" modelAttribute="eventoDTO">
-
+                <form:hidden path="id" />
                 <h1 class="bg-text" style="color: #a64bf4">
                     Datos del evento
                 </h1>
