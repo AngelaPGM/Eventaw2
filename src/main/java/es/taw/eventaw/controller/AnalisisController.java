@@ -55,17 +55,17 @@ public class AnalisisController {
     public String doCrear(Model model){
         AnalisisDTO analisis = new AnalisisDTO();
         model.addAttribute("analisis", analisis);
+
+        List<EntradaDTO> listaEntradas = this.entradaService.findAll();
+        model.addAttribute("listaEntradas", listaEntradas);
         return "analisis";
     }
 
     @PostMapping("/guardar")
     public String doGuardar(@ModelAttribute("analisis") AnalisisDTO a){
-        try {
-            this.analisisService.doGuardar(a);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return "analisis";
+        Integer id = this.analisisService.doGuardar(a);
+
+        return "redirect:/analisis/ver/"+id;
     }
 
     @GetMapping("/ver/{id}")
@@ -84,49 +84,4 @@ public class AnalisisController {
         this.analisisService.doBorrar(id);
         return "redirect:/analisis/";
     }
-
-
-
-    /*
-    @Autowired
-    public void setAnalisisRepository(AnalisisRepository analisisRepository) {
-        this.analisisRepository = analisisRepository;
-    }
-
-    @Autowired
-    public void setEntradaRepository(EntradaRepository entradaRepository) {
-        this.entradaRepository = entradaRepository;
-    }
-
-    @GetMapping("/analisis")
-    public String doListar(Model model){
-        List<Analisis> listaAnalisis = this.analisisRepository.findAll();
-        model.addAttribute("listaAnalisis", listaAnalisis);
-        return "analista";
-    }
-
-    @PostMapping("/guardar")
-    public String doGuardar(@ModelAttribute("a") Analisis a){
-        a.setId(0);
-        this.analisisRepository.save(a);
-        return "resultados";
-    }
-
-    @GetMapping("/ver/{id}")
-    public String doResultado(@PathVariable("id") Integer id, Model model){
-        Optional<Analisis> analisisOptional = this.analisisRepository.findById(id);
-        if(analisisOptional.isPresent()){
-            Analisis analisis = analisisOptional.get();
-            model.addAttribute("analisis", analisis);
-            List<Entrada> listaEntradas = this.entradaRepository.findEntradasByAnalisis(analisis);
-            model.addAttribute("listaEntradas", listaEntradas);
-        }
-        return "resultados";
-    }
-
-    @GetMapping("/editar/{id}")
-    public String doEditar(@PathVariable("id") Integer id){
-        return "analisis";
-    }
-    */
 }

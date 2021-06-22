@@ -1,6 +1,5 @@
 package es.taw.eventaw.dao;
 
-import es.taw.eventaw.dto.AnalisisDTO;
 import es.taw.eventaw.entity.Entrada;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,8 +19,17 @@ public interface EntradaRepository extends JpaRepository<Entrada, Integer> {
     @Query("select e from Entrada e where e.eventoByEvento.precio >= :mayor")
     public List<Entrada> findEntradasPrecioMayor(@Param("mayor") Double mayor);
 
-    @Query("select e from Entrada e where e.eventoByEvento.fecha <= :menor")
+    @Query("select e from Entrada e where e.eventoByEvento.precio <= :menor")
     public List<Entrada> findEntradasPrecioMenor(@Param("menor") Double menor);
+
+    @Query("select e from Entrada e where e.usuarioeventoByUsuario.fechanacimiento >= :mayor")
+    public List<Entrada> findEntradasEdadMayor(@Param("mayor") Date mayor);
+
+    @Query("select e from Entrada e where e.usuarioeventoByUsuario.fechanacimiento <= :menor")
+    public List<Entrada> findEntradasEdadMenor(@Param("menor") Date menor);
+
+    @Query("select e from Entrada e where e.usuarioeventoByUsuario.sexo like :sexo")
+    public List<Entrada> findEntradasSexo(@Param("sexo") String sexo);
 
     public List<Entrada> findEntradaByUsuarioeventoByUsuarioAndEventoByEventoAfter(Integer id, java.util.Date date);
 

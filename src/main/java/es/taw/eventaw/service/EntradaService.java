@@ -33,20 +33,77 @@ public class EntradaService {
         }
     }
 
+    public List<EntradaDTO> findAll(){
+        return listaToDto(this.entradaRepository.findAll());
+    }
+
+    private List<Entrada> tamiz(List<Entrada> a, List<Entrada> filtro){
+        List<Entrada> aux = new ArrayList<>();
+        for(Entrada e: a){
+            if(filtro.contains(e)) aux.add(e);
+        }
+        return aux;
+    }
+
     public List<EntradaDTO> findByAnalisis(AnalisisDTO analisisDTO){
-        List<Entrada> listaEntradas = null; //this.entradaRepository.findEntradasByAnalisis(analisisDTO.getFechamayor());
+        List<Entrada> listaEntradas = null;
+
+        boolean activo = false;
 
         if(analisisDTO.getFechamayor() != null){
-            List<Entrada> listaFechaMayor = this.entradaRepository.findEntradasFechaMayor(analisisDTO.getFechamayor());
+            activo = true;
+            listaEntradas = this.entradaRepository.findEntradasFechaMayor(analisisDTO.getFechamayor());
         }
         if(analisisDTO.getFechamenor() != null){
-            List<Entrada> listaFechaMenor = this.entradaRepository.findEntradasFechaMenor(analisisDTO.getFechamenor());
+            if(!activo){
+                activo = true;
+                listaEntradas = this.entradaRepository.findEntradasFechaMenor(analisisDTO.getFechamenor());
+            }else{
+                listaEntradas = tamiz(listaEntradas, this.entradaRepository.findEntradasFechaMenor(analisisDTO.getFechamenor()) );
+            }
         }
         if(analisisDTO.getPreciomayor() != null){
-            List<Entrada> listaPrecioMayor = this.entradaRepository.findEntradasPrecioMayor(analisisDTO.getPreciomayor());
+            if(!activo){
+                activo = true;
+                listaEntradas = this.entradaRepository.findEntradasPrecioMayor(analisisDTO.getPreciomayor());
+            }else{
+                listaEntradas = tamiz(listaEntradas, this.entradaRepository.findEntradasPrecioMayor(analisisDTO.getPreciomayor()) );
+            }
         }
         if(analisisDTO.getPreciomenor() != null){
-            List<Entrada> listaPrecioMenor = this.entradaRepository.findEntradasPrecioMenor(analisisDTO.getPreciomenor());
+            if(!activo){
+                activo = true;
+                listaEntradas = this.entradaRepository.findEntradasPrecioMenor(analisisDTO.getPreciomenor());
+            }else{
+                listaEntradas = tamiz(listaEntradas, this.entradaRepository.findEntradasPrecioMenor(analisisDTO.getPreciomenor()) );
+            }
+        }
+        if(analisisDTO.getNacimientomayor() != null){
+            if(!activo){
+                activo = true;
+                listaEntradas = this.entradaRepository.findEntradasEdadMayor(analisisDTO.getNacimientomayor());
+            }else{
+                listaEntradas = tamiz(listaEntradas, this.entradaRepository.findEntradasEdadMayor(analisisDTO.getNacimientomayor()) );
+            }
+        }
+        if(analisisDTO.getNacimientomenor() != null){
+            if(!activo){
+                activo = true;
+                listaEntradas = this.entradaRepository.findEntradasEdadMenor(analisisDTO.getNacimientomenor());
+            }else{
+                listaEntradas = tamiz(listaEntradas, this.entradaRepository.findEntradasEdadMenor(analisisDTO.getNacimientomenor()) );
+            }
+        }
+        if(analisisDTO.getSexo() != null){
+            if(!activo){
+                activo = true;
+                listaEntradas = this.entradaRepository.findEntradasSexo(analisisDTO.getSexo());
+            }else{
+                listaEntradas = tamiz(listaEntradas, this.entradaRepository.findEntradasSexo(analisisDTO.getSexo()) );
+            }
+        }
+        if(!activo){    //Ningun filtro activo, mostramos todos
+            listaEntradas = this.entradaRepository.findAll();
         }
         return listaToDto(listaEntradas);
     }
