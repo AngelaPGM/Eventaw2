@@ -18,7 +18,8 @@
 <body>
     <table border="1">
         <tr>
-            <th>id</th>
+            <th>ID</th>
+            <th>NOMBRE</th>
         </tr>
         <% for (AnalisisDTO a: listaAnalisis){%>
             <tr>

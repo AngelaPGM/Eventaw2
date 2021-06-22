@@ -1,8 +1,5 @@
 package es.taw.eventaw.dto;
 
-import es.taw.eventaw.entity.Entrada;
-import es.taw.eventaw.entity.Usuario;
-
 import java.sql.Date;
 import java.util.Collection;
 
@@ -15,7 +12,7 @@ public class UsuarioeventoDTO {
     private String ciudad;
     private Date fechanacimiento;
     private String sexo;
-    private Collection<Entrada> entradasById;
+    private Collection<EntradaDTO> entradasDTOById;
     private UsuarioDTO usuarioDTO;
 
     public UsuarioeventoDTO() {
@@ -85,12 +82,12 @@ public class UsuarioeventoDTO {
         this.sexo = sexo;
     }
 
-    public Collection<Entrada> getEntradasById() {
-        return entradasById;
+    public Collection<EntradaDTO> getEntradasDTOById() {
+        return entradasDTOById;
     }
 
-    public void setEntradasById(Collection<Entrada> entradasById) {
-        this.entradasById = entradasById;
+    public void setEntradasDTOById(Collection<EntradaDTO> entradasDTOById) {
+        this.entradasDTOById = entradasDTOById;
     }
 
     public UsuarioDTO getUsuarioDTO() {

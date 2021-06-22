@@ -1,7 +1,6 @@
 package es.taw.eventaw.dto;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 public class AnalisisDTO {
     private Integer id;
@@ -10,6 +9,9 @@ public class AnalisisDTO {
     private Date fechamenor;
     private Double preciomayor;
     private Double preciomenor;
+    private String sexo;
+    private Date nacimientomayor;
+    private Date nacimientomenor;
 
     public AnalisisDTO() {
     }
@@ -60,5 +62,29 @@ public class AnalisisDTO {
 
     public void setPreciomenor(Double preciomenor) {
         this.preciomenor = preciomenor;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public Date getNacimientomayor() {
+        return nacimientomayor;
+    }
+
+    public void setNacimientomayor(Date nacimientomayor) {
+        this.nacimientomayor = nacimientomayor;
+    }
+
+    public Date getNacimientomenor() {
+        return nacimientomenor;
+    }
+
+    public void setNacimientomenor(Date nacimientomenor) {
+        this.nacimientomenor = nacimientomenor;
     }
 }

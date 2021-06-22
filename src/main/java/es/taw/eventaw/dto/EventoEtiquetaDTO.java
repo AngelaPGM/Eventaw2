@@ -1,12 +1,10 @@
 package es.taw.eventaw.dto;
 
-import es.taw.eventaw.entity.Etiqueta;
-import es.taw.eventaw.entity.Evento;
 
 public class EventoEtiquetaDTO {
     private Integer id;
-    private Evento eventoByEvento;
-    private Etiqueta etiquetaByEtiqueta;
+    private EventoDTO eventoDTOByEvento;
+    private EtiquetaDTO etiquetaDTOByEtiqueta;
 
     public EventoEtiquetaDTO() {
     }
@@ -19,19 +17,19 @@ public class EventoEtiquetaDTO {
         this.id = id;
     }
 
-    public Evento getEventoByEvento() {
-        return eventoByEvento;
+    public EventoDTO getEventoDTOByEvento() {
+        return eventoDTOByEvento;
     }
 
-    public void setEventoByEvento(Evento eventoByEvento) {
-        this.eventoByEvento = eventoByEvento;
+    public void setEventoDTOByEvento(EventoDTO eventoDTOByEvento) {
+        this.eventoDTOByEvento = eventoDTOByEvento;
     }
 
-    public Etiqueta getEtiquetaByEtiqueta() {
-        return etiquetaByEtiqueta;
+    public EtiquetaDTO getEtiquetaDTOByEtiqueta() {
+        return etiquetaDTOByEtiqueta;
     }
 
-    public void setEtiquetaByEtiqueta(Etiqueta etiquetaByEtiqueta) {
-        this.etiquetaByEtiqueta = etiquetaByEtiqueta;
+    public void setEtiquetaDTOByEtiqueta(EtiquetaDTO etiquetaDTOByEtiqueta) {
+        this.etiquetaDTOByEtiqueta = etiquetaDTOByEtiqueta;
     }
 }

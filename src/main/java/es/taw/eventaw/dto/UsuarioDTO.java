@@ -1,7 +1,5 @@
 package es.taw.eventaw.dto;
 
-import es.taw.eventaw.entity.*;
-
 import java.util.Collection;
 
 public class UsuarioDTO {
@@ -9,11 +7,11 @@ public class UsuarioDTO {
     private String correo;
     private String contrasenya;
     private String contrasenya2;
-    private Collection<Conversacion> conversacionsById;
-    private Collection<Conversacion> conversacionsById_0;
-    private Collection<EventoDTO> eventosById;
-    private Collection<Mensaje> mensajesById;
-    private Rol rolByRol;
+    private Collection<ConversacionDTO> conversacionsDTOById;
+    private Collection<ConversacionDTO> conversacionsDTOById_0;
+    private Collection<EventoDTO> eventosDTOById;
+    private Collection<MensajeDTO> mensajesDTOById;
+    private RolDTO rolDTOByRol;
     private UsuarioeventoDTO usuarioeventoDTO;
 
     public UsuarioDTO() {
@@ -47,44 +45,44 @@ public class UsuarioDTO {
 
     public void setContrasenya2(String contrasenya2) { this.contrasenya2 = contrasenya2; }
 
-    public Collection<Conversacion> getConversacionsById() {
-        return conversacionsById;
+    public Collection<ConversacionDTO> getConversacionsDTOById() {
+        return conversacionsDTOById;
     }
 
-    public void setConversacionsById(Collection<Conversacion> conversacionsById) {
-        this.conversacionsById = conversacionsById;
+    public void setConversacionsDTOById(Collection<ConversacionDTO> conversacionsDTOById) {
+        this.conversacionsDTOById = conversacionsDTOById;
     }
 
-    public Collection<Conversacion> getConversacionsById_0() {
-        return conversacionsById_0;
+    public Collection<ConversacionDTO> getConversacionsDTOById_0() {
+        return conversacionsDTOById_0;
     }
 
-    public void setConversacionsById_0(Collection<Conversacion> conversacionsById_0) {
-        this.conversacionsById_0 = conversacionsById_0;
+    public void setConversacionsDTOById_0(Collection<ConversacionDTO> conversacionsDTOById_0) {
+        this.conversacionsDTOById_0 = conversacionsDTOById_0;
     }
 
-    public Collection<EventoDTO> getEventosById() {
-        return eventosById;
+    public Collection<EventoDTO> getEventosDTOById() {
+        return eventosDTOById;
     }
 
-    public void setEventosById(Collection<EventoDTO> eventosById) {
-        this.eventosById = eventosById;
+    public void setEventosDTOById(Collection<EventoDTO> eventosDTOById) {
+        this.eventosDTOById = eventosDTOById;
     }
 
-    public Collection<Mensaje> getMensajesById() {
-        return mensajesById;
+    public Collection<MensajeDTO> getMensajesDTOById() {
+        return mensajesDTOById;
     }
 
-    public void setMensajesById(Collection<Mensaje> mensajesById) {
-        this.mensajesById = mensajesById;
+    public void setMensajesDTOById(Collection<MensajeDTO> mensajesDTOById) {
+        this.mensajesDTOById = mensajesDTOById;
     }
 
-    public Rol getRolByRol() {
-        return rolByRol;
+    public RolDTO getRolDTOByRol() {
+        return rolDTOByRol;
     }
 
-    public void setRolByRol(Rol rolByRol) {
-        this.rolByRol = rolByRol;
+    public void setRolDTOByRol(RolDTO rolDTOByRol) {
+        this.rolDTOByRol = rolDTOByRol;
     }
 
     public UsuarioeventoDTO getUsuarioeventoDTO() {

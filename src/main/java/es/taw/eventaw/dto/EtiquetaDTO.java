@@ -1,13 +1,12 @@
 package es.taw.eventaw.dto;
 
-import es.taw.eventaw.entity.EventoEtiqueta;
 
 import java.util.Collection;
 
 public class EtiquetaDTO {
     private Integer id;
     private String nombre;
-    private Collection<EventoEtiqueta> eventoEtiquetasById;
+    private Collection<EventoEtiquetaDTO> eventoEtiquetasDTOById;
 
     public EtiquetaDTO() {
     }
@@ -28,11 +27,11 @@ public class EtiquetaDTO {
         this.nombre = nombre;
     }
 
-    public Collection<EventoEtiqueta> getEventoEtiquetasById() {
-        return eventoEtiquetasById;
+    public Collection<EventoEtiquetaDTO> getEventoEtiquetasDTOById() {
+        return eventoEtiquetasDTOById;
     }
 
-    public void setEventoEtiquetasById(Collection<EventoEtiqueta> eventoEtiquetasById) {
-        this.eventoEtiquetasById = eventoEtiquetasById;
+    public void setEventoEtiquetasDTOById(Collection<EventoEtiquetaDTO> eventoEtiquetasDTOById) {
+        this.eventoEtiquetasDTOById = eventoEtiquetasDTOById;
     }
 }

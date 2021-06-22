@@ -78,13 +78,13 @@ public class Entrada {
     }
 
     @Transient
-    public EntradaDTO getDTO(){
+    public EntradaDTO getDTO() {
         EntradaDTO dto = new EntradaDTO();
         dto.setId(id);
         dto.setNumfila(numfila);
         dto.setAsientofila(asientofila);
-        dto.setUsuarioeventoByUsuario(usuarioeventoByUsuario);
-        dto.setEventoByEvento(eventoByEvento);
+        dto.setUsuarioeventoDTOByUsuario(this.getDTO().getUsuarioeventoDTOByUsuario());
+        dto.setEventoDTOByEvento(this.getDTO().getEventoDTOByEvento());
         return dto;
     }
 }

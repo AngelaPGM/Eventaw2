@@ -46,7 +46,7 @@ public class UsuarioController {
             model.addAttribute("errorLog", "Credenciales no validas.");
         } else {
             session.setAttribute("userDTO", userDTO);
-            switch (userDTO.getRolByRol().getId()) {
+            switch (userDTO.getRolDTOByRol().getId()) {
                 case 1: //Admin
                     strTo = ""; //ESCRIBIR AQUI EL REDIRECT A ADMIN
                     break;
