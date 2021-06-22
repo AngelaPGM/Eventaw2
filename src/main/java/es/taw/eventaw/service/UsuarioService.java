@@ -79,4 +79,8 @@ public class UsuarioService {
             return listaDto;
         }
     }
+
+    public void updateUsuario(Usuario usuario) {
+        this.usuarioRepository.save(usuario);
+    }
 }

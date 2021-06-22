@@ -2,7 +2,9 @@ package es.taw.eventaw.service;
 
 import es.taw.eventaw.dao.EventoRepository;
 import es.taw.eventaw.dto.EventoDTO;
+import es.taw.eventaw.entity.Entrada;
 import es.taw.eventaw.entity.Evento;
+import es.taw.eventaw.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,18 @@ import java.util.Optional;
 @Service
 public class EventoService {
     private EventoRepository eventoRepository;
+    private UsuarioService usuarioService;
+    private EntradaService entradaService;
+
+    @Autowired
+    public void setUsuarioService(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
+
+    @Autowired
+    public void setEntradaService(EntradaService entradaService) {
+        this.entradaService = entradaService;
+    }
 
     @Autowired
     public void setEventoRepository(EventoRepository eventoRepository) {
@@ -69,5 +83,18 @@ public class EventoService {
             return evento.getDTO();
         }
         return null;
+    }
+
+    public void remove(Integer id) {
+        Optional<Evento> eventoOpt = this.eventoRepository.findById(id);
+        if(eventoOpt.isPresent()){
+            Evento evento = eventoOpt.get();
+            Usuario usuario = evento.getUsuarioByCreador();
+            usuario.getEventosById().remove(evento);
+            List<Entrada> entradas = (List<Entrada>) evento.getEntradasById();
+            this.usuarioService.updateUsuario(usuario);
+            this.entradaService.removeAllFromList(entradas);
+            this.eventoRepository.delete(evento);
+        }
     }
 }

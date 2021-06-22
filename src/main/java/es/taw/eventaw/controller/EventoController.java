@@ -26,10 +26,23 @@ public class EventoController {
         return "inicioUEvento";
     }
 
+    @GetMapping("/crear")
+    public String cargarCrear(Model model){
+        model.addAttribute("evento", new EventoDTO());
+        model.addAttribute("error", "");
+        return "formularioEvento";
+    }
+
     @GetMapping("/editar/{id}")
-    public String doEditar(@PathVariable Integer id, Model model){
+    public String cargarEditar(@PathVariable Integer id, Model model){
         model.addAttribute("evento", this.eventoService.findEventobyId(id));
         model.addAttribute("error", "");
         return "formularioEvento";
+    }
+
+    @GetMapping("/borrar/{id}")
+    public String doBorrar(@PathVariable Integer id){
+        this.eventoService.remove(id);
+        return "redirect:/inicioCreador";
     }
 }

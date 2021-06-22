@@ -1,6 +1,6 @@
 package es.taw.eventaw.dto;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +19,11 @@ public class EventoDTO {
     private List<EntradaDTO> entradasDTO;
 
     public EventoDTO() {
+        this.titulo = "";
+        this.descripcion = "";
+        this.ciudad = "";
+        this.fecha = new Date();
+        this.fechacompra = new Date();
     }
 
     public Integer getId() {

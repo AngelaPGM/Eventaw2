@@ -46,7 +46,7 @@
         <div class="container">
             <h1 style="font-size: 4rem"> Bienvenido a Eventaw </h1>
             <h2 style="font-size: 3rem"> un espacio para tus eventos</h2>
-            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="ServletCRUDEvento">Crear evento</a><br/>
+            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="/evento/crear">Crear evento</a><br/>
             <a class="btn btn-primary btn-xl rounded-pill mt-3" href="#eventos">Mis eventos</a>
         </div>
     </div>
@@ -126,7 +126,7 @@
             <td><%= (e.getNumfilas() == null ? "-" : e.getNumfilas())%></td>
             <td><%= (e.getAsientosfila() == null ? "-" : e.getAsientosfila())%></td>
             <td><a class="btn  btn-primary" style="color: white" href="/evento/editar/<%=e.getId()%>">EDITAR</a></td>
-            <td><a class="btn  btn-primary" style="color: white" href="Sin hacer">BORRAR</a></td>
+            <td><a class="btn  btn-primary" style="color: white" href="/evento/borrar/<%=e.getId()%>">BORRAR</a></td>
         </tr>
         <%
             }
