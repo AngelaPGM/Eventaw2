@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="java.util.List" %>
 <%@ page import="es.taw.eventaw.dto.AnalisisDTO" %>
 <%@ page import="es.taw.eventaw.dto.EventoDTO" %>
@@ -27,33 +28,10 @@
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 <%
-    EventoDTO evento = (EventoDTO) request.getAttribute("evento");
     String error = (String) request.getAttribute("error");
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
     UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("userDTO");
 
-    String id = "", titulo = "", desc = "", ciudad = "", fecha = "", fechaCompra = "", precio = "",
-            aforo = "", max = "", numFilas = "", asientos = "";
-
-    if (evento != null) {
-        id = "" + evento.getId();
-        titulo = evento.getTitulo();
-        desc = evento.getDescripcion();
-        ciudad = evento.getCiudad();
-        fecha = formato.format(evento.getFecha());
-        fechaCompra = formato.format(evento.getFechacompra());
-        precio = "" + evento.getPrecio();
-        aforo = "" + evento.getAforo();
-        max = "" + evento.getMaxentradasusuario();
-        numFilas = "" + evento.getNumfilas();
-        if (numFilas.equals("null")) {
-            numFilas = "";
-        }
-        asientos = "" + evento.getAsientosfila();
-        if (asientos.equals("null")) {
-            asientos = "";
-        }
-    }
 %>
 <body>
 <%
@@ -84,7 +62,7 @@
 <div class="fondo-pagina">
     <div class="container-perfil">
         <div class="wrap-registro justify-content-center text-center" style="width: 1200px">
-            <form class="register-form" method="POST" action="ServletGuardarEvento?id=<%= id%>&creador=<%= usuario.getId() + ""%>">
+            <form:form method="POST" action="/evento/guardar" modelAttribute="eventoDTO">
 
                 <h1 class="bg-text" style="color: #a64bf4">
                     Datos del evento
@@ -103,10 +81,10 @@
                 </div>
                 <div class="row p-b-20 justify-content-around">
                     <div class="col-3 wrap-input2">
-                        <input class="input2" type="text" name="titulo" value="<%= titulo%>" required>
+                        <form:input path="titulo" class="input2" type="text" required="required"/>
                     </div>
                     <div class="col-8 wrap-input2">
-                        <input class="input2" type="text" name="desc" value="<%= desc%>" required>
+                        <form:input path="descripcion" class="input2" type="text" required="required"/>
                     </div>
                 </div>
                 <div class="row justify-content-around">
@@ -117,34 +95,17 @@
                 </div>
                 <div class="row p-b-20 justify-content-around">
                     <div class="col-2 wrap-input2">
-                        <input class="input2" type="text" name="ciudad"  value="<%= ciudad%>" required>
+                        <form:input path="ciudad" class="input2" type="text" name="ciudad" required="required"/>
                     </div>
                     <div class="col-3 wrap-input2 ">
-                        <input class="input2 text-center" type="number" name="max" min="1" value="<%= max%>" required>
-                    </div>
-                    <%
-                        if (fecha.equals("") || fechaCompra.equals("")) {%>
-
-                    <div class="col-3 wrap-input2">
-                        <input class="input2" type="date" name="fecha" style="text-align: center" min="<%=formato.format(new Date())%>"
-                               value="<%=formato.format(new Date())%>" required>
+                        <form:input path="maxentradasusuario" class="input2 text-center" type="number" name="max" min="1" required="required"/>
                     </div>
                     <div class="col-3 wrap-input2">
-                        <input class="input2"   type="date"  name="fechaCompra" style="text-align: center" min="<%=formato.format(new Date())%>"
-                               value="<%=formato.format(new Date())%>" required>
-                    </div>
-                    <%
-                    } else {%>
-                    <div class="col-3 wrap-input2">
-                        <input class="input2" type="date"  name="fecha" style="text-align: center" min="<%=formato.format(new Date())%>"
-                               value="<%= fecha%>">
+                        <form:input path="fecha" class="input2" type="date" name="fecha" style="text-align: center" min="<%=formato.format(new Date())%>" required="fecha"/>
                     </div>
                     <div class="col-3 wrap-input2">
-                        <input class="input2" type="date"  name="fechaCompra" style="text-align: center" min="<%=formato.format(new Date())%>"
-                               value="<%= fechaCompra%>">
+                        <form:input path="fechacompra" class="input2"   type="date"  name="fechaCompra" style="text-align: center" min="<%=formato.format(new Date())%>" required="required"/>
                     </div>
-                    <% }
-                    %>
                     <!-- -->
 
                 </div>
@@ -156,16 +117,16 @@
                 </div>
                 <div class="row p-b-20 justify-content-around">
                     <div class="col-2 wrap-input2">
-                        <input class="input2 text-center" type="number" min="0" name="precio" step="0.01" value="<%=precio%>" required>
+                        <form:input path="precio" class="input2 text-center" type="number" min="0" name="precio" step="0.01" required="required"/>
                     </div>
                     <div class="col-2 wrap-input2 ">
-                        <input class="input2 text-center" type="number" name="aforo" min="1" value="<%=aforo%>" required>
+                        <form:input path="aforo" class="input2 text-center" type="number" name="aforo" min="1" required="required"/>
                     </div>
                     <div class="col-2 wrap-input2">
-                        <input class="input2 text-center" type="number" name="numFilas"  min="1" value="<%=numFilas%>">
+                        <form:input path="numfilas" class="input2 text-center" type="number" name="numFilas"  min="1"/>
                     </div>
                     <div class="col-4 wrap-input2">
-                        <input class="input2 text-center" type="number" name="asientos" min="1" value="<%=asientos%>">
+                        <form:input path="asientosfila" class="input2 text-center" type="number" name="asientos" min="1"/>
                     </div>
                 </div>
                 <hr/>
@@ -183,7 +144,7 @@
                     </div>
                 </div>
 
-            </form>
+            </form:form>
         </div>
     </div>
 </div>

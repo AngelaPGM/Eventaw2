@@ -83,4 +83,13 @@ public class UsuarioService {
     public void updateUsuario(Usuario usuario) {
         this.usuarioRepository.save(usuario);
     }
+
+    public Usuario findByUsuario(UsuarioDTO creador) {
+        Optional<Usuario> usuarioOtp = this.usuarioRepository.findById(creador.getId());
+        if(usuarioOtp.isPresent()){
+            Usuario usuario = usuarioOtp.get();
+            return usuario;
+        }
+        return null;
+    }
 }

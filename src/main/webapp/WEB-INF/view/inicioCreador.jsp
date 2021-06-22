@@ -118,8 +118,8 @@
             <td><%= e.getTitulo()%></td>
             <td><%= e.getDescripcion()%></td>
             <td><%= e.getCiudad()%></td>
-            <td><%= new SimpleDateFormat("dd/MM/yyyy").format(e.getFecha())%></td>
-            <td><%= new SimpleDateFormat("dd/MM/yyyy").format(e.getFechacompra())%></td>
+            <td><%= e.getFecha()%></td>
+            <td><%= e.getFechacompra()%></td>
             <td>  <%= new DecimalFormat("#0.00").format(e.getPrecio())%>€ </td>
             <td><%= e.getAforo()%></td>
             <td><%= e.getMaxentradasusuario()%></td>

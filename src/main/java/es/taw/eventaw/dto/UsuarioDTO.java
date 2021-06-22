@@ -3,6 +3,9 @@ package es.taw.eventaw.dto;
 import es.taw.eventaw.entity.Rol;
 import es.taw.eventaw.entity.Usuarioevento;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UsuarioDTO {
     private Integer id;
     private String correo;
@@ -10,6 +13,7 @@ public class UsuarioDTO {
     private String contrasenya2;
     private RolDTO rolDTOByRol;
     private UsuarioeventoDTO usuarioeventoDTOById;
+    private List<EventoDTO> eventosDTO;
 
     public UsuarioDTO() {
     }
@@ -60,5 +64,14 @@ public class UsuarioDTO {
 
     public void setUsuarioeventoDTOById(UsuarioeventoDTO usuarioeventoDTOById) {
         this.usuarioeventoDTOById = usuarioeventoDTOById;
+    }
+
+    public List<EventoDTO> getEventosDTO() {
+        if(eventosDTO == null) return new ArrayList<>();
+        return eventosDTO;
+    }
+
+    public void setEventosDTO(List<EventoDTO> eventosDTO) {
+        this.eventosDTO = eventosDTO;
     }
 }

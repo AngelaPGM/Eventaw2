@@ -2,12 +2,15 @@ package es.taw.eventaw.service;
 
 import es.taw.eventaw.dao.EventoRepository;
 import es.taw.eventaw.dto.EventoDTO;
+import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.entity.Entrada;
 import es.taw.eventaw.entity.Evento;
 import es.taw.eventaw.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -96,5 +99,24 @@ public class EventoService {
             this.entradaService.removeAllFromList(entradas);
             this.eventoRepository.delete(evento);
         }
+    }
+
+    public void save(EventoDTO eventoDTO, UsuarioDTO creador) throws ParseException {
+        Evento evento = new Evento();
+        evento.setAforo(eventoDTO.getAforo());
+        evento.setAsientosfila(eventoDTO.getAsientosfila());
+        evento.setCiudad(eventoDTO.getCiudad());
+        evento.setDescripcion(eventoDTO.getDescripcion());
+        evento.setFecha(new SimpleDateFormat("yyyy-MM-dd").parse(eventoDTO.getFecha()));
+        evento.setFechacompra(new SimpleDateFormat("yyyy-MM-dd").parse(eventoDTO.getFechacompra()));
+        evento.setMaxentradasusuario(eventoDTO.getMaxentradasusuario());
+        evento.setNumfilas(eventoDTO.getNumfilas());
+        evento.setPrecio(eventoDTO.getPrecio());
+        evento.setTitulo(eventoDTO.getTitulo());
+        Usuario usuario = this.usuarioService.findByUsuario(creador);
+        usuario.getEventosById().add(evento);
+        evento.setUsuarioByCreador(usuario);
+        this.eventoRepository.save(evento);
+        this.usuarioService.updateUsuario(usuario);
     }
 }

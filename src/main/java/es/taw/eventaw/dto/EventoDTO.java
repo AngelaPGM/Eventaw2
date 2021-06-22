@@ -9,21 +9,20 @@ public class EventoDTO {
     private String titulo;
     private String descripcion;
     private String ciudad;
-    private Date fecha;
-    private Date fechacompra;
+    private String fecha;
+    private String fechacompra;
     private Double precio;
     private Integer aforo;
     private Integer maxentradasusuario;
     private Integer numfilas;
     private Integer asientosfila;
     private List<EntradaDTO> entradasDTO;
+    private UsuarioDTO creadorDTO;
 
     public EventoDTO() {
         this.titulo = "";
         this.descripcion = "";
         this.ciudad = "";
-        this.fecha = new Date();
-        this.fechacompra = new Date();
     }
 
     public Integer getId() {
@@ -58,19 +57,19 @@ public class EventoDTO {
         this.ciudad = ciudad;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
-    public Date getFechacompra() {
+    public String getFechacompra() {
         return fechacompra;
     }
 
-    public void setFechacompra(Date fechacompra) {
+    public void setFechacompra(String fechacompra) {
         this.fechacompra = fechacompra;
     }
 
@@ -121,5 +120,13 @@ public class EventoDTO {
 
     public void setEntradasDTO(List<EntradaDTO> entradasDTO) {
         this.entradasDTO = entradasDTO;
+    }
+
+    public UsuarioDTO getCreadorDTO() {
+        return creadorDTO;
+    }
+
+    public void setCreadorDTO(UsuarioDTO creadorDTO) {
+        this.creadorDTO = creadorDTO;
     }
 }
