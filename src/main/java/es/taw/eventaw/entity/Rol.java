@@ -61,7 +61,7 @@ public class Rol {
         RolDTO dto = new RolDTO();
         dto.setId(this.id);
         dto.setTipo(this.tipo);
-        dto.setUsuariosById(this.getDTO().getUsuariosById());
+        //dto.setUsuariosById();
         return dto;
     }
 }

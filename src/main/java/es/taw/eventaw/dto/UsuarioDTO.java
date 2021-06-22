@@ -1,6 +1,13 @@
 package es.taw.eventaw.dto;
 
+import es.taw.eventaw.entity.Conversacion;
+import es.taw.eventaw.entity.Entrada;
+import es.taw.eventaw.entity.Evento;
+import es.taw.eventaw.entity.Mensaje;
+
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class UsuarioDTO {
     private Integer id;
@@ -41,39 +48,67 @@ public class UsuarioDTO {
         this.contrasenya = contrasenya;
     }
 
-    public String getContrasenya2() { return contrasenya2; }
+    public String getContrasenya2() {
+        return contrasenya2;
+    }
 
-    public void setContrasenya2(String contrasenya2) { this.contrasenya2 = contrasenya2; }
+    public void setContrasenya2(String contrasenya2) {
+        this.contrasenya2 = contrasenya2;
+    }
 
     public Collection<ConversacionDTO> getConversacionsDTOById() {
         return conversacionsDTOById;
     }
 
-    public void setConversacionsDTOById(Collection<ConversacionDTO> conversacionsDTOById) {
-        this.conversacionsDTOById = conversacionsDTOById;
+    public void setConversacionsDTOById(Collection<Conversacion> conversacionsById) {
+        List<ConversacionDTO> listaDto = new ArrayList<>();
+        if (conversacionsById != null) {
+            for (Conversacion c : conversacionsById) {
+                listaDto.add(c.getDTO());
+            }
+        }
+        this.conversacionsDTOById = listaDto;
     }
 
     public Collection<ConversacionDTO> getConversacionsDTOById_0() {
         return conversacionsDTOById_0;
     }
 
-    public void setConversacionsDTOById_0(Collection<ConversacionDTO> conversacionsDTOById_0) {
-        this.conversacionsDTOById_0 = conversacionsDTOById_0;
+    public void setConversacionsDTOById_0(Collection<Conversacion> conversacionsById_0) {
+        List<ConversacionDTO> listaDto = new ArrayList<>();
+        if (conversacionsById_0 != null) {
+            for (Conversacion c : conversacionsById_0) {
+                listaDto.add(c.getDTO());
+            }
+        }
+        this.conversacionsDTOById_0 = listaDto;
     }
 
     public Collection<EventoDTO> getEventosDTOById() {
         return eventosDTOById;
     }
 
-    public void setEventosDTOById(Collection<EventoDTO> eventosDTOById) {
-        this.eventosDTOById = eventosDTOById;
+    public void setEventosDTOById(Collection<Evento> eventosById) {
+        List<EventoDTO> listaDto = new ArrayList<>();
+        if (eventosById != null) {
+            for (Evento e : eventosById) {
+                listaDto.add(e.getDTO());
+            }
+        }
+        this.eventosDTOById = listaDto;
     }
 
     public Collection<MensajeDTO> getMensajesDTOById() {
         return mensajesDTOById;
     }
 
-    public void setMensajesDTOById(Collection<MensajeDTO> mensajesDTOById) {
+    public void setMensajesDTOById(Collection<Mensaje> mensajesById) {
+        List<MensajeDTO> listaDto = new ArrayList<>();
+        if (mensajesById != null) {
+            for (Mensaje m : mensajesById) {
+                listaDto.add(m.getDTO());
+            }
+        }
         this.mensajesDTOById = mensajesDTOById;
     }
 

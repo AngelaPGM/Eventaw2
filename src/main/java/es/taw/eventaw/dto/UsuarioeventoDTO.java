@@ -1,7 +1,12 @@
 package es.taw.eventaw.dto;
 
+import es.taw.eventaw.entity.Entrada;
+import es.taw.eventaw.entity.Mensaje;
+
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class UsuarioeventoDTO {
     private Integer id;
@@ -86,7 +91,13 @@ public class UsuarioeventoDTO {
         return entradasDTOById;
     }
 
-    public void setEntradasDTOById(Collection<EntradaDTO> entradasDTOById) {
+    public void setEntradasDTOById(Collection<Entrada> entradas) {
+        List<EntradaDTO> listaDto = new ArrayList<>();
+        if (entradas != null) {
+            for (Entrada e : entradas) {
+                listaDto.add(e.getDTO());
+            }
+        }
         this.entradasDTOById = entradasDTOById;
     }
 

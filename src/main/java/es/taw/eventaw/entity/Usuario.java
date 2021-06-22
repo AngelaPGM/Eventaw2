@@ -123,13 +123,13 @@ public class Usuario {
         dto.setId(this.id);
         dto.setCorreo(this.correo);
         dto.setContrasenya(this.contrasenya);
-        dto.setConversacionsDTOById(this.getDTO().getConversacionsDTOById());
-        dto.setConversacionsDTOById_0(this.getDTO().getConversacionsDTOById_0());
-        dto.setEventosDTOById(this.getDTO().getEventosDTOById());
-        dto.setMensajesDTOById(this.getDTO().getMensajesDTOById());
-        dto.setRolDTOByRol(this.getDTO().getRolDTOByRol());
-        dto.setUsuarioeventoDTO(this.getDTO().getUsuarioeventoDTO());
-        //dto.getUsuarioeventoDTO().setUsuarioDTO(dto); por si aca
+        dto.setConversacionsDTOById(this.conversacionsById);
+        dto.setConversacionsDTOById_0(this.conversacionsById_0);
+        dto.setEventosDTOById(this.eventosById);
+        dto.setMensajesDTOById(this.mensajesById);
+        dto.setRolDTOByRol(this.rolByRol.getDTO());
+        dto.setUsuarioeventoDTO(this.usuarioeventosById.getDTO());
+        dto.getUsuarioeventoDTO().setUsuarioDTO(dto);
         return dto;
     }
 }
