@@ -107,8 +107,8 @@ public class EventoService {
         evento.setAsientosfila(eventoDTO.getAsientosfila());
         evento.setCiudad(eventoDTO.getCiudad());
         evento.setDescripcion(eventoDTO.getDescripcion());
-        evento.setFecha(new SimpleDateFormat("yyyy-MM-dd").parse(eventoDTO.getFecha()));
-        evento.setFechacompra(new SimpleDateFormat("yyyy-MM-dd").parse(eventoDTO.getFechacompra()));
+        evento.setFecha(eventoDTO.getFecha());
+        evento.setFechacompra(eventoDTO.getFechacompra());
         evento.setMaxentradasusuario(eventoDTO.getMaxentradasusuario());
         evento.setNumfilas(eventoDTO.getNumfilas());
         evento.setPrecio(eventoDTO.getPrecio());

@@ -1,6 +1,6 @@
 package es.taw.eventaw.dto;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +9,8 @@ public class EventoDTO {
     private String titulo;
     private String descripcion;
     private String ciudad;
-    private String fecha;
-    private String fechacompra;
+    private Date fecha;
+    private Date fechacompra;
     private Double precio;
     private Integer aforo;
     private Integer maxentradasusuario;
@@ -57,19 +57,19 @@ public class EventoDTO {
         this.ciudad = ciudad;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-    public String getFechacompra() {
+    public Date getFechacompra() {
         return fechacompra;
     }
 
-    public void setFechacompra(String fechacompra) {
+    public void setFechacompra(Date fechacompra) {
         this.fechacompra = fechacompra;
     }
 

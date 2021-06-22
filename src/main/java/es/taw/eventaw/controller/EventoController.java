@@ -25,9 +25,7 @@ public class EventoController {
 
     @PostMapping("/filtrar")
     public String doFiltrarEventos(@ModelAttribute("eventoDTO") EventoDTO inputData, Model model) throws ParseException {
-        List<EventoDTO> filtrados = this.eventoService.filtradoNombre(inputData.getTitulo(),
-                new SimpleDateFormat().parse(inputData.getFecha()),
-                new SimpleDateFormat().parse(inputData.getFechacompra()));
+        List<EventoDTO> filtrados = this.eventoService.filtradoNombre(inputData.getTitulo(), inputData.getFecha(), inputData.getFechacompra());
         model.addAttribute("eventosFuturos",filtrados);
         return "inicioUEvento";
     }
@@ -41,7 +39,8 @@ public class EventoController {
 
     @GetMapping("/editar/{id}")
     public String cargarEditar(@PathVariable Integer id, Model model){
-        model.addAttribute("eventoDTO", this.eventoService.findEventobyId(id));
+        EventoDTO eventoDTO = this.eventoService.findEventobyId(id);
+        model.addAttribute("eventoDTO", eventoDTO);
         model.addAttribute("error", "");
         return "formularioEvento";
     }
