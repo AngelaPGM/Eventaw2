@@ -126,35 +126,6 @@ public class UsuarioController {
         return "perfilUsers";
     }
 
-    @PostMapping("/guardar")
-    public String doGuardar(@ModelAttribute("userDTO") UsuarioDTO userDTO, Model model, HttpSession session) {
-        String strTo = "perfilUsers";
-        UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
-        if (userDTO.getContrasenya2().isEmpty() || userDTO.getContrasenya().equals(userDTO.getContrasenya2())) {
-            this.usuarioService.guardarUsuario(userDTO);
-            if (userDTO.getId() == null) { //creando
-                strTo = "redirect:/inicioAdmin";
-                userDTO.setContrasenya2("");
-            } else {
-                    strTo = "redirect:/inicioAdmin";
-
-                model.addAttribute("guardado", true);
-
-            }
-            session.setAttribute("userDTO", userDTO);
-
-        } else {
-            model.addAttribute("errorLog", "Las contraseñas no coinciden");
-
-            if (userDTO.getId() == null) { //creando
-                strTo = "registroUsuario";
-            }
-        }
-        return strTo;
-    }
-
-
-
     @GetMapping("/perfil")
     public String doPerfil(Model model, HttpSession session) {
         model.addAttribute("userDTO", (UsuarioDTO) session.getAttribute("userDTO"));
