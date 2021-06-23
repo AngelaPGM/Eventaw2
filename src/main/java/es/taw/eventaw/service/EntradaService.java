@@ -37,7 +37,9 @@ public class EntradaService {
         }else{
             List<EntradaDTO> listaDto = new ArrayList<>();
             for(Entrada e: lista){
-                listaDto.add(e.getDTO());
+                EntradaDTO entradaDTO = e.getDTO();
+                entradaDTO.setUsuarioeventoDTO(e.getUsuarioeventoByUsuario().getDTO());
+                listaDto.add(entradaDTO);
             }
             return listaDto;
         }

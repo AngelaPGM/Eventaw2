@@ -90,6 +90,7 @@ public class UsuarioController {
     public String doInicioCreador(Model model, HttpSession session) throws ParseException {
         model.addAttribute("misEventos", this.usuarioService.getEventos((UsuarioDTO) session.getAttribute("userDTO")));
         model.addAttribute("todosEventos", this.eventoService.findAll());
+        model.addAttribute("eventoDTO", new EventoDTO());
         return "inicioCreador";
     }
     @GetMapping("/inicioAdmin")
