@@ -70,8 +70,8 @@ public class Conversacion {
     public ConversacionDTO getDTO() {
         ConversacionDTO dto = new ConversacionDTO();
         dto.setId(this.id);
-        dto.setUsuarioDTOByTeleoperador(this.getDTO().getUsuarioDTOByTeleoperador());
-        dto.setUsuarioDTOByUsuario(this.getDTO().getUsuarioDTOByUsuario());
+        dto.setUsuarioDTOByTeleoperador(this.usuarioByTeleoperador);
+        dto.setUsuarioDTOByUsuario(this.usuarioByUsuario);
         dto.setMensajesDTOById(this.getDTO().getMensajesDTOById());
         return dto;
     }
