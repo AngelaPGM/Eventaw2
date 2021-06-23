@@ -81,10 +81,10 @@
             for(EntradaDTO e: listaEntradas){
         %>
         <tr>
-            <td><%= e.getFechaEvento() %></td>
-            <td><%= e.getPrecioEvento() %></td>
-            <td><%= e.getFechaUsuario() %></td>
-            <td><%= e.getSexo() %></td>
+            <td><%= e.getEventoDTO().getFecha()%></td>
+            <td><%= e.getEventoDTO().getPrecio()%></td>
+            <!--<td><%//e.getFechaUsuario() %></td>
+            <td><% //e.getSexo() %></td> -->
         </tr>
         <%
             }

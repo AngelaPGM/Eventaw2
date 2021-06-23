@@ -28,43 +28,26 @@ public class UsuarioeventoService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public void nuevoUsuarioevento(Usuario user, UsuarioeventoDTO inputDataDTO) {
-        Usuarioevento usuarioevento = new Usuarioevento();
-        usuarioevento.setSexo(inputDataDTO.getSexo());
-        usuarioevento.setNombre(inputDataDTO.getNombre());
-        usuarioevento.setFechanacimiento(inputDataDTO.getFechanacimiento());
-        usuarioevento.setCiudad(inputDataDTO.getCiudad());
-        usuarioevento.setDomicilio(inputDataDTO.getDomicilio());
-        usuarioevento.setApellido1(inputDataDTO.getApellido1());
-        usuarioevento.setApellido2(inputDataDTO.getApellido2());
-        usuarioevento.setUsuarioByIdusuario(user);
-
-
-        this.usuarioeventoRepository.save(usuarioevento);
-        this.usuarioRepository.save(user);
-    }
-
-    public void guardarUsuarioevento(UsuarioDTO dto) {
+    public void guardarUsuarioevento(Usuario usuario, UsuarioeventoDTO ueventoDTO) {
         Usuarioevento uevento;
 
-        if (dto.getUsuarioeventoDTOById().getId() == null) {
+        if (ueventoDTO.getId() == null) {
             uevento = new Usuarioevento();
         } else {
-            uevento = this.usuarioeventoRepository.findById(dto.getUsuarioeventoDTOById().getId()).orElse(new Usuarioevento());
+            uevento = this.usuarioeventoRepository.findById(ueventoDTO.getId()).orElse(new Usuarioevento());
         }
 
-        uevento.setId(dto.getUsuarioeventoDTOById().getId());
-        uevento.setNombre(dto.getUsuarioeventoDTOById().getNombre());
-        uevento.setApellido1(dto.getUsuarioeventoDTOById().getApellido1());
-        uevento.setApellido2(dto.getUsuarioeventoDTOById().getApellido2());
-        uevento.setDomicilio(dto.getUsuarioeventoDTOById().getDomicilio());
-        uevento.setCiudad(dto.getUsuarioeventoDTOById().getCiudad());
-        uevento.setFechanacimiento(dto.getUsuarioeventoDTOById().getFechanacimiento());
-        uevento.setSexo(dto.getUsuarioeventoDTOById().getSexo());
-
-       //Usuario u = this.usuarioRepository.findUsuarioById(dto.getUsuarioDTO().getId());
-     // uevento.setUsuarioByIdusuario(u);
+        uevento.setId(ueventoDTO.getId());
+        uevento.setNombre(ueventoDTO.getNombre());
+        uevento.setApellido1(ueventoDTO.getApellido1());
+        uevento.setApellido2(ueventoDTO.getApellido2());
+        uevento.setDomicilio(ueventoDTO.getDomicilio());
+        uevento.setCiudad(ueventoDTO.getCiudad());
+        uevento.setFechanacimiento(ueventoDTO.getFechanacimiento());
+        uevento.setSexo(ueventoDTO.getSexo());
+        uevento.setUsuarioByIdusuario(usuario);
 
         this.usuarioeventoRepository.save(uevento);
+        this.usuarioRepository.save(usuario);
     }
 }

@@ -2,12 +2,19 @@ package es.taw.eventaw.service;
 
 import es.taw.eventaw.dao.RolRepository;
 import es.taw.eventaw.dao.UsuarioRepository;
+import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.dto.UsuarioeventoDTO;
+import es.taw.eventaw.entity.Evento;
 import es.taw.eventaw.entity.Rol;
 import es.taw.eventaw.entity.Usuario;
+import es.taw.eventaw.entity.Usuarioevento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -37,34 +44,17 @@ public class UsuarioService {
         return userDTO;
     }
 
-    public UsuarioDTO nuevoUsuario(UsuarioeventoDTO inputDataDTO) {
-        Usuario user = new Usuario();
-        Rol rol = this.rolRepository.getById(2);//Si borro esto me da una violacion de campo NotNull
-        user.setRolByRol(rol);
-        user.setCorreo(inputDataDTO.getUsuarioDTO().getCorreo());
-        user.setContrasenya(inputDataDTO.getUsuarioDTO().getContrasenya());
-        this.usuarioRepository.save(user);
-        this.usuarioeventoService.nuevoUsuarioevento(user, inputDataDTO);
-
-        return user.getDTO();
-    }
-
     public void guardarUsuario(UsuarioDTO dto) {
         Usuario usuario;
         Rol r;
 
         if (dto.getId() == null) {
             usuario = new Usuario();
-            r = this.rolRepository.findById(2).orElse(null);
-            dto.setId(0);
-            dto.setRolDTOByRol(r.getDTO());
-            dto.getUsuarioeventoDTOById().setId(0);
-            dto.getUsuarioeventoDTOById().setUsuarioDTO(dto);
+            r = this.rolRepository.findById(2).orElse(new Rol());
 
         } else {
             usuario = this.usuarioRepository.findById(dto.getId()).orElse(new Usuario());
-             r = this.rolRepository.findById(dto.getRolDTOByRol().getId()).orElse(null);
-
+             r = this.rolRepository.findById(dto.getRolDTOByRol().getId()).orElse(new Rol());
         }
 
         usuario.setId(dto.getId());
@@ -72,10 +62,8 @@ public class UsuarioService {
         usuario.setContrasenya(dto.getContrasenya());
         usuario.setRolByRol(r);
 
-
-        this.usuarioeventoService.guardarUsuarioevento(dto);
         this.usuarioRepository.save(usuario);
-
+        this.usuarioeventoService.guardarUsuarioevento(usuario, dto.getUsuarioeventoDTOById());
     }
 
     public List<EventoDTO> getEventos(UsuarioDTO userDTO) {
