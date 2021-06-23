@@ -190,6 +190,4 @@ public class UsuarioService {
         return usuario.getRolByRol().getId();
     }
 
-
-
 }

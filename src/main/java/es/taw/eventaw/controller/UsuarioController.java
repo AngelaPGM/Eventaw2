@@ -126,6 +126,7 @@ public class UsuarioController {
         return "perfilUsers";
     }
 
+
     @GetMapping("/perfil")
     public String doPerfil(Model model, HttpSession session) {
         model.addAttribute("userDTO", (UsuarioDTO) session.getAttribute("userDTO"));
