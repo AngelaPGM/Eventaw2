@@ -55,7 +55,7 @@
 <div class="fondo-pagina">
     <div class="container-perfil">
         <div class="wrap-registro justify-content-center text-center" >
-            <form:form class="register-form" method="POST" action="/evento/aceptarPago" modelAttribute="eventoDTO">
+            <form:form class="register-form" method="POST" action="/evento/aceptarPago/" modelAttribute="eventoDTO">
                 <form:hidden path="id"/>
                 <form:hidden path="numfilas"/>
                         <span class="bg-text" style="color: #7cc5e5">

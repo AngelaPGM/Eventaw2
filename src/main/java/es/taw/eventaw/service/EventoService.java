@@ -1,6 +1,7 @@
 package es.taw.eventaw.service;
 
 import es.taw.eventaw.dao.EventoRepository;
+import es.taw.eventaw.dto.EntradaDTO;
 import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.entity.Entrada;
@@ -11,10 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class EventoService {
@@ -142,35 +140,83 @@ public class EventoService {
         return lista;
     }
 
-    public void tramitarEntradas(UsuarioDTO usuarioDTO, EventoDTO eventoDTO, Integer numEntradas) {
+    public String tramitarEntradas(UsuarioDTO usuarioDTO, EventoDTO eventoDTO, Integer numEntradas) {
         Usuario usuario = this.usuarioService.findByUsuario(usuarioDTO);
+        String asientosString = eventoDTO.getDescripcion();
         Evento evento = this.eventoRepository.findById(eventoDTO.getId()).orElse(new Evento());
+        String error = "";
 
         List<String> asientos = new ArrayList();
+        String[] asientosSeparados = asientosString.split(",");
 
-        for (int i = 0; i < numEntradas; i++) {
-            Entrada entrada = new Entrada();
-
-            entrada.setUsuarioeventoByUsuario(usuario.getUsuarioeventosById());
-            entrada.setEventoByEvento(evento);
-
-            if (evento.getAsientosfila() != null && evento.getNumfilas() != null) {
-                String asientoSeleccionado = asientos.get(i);
-                String[] partes = asientoSeleccionado.split(" ");
-                String fila = partes[1];
-                String asiento = partes[3];
-
-                entrada.setNumfila(new Integer(fila));
-                entrada.setAsientofila(new Integer(asiento));
-            }
-
-            this.entradaService.save(entrada);
-
-            usuario.getUsuarioeventosById().getEntradasById().add(entrada);
-            evento.getEntradasById().add(entrada);
+        for(int i = 0; i < asientosSeparados.length; i++){
+            asientos.add(asientosSeparados[i]);
         }
 
-        this.eventoRepository.save(evento);
-        this.usuarioService.updateUsuario(usuario);
+        for (int i = 0; i < asientos.size(); i++) {
+            String aux = asientos.get(i);
+            for (int j = i + 1; j < asientos.size(); j++) {
+                if (aux.equals(asientos.get(j))) {
+                    error = "No puede seleccionar el mismo asiento varias veces";
+                }
+            }
+        }
+
+        if (error.equals("")) {
+            for (int i = 0; i < numEntradas; i++) {
+                Entrada entrada = new Entrada();
+
+                entrada.setUsuarioeventoByUsuario(usuario.getUsuarioeventosById());
+                entrada.setEventoByEvento(evento);
+
+                if (evento.getAsientosfila() != null && evento.getNumfilas() != null) {
+                    String asientoSeleccionado = asientos.get(i);
+                    String[] partes = asientoSeleccionado.split(" ");
+                    String fila = partes[1];
+                    String asiento = partes[3];
+
+                    entrada.setNumfila(new Integer(fila));
+                    entrada.setAsientofila(new Integer(asiento));
+                }
+
+                this.entradaService.save(entrada);
+
+                usuario.getUsuarioeventosById().getEntradasById().add(entrada);
+                evento.getEntradasById().add(entrada);
+            }
+
+            this.eventoRepository.save(evento);
+            this.usuarioService.updateUsuario(usuario);
+        }
+
+        return error;
+    }
+
+    public List<String> getAsientos(Integer eventoId) throws ParseException {
+        Evento evento = this.eventoRepository.getById(eventoId);
+        EventoDTO eventoDTO = evento.getDTO();
+        List<Entrada> entradasReservadas = (List<Entrada>) evento.getEntradasById();
+        List<String> asientosLista = new ArrayList<>();
+        Map<Integer, List<Integer>> asientos = new TreeMap();
+
+        for (int i = 1; i <= eventoDTO.getNumfilas(); i++) {
+            List<Integer> aux = new ArrayList();
+            for (int j = 1; j <= eventoDTO.getAsientosfila(); j++) {
+                aux.add(j);
+            }
+            asientos.put(i, aux);
+        }
+
+        for (EntradaDTO e : this.entradaService.listaToDto(entradasReservadas)) {
+            asientos.get(e.getNumfila()).remove(e.getAsientofila());
+        }
+
+        for (Integer j : asientos.keySet()) {
+            for (Integer k : asientos.get(j)) {
+                asientosLista.add("Fila: " + j + " Asiento: " + k);
+            }
+        }
+
+        return asientosLista;
     }
 }

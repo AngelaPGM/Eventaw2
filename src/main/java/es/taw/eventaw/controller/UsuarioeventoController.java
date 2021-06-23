@@ -80,6 +80,7 @@ public class UsuarioeventoController {
         List<EntradaDTO> entradasPasadas = this.entradaService.getEntradasPasadas((UsuarioDTO) session.getAttribute("userDTO"));
         model.addAttribute("entradasFuturas", entradasFuturas);
         model.addAttribute("entradasPasadas", entradasPasadas);
+        model.addAttribute("eventoDTO", new EventoDTO());
         return "entrada";
     }
 
