@@ -89,6 +89,7 @@ public class Entrada {
         List<EntradaDTO> aux = dto.getEventoDTO().getEntradasDTO();
         aux.add(dto);
         dto.getEventoDTO().setEntradasDTO(aux);
+        //dto.setUsuarioeventoDTO(this.usuarioeventoByUsuario.getDTO());
         return dto;
     }
 }
