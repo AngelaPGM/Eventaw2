@@ -1,11 +1,13 @@
 package es.taw.eventaw.entity;
 
+import es.taw.eventaw.dto.EntradaDTO;
 import es.taw.eventaw.dto.EventoDTO;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.text.ParseException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity

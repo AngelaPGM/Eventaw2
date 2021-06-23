@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="es.taw.eventaw.dto.UsuarioDTO" %>
 <%@ page import="java.text.DecimalFormat" %>
@@ -27,7 +28,6 @@
 </head>
 <%
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-    UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("userDTO");
 %>
 <body>
 <!-- Barra navegacion -->
@@ -48,16 +48,16 @@
         <div class="bg-text">
             <h1 style="font-size: 4rem"> Mis entradas</h1>
         </div>
-        <form action="ServletListadoEntradas">
+        <form:form action="/entrada/filtrar" modelAttribute="eventoDTO">
             <div class="row justify-content-center m-t-30">
                 <div class="col-4 wrap-input2 ">
-                    <input class="input2" type="text" name="buscador" placeholder="Buscar entradas por nombre y/o fecha"/>
+                    <form:input path="titulo" class="input2" type="text" name="buscador" placeholder="Buscar entradas por nombre y/o fecha"/>
                 </div>
                 <div class="col-2 wrap-input2 wrap-separacion10" >
-                    <input class="input2"   type="date" id="start" name="fechaInicio" min="<%=formato.format(new Date())%>" max="2040-12-31">
+                    <form:input path="fecha" class="input2"   type="date" id="start" name="fechaInicio" min="<%=formato.format(new Date())%>" max="2040-12-31"/>
                 </div>
                 <div class="col-2 wrap-input2 wrap-separacion10" >
-                    <input class="input2"   type="date" id="start2" name="fechaFinal" min="<%=formato.format(new Date())%>" max="2040-12-31">
+                    <form:input path="fechacompra" class="input2"   type="date" id="start2" name="fechaFinal" min="<%=formato.format(new Date())%>" max="2040-12-31"/>
                 </div>
                 <div class="col-2">
                     <div class="wrap-login100-form-btn">
@@ -68,7 +68,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </form:form>
     </div>
 </header>
 
