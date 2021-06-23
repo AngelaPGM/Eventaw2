@@ -45,13 +45,13 @@ public class UsuarioService {
         return userDTO;
     }
 
-    public void guardarUsuario(UsuarioDTO dto) {
+    public void guardarUsuario(UsuarioDTO dto, Integer rol) {
         Usuario usuario;
         Rol r;
 
         if (dto.getId() == null) {
             usuario = new Usuario();
-            r = this.rolRepository.findById(2).orElse(new Rol());
+            r = this.rolRepository.findById(rol).orElse(new Rol());
 
         } else {
             usuario = this.usuarioRepository.findById(dto.getId()).orElse(new Usuario());
@@ -64,7 +64,9 @@ public class UsuarioService {
         usuario.setRolByRol(r);
 
         this.usuarioRepository.save(usuario);
-        this.usuarioeventoService.guardarUsuarioevento(usuario, dto.getUsuarioeventoDTOById());
+        if(usuario.getRolByRol().getId() == 2) {
+            this.usuarioeventoService.guardarUsuarioevento(usuario, dto.getUsuarioeventoDTOById());
+        }
     }
 
     public List<EventoDTO> getEventos(UsuarioDTO userDTO) throws ParseException {
@@ -101,5 +103,10 @@ public class UsuarioService {
             return usuario;
         }
         return null;
+    }
+
+    public Integer getIdRolUsuario(UsuarioDTO dto) {
+        Usuario usuario = this.usuarioRepository.findUsuarioById(dto.getId());
+        return usuario.getRolByRol().getId();
     }
 }
