@@ -44,13 +44,13 @@ public class UsuarioService {
         return userDTO;
     }
 
-    public void guardarUsuario(UsuarioDTO dto) {
+    public void guardarUsuario(UsuarioDTO dto, Integer rol) {
         Usuario usuario;
         Rol r;
 
         if (dto.getId() == null) {
             usuario = new Usuario();
-            r = this.rolRepository.findById(2).orElse(new Rol());
+            r = this.rolRepository.findById(rol).orElse(new Rol());
 
         } else {
             usuario = this.usuarioRepository.findById(dto.getId()).orElse(new Usuario());
@@ -63,7 +63,9 @@ public class UsuarioService {
         usuario.setRolByRol(r);
 
         this.usuarioRepository.save(usuario);
-        this.usuarioeventoService.guardarUsuarioevento(usuario, dto.getUsuarioeventoDTOById());
+        if(usuario.getRolByRol().getId() == 2) {
+            this.usuarioeventoService.guardarUsuarioevento(usuario, dto.getUsuarioeventoDTOById());
+        }
     }
 
     public void guardarUsuarioAdmin(UsuarioDTO dto){
@@ -181,5 +183,28 @@ public class UsuarioService {
 
         return this.listaRolToDto(listaRol);
 
+    }
+
+    public Integer getIdRolUsuario(UsuarioDTO dto) {
+        Usuario usuario = this.usuarioRepository.findUsuarioById(dto.getId());
+        return usuario.getRolByRol().getId();
+    }
+
+    public List<UsuarioDTO> findAll() throws ParseException {
+        List<Usuario> listaUsuario = this.usuarioRepository.findAll();
+
+        return this.listaUsuariosToDto(listaUsuario);
+    }
+
+    private List<UsuarioDTO> listaUsuariosToDto(List<Usuario> lista) throws ParseException {
+        if(lista == null){
+            return new ArrayList<>();
+        }else{
+            List<UsuarioDTO> listaDto = new ArrayList<>();
+            for(Usuario u: lista){
+                listaDto.add(u.getDTO());
+            }
+            return listaDto;
+        }
     }
 }

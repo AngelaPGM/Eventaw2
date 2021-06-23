@@ -154,4 +154,38 @@ public class UsuarioController {
     }
 
 
+
+    @GetMapping("/perfil")
+    public String doPerfil(Model model, HttpSession session) {
+        model.addAttribute("userDTO", (UsuarioDTO) session.getAttribute("userDTO"));
+        return "perfilUsuario";
+    }
+
+    @PostMapping("/guardar")
+    public String doGuardar(@ModelAttribute("userDTO") UsuarioDTO userDTO, Model model, HttpSession session) {
+        UsuarioDTO userSesionDTO = (UsuarioDTO) session.getAttribute("userDTO");
+        Integer idRol = this.usuarioService.getIdRolUsuario(userSesionDTO);
+        String strTo = "perfilUsuario";
+        if (userDTO.getContrasenya2().isEmpty() || userDTO.getContrasenya().equals(userDTO.getContrasenya2())) {
+        this.usuarioService.guardarUsuario(userDTO, idRol);
+            if (userDTO.getId() == null) { //creando
+                strTo = "redirect que sea";
+                userDTO.setContrasenya2("");
+            } else { //editando
+                model.addAttribute("guardado", true);
+
+            }
+            session.setAttribute("userDTO", userDTO);
+
+        } else {
+            model.addAttribute("errorLog", "Las contraseñas no coinciden");
+
+            if (userSesionDTO == null) { //creando o editando desde Admin
+                strTo = "meter aqui el redirect que sea";
+            }
+        }
+        return strTo;
+    }
+
+
 }
