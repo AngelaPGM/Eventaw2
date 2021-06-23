@@ -48,19 +48,50 @@
         </div>
     </div>
 </header>
+<!-- USUARIOS  -->
+<section id="usuarios">
+    <div class="container m-t-30">
+        <div class="row">
+            <div class="col-sm-10 col-md-7">
+                <h1 class="bg-text" style=" color:#b997f6;"> Usuarios: </h1>
+            </div>
+        </div>
+        <form:form modelAttribute="usuarioFiltroDTO" action="/filtrar">
+            <div class="row m-t-10">
+                <div class="col-2">
+                    <div class="wrap-login100-form-btn">
+                        <div class="botones-pag"></div>
+                        <a class="login100-form-btn" style="text-decoration: none" href="/crear" >
+                            Nuevo usuario
+                        </a>
+                    </div>
+                </div>
+                <div class="col-5 wrap-input2 offset-2">
+                 <form:input path="correo" class="input2" type="text" placeholder="Introduzca el filtro..."></form:input>
+                </div>
+                <div class="col-1">
+                    <form:select path="contrasenya2" class="custom-select">
+                        <form:option value="ID"></form:option>
+                        <form:option value="CORREO"></form:option>
+                        <form:option value="ROL"></form:option>
+                    </form:select>
+                </div>
+                <div class="col-2">
+                    <div class="wrap-login100-form-btn">
+                        <div class="botones-pag"></div>
+                        <button class="login100-form-btn" value="Buscar" >
+                            FILTRAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form:form>
+    </div>
+</section>
 
-    <h1>Usuarios Disponibles</h1>
-    <form:form modelAttribute="usuarioFiltroDTO" action="/filtrar">
-        <form:input path="correo"></form:input>
-        <form:select path="contrasenya2">
-            <form:option value="ID"></form:option>
-            <form:option value="CORREO"></form:option>
-            <form:option value="ROL"></form:option>
-        </form:select>
-        <button value="Buscar">Buscar</button>
-    </form:form>
-
-<table border="1">
+<!-- TABLA USUARIOS -->
+<div class="container m-t-20">
+<table class="center table table-striped align-middle" id="tabla-custom2">
     <thead>
     <tr>
         <td>ID</td>
@@ -91,17 +122,17 @@
         <%
                 if(u.getRolDTOByRol().getId() == 2){
         %>
-                    <td><a href="/usuarioEvento/editar/<%= u.getId()%>">Editar</a></td>
-                    <td><a href="/usuarioEvento/borrar/<%= u.getId()%>">Borrar</a></td>
+                    <td><a class="btn  btn-primaryazul" href="/usuarioEvento/editar/<%= u.getId()%>">Editar</a></td>
+                    <td><a class="btn  btn-primaryazul" href="/usuarioEvento/borrar/<%= u.getId()%>">Borrar</a></td>
         <%
                 }else{
 
         %>
-                    <td><a href="/editar/<%= u.getId()%>">Editar</a></td>
+                    <td><a class="btn  btn-primaryazul" href="/editar/<%= u.getId()%>">Editar</a></td>
         <%
                     if(u.getId() != us.getId()){
         %>
-                        <td><a href="/borrar/<%= u.getId()%>">Borrar</a></td>
+                        <td><a class="btn  btn-primaryazul" href="/borrar/<%= u.getId()%>">Borrar</a></td>
         <%
                     }
         %>
@@ -112,19 +143,50 @@
         }
     %>
     </tbody>
-    <h1>Eventos Disponibles</h1>
-
-
-            <form:form modelAttribute="eventoDTO" action="/evento/filtrar">
-
-                <form:input path="titulo" class="input2" type="text" name="buscadorNombre" placeholder="Buscar eventos por nombre y/o fecha"/>
-                <form:input path="fecha" class="input2" type="date" name="fechaInicio" min="<%=formato.format(new Date())%>"/>
-                <form:input path="fechacompra" class="input2" type="date" name="fechaFin" min="<%=formato.format(new Date())%>"/>
- º              <button value="filtroEvento">Buscar</button>
-
-            </form:form>
 </table>
-<a href="/evento/crear"><input type="button" value="Crear Evento" /> </a>
+</div>
+<!-- filtrado -->
+<section id="ancla">
+    <div class="container p-t-30">
+        <div class="row">
+            <div class="col-sm-10 col-md-7" style="padding: 1rem ">
+                <h1 class="bg-text" style="color:#b997f6;"> Eventos disponibles: </h1>
+            </div>
+        </div>
+        <form:form modelAttribute="eventoDTO" action="/evento/filtrar">
+            <div class="row justify-content-center">
+                <div class="col-2">
+                    <div class="wrap-login100-form-btn">
+                        <div class="botones-pag"></div>
+                        <a class="login100-form-btn" style="text-decoration: none" href="/evento/crear" >
+                            Nuevo evento
+                        </a>
+                    </div>
+                </div>
+                <div class="col-5 wrap-input2 ">
+                    <form:input path="titulo" class="input2" type="text" name="buscadorNombre" placeholder="Buscar eventos por nombre y/o fecha"/>
+                </div>
+                <div class="col-2 wrap-input2 wrap-separacion10">
+                    <form:input path="fecha" class="input2" type="date" name="fechaInicio" min="<%=formato.format(new Date())%>"/>
+                </div>
+                <div class="col-2 wrap-input2 wrap-separacion10">
+                    <form:input path="fechacompra" class="input2" type="date" name="fechaFin" min="<%=formato.format(new Date())%>"/>
+                </div>
+                <div class="col-2">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn" value="Buscar">
+                                Filtrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form:form>
+    </div>
+</section>
+
+
+
 <!--Eventos Disponibles:-->
 <div class="container m-t-30">
     <div class="row justify-content-center m-t-10">
@@ -161,8 +223,8 @@
                     <td><%= ev.getPrecio()%></td>
                     <td><%= ev.getAforo()%></td>
                     <td></td>
-                    <td><a class="btn  btn-primaryazul" href="evento/editar/<%= ev.getId()%>">EDITAR</a></td>
-                    <td><a class="btn  btn-primaryazul" href=evento/borrar/<%= ev.getId()%>">BORRAR</a></td>
+                    <td><a  class="btn  btn-primary" href="evento/editar/<%= ev.getId()%>">EDITAR</a></td>
+                    <td><a  class="btn  btn-primary" href="evento/borrar/<%= ev.getId()%>">BORRAR</a></td>
                 </tr>
                 <%
                     }
