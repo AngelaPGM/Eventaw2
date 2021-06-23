@@ -35,14 +35,14 @@
 %>
 <body>
 <%
-    if(usuario.getId() == 1){
+    if (usuario.getId() == 1) {
 %>
 <!-- Barra navegacion -->
 <div class="topnav fixed-top">
     <ul>
-        <li><a  href="Sin hacer">Inicio</a></li>
+        <li><a href="Sin hacer">Inicio</a></li>
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
-        <li style="float:right"><a href="ServletCrudUsuario?id=<%= usuario.getId()%>">Mi perfil</a></li>
+        <li style="float:right"><a href="sin hacer">Mi perfil</a></li>
     </ul>
 </div>
 <%
@@ -51,7 +51,7 @@
 <!-- Barra navegacion -->
 <div class="topnav fixed-top">
     <ul>
-        <li><a  href="/inicioCreador">Inicio</a></li>
+        <li><a href="/inicioCreador">Inicio</a></li>
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
         <li style="float:right"><a href="ServletCrudUsuario?id=<%= usuario.getId()%>">Mi perfil</a></li>
     </ul>
@@ -62,8 +62,8 @@
 <div class="fondo-pagina">
     <div class="container-perfil">
         <div class="wrap-registro justify-content-center text-center" style="width: 1200px">
-            <form:form method="POST" action="/evento/guardar" modelAttribute="eventoDTO">
-                <form:hidden path="id" />
+            <form:form method="POST"  class="register-form" action="/evento/guardar" modelAttribute="eventoDTO">
+                <form:hidden path="id"/>
                 <h1 class="bg-text" style="color: #a64bf4">
                     Datos del evento
                 </h1>
@@ -91,20 +91,25 @@
                     <div class="col-2">Ciudad: <span style="color:#a64bf4">(*)</span></div>
                     <div class="col-3">Entradas por usuario: <span style="color:#a64bf4">(*)</span></div>
                     <div class="col-3 text-center">Fecha del evento: <span style="color:#a64bf4">(*)</span></div>
-                    <div class="col-3 text-center">Fecha l&iacute;mite compra: <span style="color:#a64bf4">(*)</span></div>
+                    <div class="col-3 text-center">Fecha l&iacute;mite compra: <span style="color:#a64bf4">(*)</span>
+                    </div>
                 </div>
                 <div class="row p-b-20 justify-content-around">
                     <div class="col-2 wrap-input2">
                         <form:input path="ciudad" class="input2" type="text" name="ciudad" required="required"/>
                     </div>
                     <div class="col-3 wrap-input2 ">
-                        <form:input path="maxentradasusuario" class="input2 text-center" type="number" name="max" min="1" required="required"/>
+                        <form:input path="maxentradasusuario" class="input2 text-center" type="number" name="max"
+                                    min="1" required="required"/>
                     </div>
                     <div class="col-3 wrap-input2">
-                        <form:input path="fecha" class="input2" type="date" name="fecha" style="text-align: center" min="<%=formato.format(new Date())%>" required="fecha"/>
+                        <form:input path="fecha" class="input2" type="date" name="fecha" style="text-align: center"
+                                    min="<%=formato.format(new Date())%>" required="fecha"/>
                     </div>
                     <div class="col-3 wrap-input2">
-                        <form:input path="fechacompra" class="input2"   type="date"  name="fechaCompra" style="text-align: center" min="<%=formato.format(new Date())%>" required="required"/>
+                        <form:input path="fechacompra" class="input2" type="date" name="fechaCompra"
+                                    style="text-align: center" min="<%=formato.format(new Date())%>"
+                                    required="required"/>
                     </div>
                     <!-- -->
 
@@ -117,16 +122,19 @@
                 </div>
                 <div class="row p-b-20 justify-content-around">
                     <div class="col-2 wrap-input2">
-                        <form:input path="precio" class="input2 text-center" type="number" min="0" name="precio" step="0.01" required="required"/>
+                        <form:input path="precio" class="input2 text-center" type="number" min="0" name="precio"
+                                    step="0.01" required="required"/>
                     </div>
                     <div class="col-2 wrap-input2 ">
-                        <form:input path="aforo" class="input2 text-center" type="number" name="aforo" min="1" required="required"/>
+                        <form:input path="aforo" class="input2 text-center" type="number" name="aforo" min="1"
+                                    required="required"/>
                     </div>
                     <div class="col-2 wrap-input2">
-                        <form:input path="numfilas" class="input2 text-center" type="number" name="numFilas"  min="1"/>
+                        <form:input path="numfilas" class="input2 text-center" type="number" name="numFilas" min="1"/>
                     </div>
                     <div class="col-4 wrap-input2">
-                        <form:input path="asientosfila" class="input2 text-center" type="number" name="asientos" min="1"/>
+                        <form:input path="asientosfila" class="input2 text-center" type="number" name="asientos"
+                                    min="1"/>
                     </div>
                 </div>
                 <hr/>
