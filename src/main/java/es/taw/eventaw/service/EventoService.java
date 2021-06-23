@@ -10,6 +10,7 @@ import es.taw.eventaw.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -41,7 +42,7 @@ public class EventoService {
     }
 
     public List<EventoDTO>  findEventosFuturos() throws ParseException {
-        List<Evento> eventosFuturos = this.eventoRepository.findEventoByFechaAfter(new Date());
+        List<Evento> eventosFuturos = this.eventoRepository.findEventoByFechaAfter(new Date(System.currentTimeMillis()));
         return this.listaEventosToDTO(eventosFuturos);
     }
 
@@ -218,5 +219,17 @@ public class EventoService {
         }
 
         return asientosLista;
+    }
+
+    public List<EventoDTO> filtradoCreador(Integer id, String titulo, Date fechaIni, Date fechaFin) throws ParseException {
+        List<Evento> filtrados = new ArrayList<>();
+
+        if(!titulo.equals("") && fechaIni != null && fechaFin != null){//Filtrado completo
+            filtrados = this.eventoRepository.findEventoByCreadorAndTituloAndFechaAfterAndFechaBefor(id, titulo, fechaIni, fechaFin);
+        } else if(titulo.equals("") && fechaIni != null && fechaFin != null){// Solo Fechas
+            filtrados = this.eventoRepository.findEventoByCreadorAndFechaAfterAndFechaBefore(id, fechaIni, fechaFin);
+        }
+
+        return this.listaEventosToDTO(filtrados);
     }
 }
