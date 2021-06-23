@@ -109,4 +109,22 @@ public class UsuarioService {
         Usuario usuario = this.usuarioRepository.findUsuarioById(dto.getId());
         return usuario.getRolByRol().getId();
     }
+
+    public List<UsuarioDTO> findAll() throws ParseException {
+        List<Usuario> listaUsuario = this.usuarioRepository.findAll();
+
+        return this.listaUsuariosToDto(listaUsuario);
+    }
+
+    private List<UsuarioDTO> listaUsuariosToDto(List<Usuario> lista) throws ParseException {
+        if(lista == null){
+            return new ArrayList<>();
+        }else{
+            List<UsuarioDTO> listaDto = new ArrayList<>();
+            for(Usuario u: lista){
+                listaDto.add(u.getDTO());
+            }
+            return listaDto;
+        }
+    }
 }
