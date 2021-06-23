@@ -73,12 +73,12 @@ public class UsuarioService {
         if(usuarioOptional.isPresent()){
             Usuario usuario = usuarioOptional.get();
             List<Evento> aux = (List<Evento>) usuario.getEventosById();
-            eventosDTO = this.listaToDto(aux);
+            eventosDTO = this.listaEventosToDto(aux);
         }
         return eventosDTO;
     }
 
-    private List<EventoDTO> listaToDto(List<Evento> lista) throws ParseException {
+    private List<EventoDTO> listaEventosToDto(List<Evento> lista) throws ParseException {
         if(lista == null){
             return new ArrayList<>();
         }else{
@@ -101,5 +101,21 @@ public class UsuarioService {
             return usuario;
         }
         return null;
+    }
+    private List<UsuarioDTO> listaUsuariosToDto(List<Usuario> lista) throws ParseException {
+        if(lista == null){
+            return new ArrayList<>();
+        }else{
+            List<UsuarioDTO> listaDto = new ArrayList<>();
+            for(Usuario u: lista){
+                listaDto.add(u.getDTO());
+            }
+            return listaDto;
+        }
+    }
+    public List<UsuarioDTO> findAll() throws ParseException {
+        List<Usuario> listaUsuario = this.usuarioRepository.findAll();
+
+        return this.listaUsuariosToDto(listaUsuario);
     }
 }

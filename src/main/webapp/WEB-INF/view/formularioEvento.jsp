@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 <%
+    UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
     String error = (String) request.getAttribute("error");
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
     UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("userDTO");
