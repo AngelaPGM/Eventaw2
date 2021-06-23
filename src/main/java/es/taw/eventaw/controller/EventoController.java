@@ -69,7 +69,8 @@ public class EventoController {
     public String cargarAceptarPago(@ModelAttribute("eventoDTO") EventoDTO eventoDTO, Model model, HttpSession session) throws ParseException {
         if(eventoDTO.getNumfilas() != null){
             model.addAttribute("evento", this.eventoService.findEventobyId(eventoDTO.getId()));
-            model.addAttribute("numEntradas", eventoDTO.getMaxentradasusuario());
+            model.addAttribute("numEntradas", new Double(eventoDTO.getMaxentradasusuario()));
+            model.addAttribute("error", "");
             return "confirmarPago";
         } else {
             UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
