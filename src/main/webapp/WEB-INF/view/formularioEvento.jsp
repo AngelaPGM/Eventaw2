@@ -51,7 +51,7 @@
 <!-- Barra navegacion -->
 <div class="topnav fixed-top">
     <ul>
-        <li><a  href="/inicioCreador">Inicio</a></li>
+        <li><a href="/inicioCreador">Inicio</a></li>
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
         <li style="float:right"><a href="ServletCrudUsuario?id=<%= usuario.getId()%>">Mi perfil</a></li>
     </ul>
