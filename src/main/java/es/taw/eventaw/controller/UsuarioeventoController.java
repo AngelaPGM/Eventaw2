@@ -1,20 +1,12 @@
 package es.taw.eventaw.controller;
 
-import es.taw.eventaw.dao.EventoRepository;
-import es.taw.eventaw.dao.RolRepository;
-import es.taw.eventaw.dao.UsuarioRepository;
-import es.taw.eventaw.dao.UsuarioeventoRepository;
 import es.taw.eventaw.dto.EntradaDTO;
 import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.dto.UsuarioeventoDTO;
-import es.taw.eventaw.entity.Evento;
-import es.taw.eventaw.entity.Rol;
-import es.taw.eventaw.entity.Usuario;
-import es.taw.eventaw.entity.Usuarioevento;
 import es.taw.eventaw.service.EntradaService;
-import es.taw.eventaw.service.EventoService;
 import es.taw.eventaw.service.UsuarioService;
+import es.taw.eventaw.service.UsuarioeventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -33,6 +25,7 @@ import java.util.List;
 public class UsuarioeventoController {
     private UsuarioService usuarioService;
     private EntradaService entradaService;
+    private UsuarioeventoService usuarioeventoService;
 
     @Autowired
     public void setEntradaService(EntradaService entradaService) {
@@ -44,36 +37,56 @@ public class UsuarioeventoController {
         this.usuarioService = usuarioService;
     }
 
+    @Autowired
+    public void setUsuarioeventoService(UsuarioeventoService usuarioeventoService) {
+        this.usuarioeventoService = usuarioeventoService;
+    }
+
     @GetMapping("/registrarFormulario")
     public String cargarFormulario(Model model) {
-        UsuarioeventoDTO ueEmpty = new UsuarioeventoDTO();
-        model.addAttribute("usuarioEventoDTO", ueEmpty);
-        List<String> sexos = new ArrayList<>();
-        sexos.add("H");
-        sexos.add("M");
-        model.addAttribute("sexos", sexos);
+        UsuarioDTO ueEmpty = new UsuarioDTO();
+        model.addAttribute("userDTO", ueEmpty);
         return "registroUsuario";
     }
 
     @PostMapping("/guardar")
-    public String doGuardar(@ModelAttribute("usuarioDTO") UsuarioeventoDTO inputData, Model model, HttpSession session) {
-        if(inputData.getUsuarioDTO().getContrasenya().equals(inputData.getUsuarioDTO().getContrasenya2())){
-            UsuarioDTO userDTO = this.usuarioService.nuevoUsuario(inputData);
+    public String doGuardar(@ModelAttribute("userDTO") UsuarioDTO userDTO, Model model, HttpSession session) {
+        String strTo = "perfilUsuario";
+        if (userDTO.getContrasenya2().isEmpty() || userDTO.getContrasenya().equals(userDTO.getContrasenya2())) {
+            this.usuarioService.guardarUsuario(userDTO);
+            if (userDTO.getId() == null) { //creando
+                strTo = "redirect:/inicioUEvento";
+                userDTO.setContrasenya2("");
+            } else {
+                model.addAttribute("guardado", true);
+
+            }
             session.setAttribute("userDTO", userDTO);
 
-            return "redirect:/inicioUEvento";
         } else {
             model.addAttribute("errorLog", "Las contraseñas no coinciden");
-            return "registroUsuario";
+
+            if (userDTO.getId() == null) { //creando
+                strTo = "registroUsuario";
+            }
         }
+        return strTo;
     }
 
     @GetMapping("/misEntradas")
-    public String doMisEntradas(Model model, HttpSession session){
-        List<EntradaDTO> entradasFuturas = this.entradaService.getEntradasFuturas((UsuarioDTO)session.getAttribute("userDTO"));
-        List<EntradaDTO> entradasPasadas = this.entradaService.getEntradasPasadas((UsuarioDTO)session.getAttribute("userDTO"));
+    public String doMisEntradas(Model model, HttpSession session) throws ParseException {
+        List<EntradaDTO> entradasFuturas = this.entradaService.getEntradasFuturas((UsuarioDTO) session.getAttribute("userDTO"));
+        List<EntradaDTO> entradasPasadas = this.entradaService.getEntradasPasadas((UsuarioDTO) session.getAttribute("userDTO"));
         model.addAttribute("entradasFuturas", entradasFuturas);
         model.addAttribute("entradasPasadas", entradasPasadas);
+        model.addAttribute("eventoDTO", new EventoDTO());
         return "entrada";
     }
+
+    @GetMapping("/perfil")
+    public String doPerfil(Model model, HttpSession session) {
+        model.addAttribute("userDTO", (UsuarioDTO) session.getAttribute("userDTO"));
+        return "perfilUsuario";
+    }
+
 }

@@ -2,6 +2,7 @@ package es.taw.eventaw.service;
 
 import es.taw.eventaw.dao.UsuarioRepository;
 import es.taw.eventaw.dao.UsuarioeventoRepository;
+import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.dto.UsuarioeventoDTO;
 import es.taw.eventaw.entity.Usuario;
 import es.taw.eventaw.entity.Usuarioevento;
@@ -27,22 +28,26 @@ public class UsuarioeventoService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public void nuevoUsuarioevento(Usuario user, UsuarioeventoDTO inputDataDTO) {
-        Usuarioevento usuarioevento = new Usuarioevento();
-        usuarioevento.setSexo(inputDataDTO.getSexo());
-        usuarioevento.setNombre(inputDataDTO.getNombre());
-        usuarioevento.setFechanacimiento(inputDataDTO.getFechanacimiento());
-        usuarioevento.setCiudad(inputDataDTO.getCiudad());
-        usuarioevento.setDomicilio(inputDataDTO.getDomicilio());
-        usuarioevento.setApellido1(inputDataDTO.getApellido1());
-        usuarioevento.setApellido2(inputDataDTO.getApellido2());
-        usuarioevento.setUsuarioByIdusuario(user);
+    public void guardarUsuarioevento(Usuario usuario, UsuarioeventoDTO ueventoDTO) {
+        Usuarioevento uevento;
 
-        List<Usuarioevento> aux = new ArrayList<>();
-        aux.add(usuarioevento);
-        //user.setUsuarioeventosById(aux);
+        if (ueventoDTO.getId() == null) {
+            uevento = new Usuarioevento();
+        } else {
+            uevento = this.usuarioeventoRepository.findById(ueventoDTO.getId()).orElse(new Usuarioevento());
+        }
 
-        this.usuarioeventoRepository.save(usuarioevento);
-        this.usuarioRepository.save(user);
+        uevento.setId(ueventoDTO.getId());
+        uevento.setNombre(ueventoDTO.getNombre());
+        uevento.setApellido1(ueventoDTO.getApellido1());
+        uevento.setApellido2(ueventoDTO.getApellido2());
+        uevento.setDomicilio(ueventoDTO.getDomicilio());
+        uevento.setCiudad(ueventoDTO.getCiudad());
+        uevento.setFechanacimiento(ueventoDTO.getFechanacimiento());
+        uevento.setSexo(ueventoDTO.getSexo());
+        uevento.setUsuarioByIdusuario(usuario);
+
+        this.usuarioeventoRepository.save(uevento);
+        this.usuarioRepository.save(usuario);
     }
 }

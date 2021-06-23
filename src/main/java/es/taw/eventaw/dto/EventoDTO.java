@@ -1,8 +1,12 @@
 package es.taw.eventaw.dto;
 
+import es.taw.eventaw.entity.Entrada;
 
 import java.sql.Date;
-import java.util.Collection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventoDTO {
     private Integer id;
@@ -16,11 +20,15 @@ public class EventoDTO {
     private Integer maxentradasusuario;
     private Integer numfilas;
     private Integer asientosfila;
-    private Collection<EntradaDTO> entradasDTOById;
-    private UsuarioDTO usuarioDTOByCreador;
-    private Collection<EventoEtiquetaDTO> eventoEtiquetasDTOById;
+    private List<EntradaDTO> entradasDTO;
+    private UsuarioDTO creadorDTO;
 
-    public EventoDTO() {
+    public EventoDTO() throws ParseException {
+        this.titulo = "";
+        this.descripcion = "";
+        this.ciudad = "";
+        this.fecha = new Date(new SimpleDateFormat().parse(new SimpleDateFormat().format(new java.util.Date())).getTime());
+        this.fechacompra = new Date(new SimpleDateFormat().parse(new SimpleDateFormat().format(new java.util.Date())).getTime());
     }
 
     public Integer getId() {
@@ -111,27 +119,21 @@ public class EventoDTO {
         this.asientosfila = asientosfila;
     }
 
-    public Collection<EntradaDTO> getEntradasDTOById() {
-        return entradasDTOById;
+    public List<EntradaDTO> getEntradasDTO() {
+        if(entradasDTO == null) return new ArrayList<>();
+        return entradasDTO;
     }
 
-    public void setEntradasDTOById(Collection<EntradaDTO> entradasDTOById) {
-        this.entradasDTOById = entradasDTOById;
+    public void setEntradasDTO(List<EntradaDTO> entradasDTO){
+        if(entradasDTO == null) this.entradasDTO = new ArrayList<>();
+        this.entradasDTO = entradasDTO;
     }
 
-    public UsuarioDTO getUsuarioDTOByCreador() {
-        return usuarioDTOByCreador;
+    public UsuarioDTO getCreadorDTO() {
+        return creadorDTO;
     }
 
-    public void setUsuarioDTOByCreador(UsuarioDTO usuarioDTOByCreador) {
-        this.usuarioDTOByCreador = usuarioDTOByCreador;
-    }
-
-    public Collection<EventoEtiquetaDTO> getEventoEtiquetasDTOById() {
-        return eventoEtiquetasDTOById;
-    }
-
-    public void setEventoEtiquetasDTOById(Collection<EventoEtiquetaDTO> eventoEtiquetasDTOById) {
-        this.eventoEtiquetasDTOById = eventoEtiquetasDTOById;
+    public void setCreadorDTO(UsuarioDTO creadorDTO) {
+        this.creadorDTO = creadorDTO;
     }
 }

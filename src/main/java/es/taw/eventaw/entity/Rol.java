@@ -1,7 +1,6 @@
 package es.taw.eventaw.entity;
 
 import es.taw.eventaw.dto.RolDTO;
-import es.taw.eventaw.dto.UsuarioDTO;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -61,7 +60,6 @@ public class Rol {
         RolDTO dto = new RolDTO();
         dto.setId(this.id);
         dto.setTipo(this.tipo);
-        //dto.setUsuariosById();
         return dto;
     }
 }

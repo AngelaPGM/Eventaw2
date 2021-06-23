@@ -3,6 +3,8 @@ package es.taw.eventaw.entity;
 import es.taw.eventaw.dto.EntradaDTO;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -78,13 +80,15 @@ public class Entrada {
     }
 
     @Transient
-    public EntradaDTO getDTO() {
+    public EntradaDTO getDTO() throws ParseException {
         EntradaDTO dto = new EntradaDTO();
         dto.setId(id);
         dto.setNumfila(numfila);
         dto.setAsientofila(asientofila);
-        dto.setUsuarioeventoDTOByUsuario(this.usuarioeventoByUsuario.getDTO());
-        dto.setEventoDTOByEvento(this.eventoByEvento.getDTO());
+        dto.setEventoDTO(this.eventoByEvento.getDTO());
+        List<EntradaDTO> aux = dto.getEventoDTO().getEntradasDTO();
+        aux.add(dto);
+        dto.getEventoDTO().setEntradasDTO(aux);
         return dto;
     }
 }

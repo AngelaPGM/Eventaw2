@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="es.taw.eventaw.dto.UsuarioDTO" %>
 <%@ page import="java.text.DecimalFormat" %>
@@ -19,26 +20,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis entradas</title>
 
-    <!-- BOOTSTRAP Y CSS -->
+    <!-- COPIAR ESTO PARA METER CSS Y BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/util.css">
+    <link rel="stylesheet" href="../../css/util.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <%
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-    UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("userDTO");
 %>
 <body>
 <!-- Barra navegacion -->
 <div class="topnav fixed-top">
     <ul>
-        <li><a href="ServletRedirectInicio">Inicio</a></li>
-        <li style="float:right"><a href="ServletCierreSesion">Cerrar sesión</a></li>
-        <li style="float:right"><a href="perfilUsuario.jsp?editar=0">Mi perfil</a></li>
+        <li><a href="/inicioUEvento">Inicio</a></li>
+        <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
+        <li style="float:right"><a href="/usuarioEvento/perfil">Mi perfil</a></li>
         <li style="float:right"><a  class="active">Mis entradas</a></li>
-        <li style="float:right"><a href="ServletNuevaConversacion">CHAT TELEOPERADOR</a></li>
+        <li style="float:right"><a href="Sin hacer">CHAT TELEOPERADOR</a></li>
     </ul>
 </div>
 
@@ -49,16 +48,16 @@
         <div class="bg-text">
             <h1 style="font-size: 4rem"> Mis entradas</h1>
         </div>
-        <form action="ServletListadoEntradas">
+        <form:form action="/entrada/filtrar" modelAttribute="eventoDTO">
             <div class="row justify-content-center m-t-30">
                 <div class="col-4 wrap-input2 ">
-                    <input class="input2" type="text" name="buscador" placeholder="Buscar entradas por nombre y/o fecha"/>
+                    <form:input path="titulo" class="input2" type="text" name="buscador" placeholder="Buscar entradas por nombre y/o fecha"/>
                 </div>
                 <div class="col-2 wrap-input2 wrap-separacion10" >
-                    <input class="input2"   type="date" id="start" name="fechaInicio" min="<%=formato.format(new Date())%>" max="2040-12-31">
+                    <form:input path="fecha" class="input2"   type="date" id="start" name="fechaInicio" min="<%=formato.format(new Date())%>" max="2040-12-31"/>
                 </div>
                 <div class="col-2 wrap-input2 wrap-separacion10" >
-                    <input class="input2"   type="date" id="start2" name="fechaFinal" min="<%=formato.format(new Date())%>" max="2040-12-31">
+                    <form:input path="fechacompra" class="input2"   type="date" id="start2" name="fechaFinal" min="<%=formato.format(new Date())%>" max="2040-12-31"/>
                 </div>
                 <div class="col-2">
                     <div class="wrap-login100-form-btn">
@@ -69,7 +68,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </form:form>
     </div>
 </header>
 
@@ -110,14 +109,14 @@
                 for (EntradaDTO e : entradasFuturas) {
             %>
             <tr>
-                <td><%= e.getEventoByEvento().getTitulo()%></td>
-                <td><%= e.getEventoByEvento().getDescripcion()%></td>
-                <td><%= e.getEventoByEvento().getCiudad()%></td>
-                <td><%= new SimpleDateFormat("dd/MM/yyyy").format(e.getEventoByEvento().getFecha())%></td>
+                <td><%= e.getEventoDTO().getTitulo()%></td>
+                <td><%= e.getEventoDTO().getDescripcion()%></td>
+                <td><%= e.getEventoDTO().getCiudad()%></td>
+                <td><%= new SimpleDateFormat("dd/MM/yyyy").format(e.getEventoDTO().getFecha())%></td>
 
                 <td><%= (e.getNumfila()==null?"-":e.getNumfila())%></td>
                 <td><%= (e.getAsientofila()==null?"-":e.getAsientofila())%></td>
-                <td><%= new DecimalFormat("#0.00").format(e.getEventoByEvento().getPrecio())%> €</td>
+                <td><%= new DecimalFormat("#0.00").format(e.getEventoDTO().getPrecio())%> €</td>
             </tr>
             <%
                 }
@@ -150,13 +149,13 @@
                 for (EntradaDTO e : entradasPasadas) {
             %>
             <tr>
-                <td><%= e.getEventoByEvento().getTitulo()%></td>
-                <td><%= e.getEventoByEvento().getDescripcion()%></td>
-                <td><%= e.getEventoByEvento().getCiudad()%></td>
-                <td><%= new SimpleDateFormat("dd/MM/yyyy").format(e.getEventoByEvento().getFecha())%></td>
+                <td><%= e.getEventoDTO().getTitulo()%></td>
+                <td><%= e.getEventoDTO().getDescripcion()%></td>
+                <td><%= e.getEventoDTO().getCiudad()%></td>
+                <td><%= new SimpleDateFormat("dd/MM/yyyy").format(e.getEventoDTO().getFecha())%></td>
                 <td><%= e.getNumfila()%></td>
                 <td><%= e.getAsientofila()%></td>
-                <td><%= new DecimalFormat("#0.00").format(e.getEventoByEvento().getPrecio())%> €</td>
+                <td><%= new DecimalFormat("#0.00").format(e.getEventoDTO().getPrecio())%> €</td>
             </tr>
             <%
                 }

@@ -3,6 +3,7 @@ package es.taw.eventaw.entity;
 import es.taw.eventaw.dto.UsuarioDTO;
 
 import javax.persistence.*;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -118,18 +119,17 @@ public class Usuario {
     }
 
     @Transient
-    public UsuarioDTO getDTO() {
+    public UsuarioDTO getDTO() throws ParseException {
         UsuarioDTO dto = new UsuarioDTO();
         dto.setId(this.id);
         dto.setCorreo(this.correo);
         dto.setContrasenya(this.contrasenya);
-        dto.setConversacionsDTOById(this.conversacionsById);
-        dto.setConversacionsDTOById_0(this.conversacionsById_0);
-        dto.setEventosDTOById(this.eventosById);
-        dto.setMensajesDTOById(this.mensajesById);
         dto.setRolDTOByRol(this.rolByRol.getDTO());
-        dto.setUsuarioeventoDTO(this.usuarioeventosById.getDTO());
-        dto.getUsuarioeventoDTO().setUsuarioDTO(dto);
+
+        if(dto.getRolDTOByRol().getId() == 2){
+            dto.setUsuarioeventoDTOById(this.usuarioeventosById.getDTO());
+            dto.getUsuarioeventoDTOById().setUsuarioDTO(dto);
+        }
         return dto;
     }
 }

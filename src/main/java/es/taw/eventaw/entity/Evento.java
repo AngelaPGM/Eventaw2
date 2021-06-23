@@ -1,11 +1,13 @@
 package es.taw.eventaw.entity;
 
+import es.taw.eventaw.dto.EntradaDTO;
 import es.taw.eventaw.dto.EventoDTO;
-import es.taw.eventaw.dto.UsuarioDTO;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -178,7 +180,7 @@ public class Evento {
     }
 
     @Transient
-    public EventoDTO getDTO() {
+    public EventoDTO getDTO() throws ParseException {
         EventoDTO dto = new EventoDTO();
         dto.setId(this.id);
         dto.setTitulo(this.titulo);
@@ -191,10 +193,11 @@ public class Evento {
         dto.setMaxentradasusuario(this.maxentradasusuario);
         dto.setNumfilas(this.numfilas);
         dto.setAsientosfila(this.asientosfila);
-        //dto.setEntradasDTOById(this.getDTO().getEntradasDTOById());
-        //dto.setUsuarioDTOByCreador(this.getDTO().getUsuarioDTOByCreador());
-        //dto.setEventoEtiquetasDTOById(this.getDTO().getEventoEtiquetasDTOById());
-
+        dto.setCreadorDTO(this.usuarioByCreador.getDTO());
+        //List<EventoDTO> aux = dto.getCreadorDTO().getEventosDTO();
+        //aux.add(dto);
+        //dto.getCreadorDTO().setEventosDTO(aux);
+        dto.getCreadorDTO().getEventosDTO().add(dto);
         return dto;
     }
 }

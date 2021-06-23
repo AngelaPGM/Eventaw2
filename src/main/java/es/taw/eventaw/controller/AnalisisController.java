@@ -11,12 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/analisis")
@@ -52,7 +50,7 @@ public class AnalisisController {
     }
 
     @GetMapping("/crear")
-    public String doCrear(Model model){
+    public String doCrear(Model model) throws ParseException {
         AnalisisDTO analisis = new AnalisisDTO();
         model.addAttribute("analisis", analisis);
 
@@ -69,7 +67,7 @@ public class AnalisisController {
     }
 
     @GetMapping("/ver/{id}")
-    public String doResultado(@PathVariable("id") Integer id, Model model){
+    public String doResultado(@PathVariable("id") Integer id, Model model) throws ParseException {
         AnalisisDTO analisis = this.analisisService.findById(id);
         model.addAttribute("analisis", analisis);
 

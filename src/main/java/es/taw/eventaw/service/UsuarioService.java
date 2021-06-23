@@ -1,22 +1,21 @@
 package es.taw.eventaw.service;
 
-import es.taw.eventaw.controller.UsuarioeventoController;
 import es.taw.eventaw.dao.RolRepository;
 import es.taw.eventaw.dao.UsuarioRepository;
-import es.taw.eventaw.dao.UsuarioeventoRepository;
 import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.dto.UsuarioeventoDTO;
+import es.taw.eventaw.entity.Evento;
 import es.taw.eventaw.entity.Rol;
 import es.taw.eventaw.entity.Usuario;
 import es.taw.eventaw.entity.Usuarioevento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -39,22 +38,84 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public UsuarioDTO comprobarCredenciales(String correo, String pass) {
+    public UsuarioDTO comprobarCredenciales(String correo, String pass) throws ParseException {
         UsuarioDTO userDTO = null;
         Usuario user = this.usuarioRepository.findUsuarioByCorreoAndContrasenya(correo, pass);
         if (user != null) userDTO = user.getDTO();
         return userDTO;
     }
 
-    public UsuarioDTO nuevoUsuario(UsuarioeventoDTO inputDataDTO){
-        Usuario user = new Usuario();
-        Rol rol = this.rolRepository.getById(2);//Si borro esto me da una violacion de campo NotNull
-        user.setRolByRol(rol);
-        //user.setCorreo(inputDataDTO.getUsuarioByIdusuario().getCorreo());
-        //user.setContrasenya(inputDataDTO.getUsuarioByIdusuario().getContrasenya());
-        this.usuarioRepository.save(user);
-        this.usuarioeventoService.nuevoUsuarioevento(user, inputDataDTO);
+    public void guardarUsuario(UsuarioDTO dto) {
+        Usuario usuario;
+        Rol r;
 
-        return user.getDTO();
+        if (dto.getId() == null) {
+            usuario = new Usuario();
+            r = this.rolRepository.findById(2).orElse(new Rol());
+
+        } else {
+            usuario = this.usuarioRepository.findById(dto.getId()).orElse(new Usuario());
+             r = this.rolRepository.findById(dto.getRolDTOByRol().getId()).orElse(new Rol());
+        }
+
+        usuario.setId(dto.getId());
+        usuario.setCorreo(dto.getCorreo());
+        usuario.setContrasenya(dto.getContrasenya());
+        usuario.setRolByRol(r);
+
+        this.usuarioRepository.save(usuario);
+        this.usuarioeventoService.guardarUsuarioevento(usuario, dto.getUsuarioeventoDTOById());
+    }
+
+    public List<EventoDTO> getEventos(UsuarioDTO userDTO) throws ParseException {
+        Optional<Usuario> usuarioOptional = this.usuarioRepository.findById(userDTO.getId());
+        List<EventoDTO> eventosDTO = new ArrayList<>();
+        if(usuarioOptional.isPresent()){
+            Usuario usuario = usuarioOptional.get();
+            List<Evento> aux = (List<Evento>) usuario.getEventosById();
+            eventosDTO = this.listaEventosToDto(aux);
+        }
+        return eventosDTO;
+    }
+
+    private List<EventoDTO> listaEventosToDto(List<Evento> lista) throws ParseException {
+        if(lista == null){
+            return new ArrayList<>();
+        }else{
+            List<EventoDTO> listaDto = new ArrayList<>();
+            for(Evento e: lista){
+                listaDto.add(e.getDTO());
+            }
+            return listaDto;
+        }
+    }
+
+    public void updateUsuario(Usuario usuario) {
+        this.usuarioRepository.save(usuario);
+    }
+
+    public Usuario findByUsuario(UsuarioDTO creador) {
+        Optional<Usuario> usuarioOtp = this.usuarioRepository.findById(creador.getId());
+        if(usuarioOtp.isPresent()){
+            Usuario usuario = usuarioOtp.get();
+            return usuario;
+        }
+        return null;
+    }
+    private List<UsuarioDTO> listaUsuariosToDto(List<Usuario> lista) throws ParseException {
+        if(lista == null){
+            return new ArrayList<>();
+        }else{
+            List<UsuarioDTO> listaDto = new ArrayList<>();
+            for(Usuario u: lista){
+                listaDto.add(u.getDTO());
+            }
+            return listaDto;
+        }
+    }
+    public List<UsuarioDTO> findAll() throws ParseException {
+        List<Usuario> listaUsuario = this.usuarioRepository.findAll();
+
+        return this.listaUsuariosToDto(listaUsuario);
     }
 }

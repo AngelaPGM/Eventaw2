@@ -1,11 +1,10 @@
 package es.taw.eventaw.dto;
 
 import es.taw.eventaw.entity.Entrada;
-import es.taw.eventaw.entity.Mensaje;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class UsuarioeventoDTO {
@@ -17,8 +16,8 @@ public class UsuarioeventoDTO {
     private String ciudad;
     private Date fechanacimiento;
     private String sexo;
-    private Collection<EntradaDTO> entradasDTOById;
     private UsuarioDTO usuarioDTO;
+    private List<EntradaDTO> entradasDTO;
 
     public UsuarioeventoDTO() {
     }
@@ -87,25 +86,27 @@ public class UsuarioeventoDTO {
         this.sexo = sexo;
     }
 
-    public Collection<EntradaDTO> getEntradasDTOById() {
-        return entradasDTOById;
-    }
-
-    public void setEntradasDTOById(Collection<Entrada> entradas) {
-        List<EntradaDTO> listaDto = new ArrayList<>();
-        if (entradas != null) {
-            for (Entrada e : entradas) {
-                listaDto.add(e.getDTO());
-            }
-        }
-        this.entradasDTOById = entradasDTOById;
-    }
-
     public UsuarioDTO getUsuarioDTO() {
         return usuarioDTO;
     }
 
     public void setUsuarioDTO(UsuarioDTO usuarioDTO) {
         this.usuarioDTO = usuarioDTO;
+    }
+
+    public List<EntradaDTO> getEntradasDTO() {
+        return entradasDTO;
+    }
+
+    public void setEntradasDTO(List<Entrada> entradas) throws ParseException {
+        if(entradas == null){
+            this.entradasDTO = new ArrayList<>();
+        }else{
+            List<EntradaDTO> entradasDTO =  new ArrayList<>();
+            for(Entrada e : entradas){
+                entradasDTO.add(e.getDTO());
+            }
+            this.entradasDTO = entradasDTO;
+        }
     }
 }

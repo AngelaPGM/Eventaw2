@@ -32,7 +32,7 @@ public class AnalisisDTO {
         this.nombre = nombre;
     }
 
-    public Date getFechamayor(){
+    public Date getFechamayor() {
         return fechamayor;
     }
 
@@ -40,7 +40,7 @@ public class AnalisisDTO {
         this.fechamayor = fechamayor;
     }
 
-    public Date getFechamenor(){
+    public Date getFechamenor() {
         return fechamenor;
     }
 
