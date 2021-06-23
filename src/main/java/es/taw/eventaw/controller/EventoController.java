@@ -57,4 +57,28 @@ public class EventoController {
         this.eventoService.save(eventoDTO, (UsuarioDTO) session.getAttribute("userDTO"));
         return "redirect:/inicioCreador";
     }
+
+    @GetMapping("/comprarEntradas/{eventoId}")
+    public String cargarComprarEntradas(@PathVariable Integer eventoId, Model model, HttpSession session) throws ParseException {
+        model.addAttribute("eventoDTO", this.eventoService.findEventobyId(eventoId));
+        model.addAttribute("entradas", this.eventoService.getEntradasPuedeComprar(eventoId, (UsuarioDTO) session.getAttribute("userDTO")));
+        return "ventaEntradas";
+    }
+
+    @PostMapping("/aceptarPago")
+    public String cargarAceptarPago(@ModelAttribute("eventoDTO") EventoDTO eventoDTO, Model model, HttpSession session) throws ParseException {
+        if(eventoDTO.getNumfilas() != null){
+            model.addAttribute("evento", this.eventoService.findEventobyId(eventoDTO.getId()));
+            model.addAttribute("numEntradas", eventoDTO.getMaxentradasusuario());
+            return "confirmarPago";
+        } else {
+            UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
+            return this.doConfirmarPago(usuarioDTO, this.eventoService.findEventobyId(eventoDTO.getId()), eventoDTO.getMaxentradasusuario());
+        }
+    }
+
+    private String doConfirmarPago(UsuarioDTO usuarioDTO, EventoDTO eventoDTO, Integer numEntradas) {
+        this.eventoService.tramitarEntradas(usuarioDTO, eventoDTO, numEntradas);
+        return "redirect:/inicioUEvento";
+    }
 }

@@ -38,7 +38,7 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public UsuarioDTO comprobarCredenciales(String correo, String pass) {
+    public UsuarioDTO comprobarCredenciales(String correo, String pass) throws ParseException {
         UsuarioDTO userDTO = null;
         Usuario user = this.usuarioRepository.findUsuarioByCorreoAndContrasenya(correo, pass);
         if (user != null) userDTO = user.getDTO();

@@ -3,6 +3,7 @@ package es.taw.eventaw.entity;
 import es.taw.eventaw.dto.UsuarioDTO;
 
 import javax.persistence.*;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -118,7 +119,7 @@ public class Usuario {
     }
 
     @Transient
-    public UsuarioDTO getDTO() {
+    public UsuarioDTO getDTO() throws ParseException {
         UsuarioDTO dto = new UsuarioDTO();
         dto.setId(this.id);
         dto.setCorreo(this.correo);

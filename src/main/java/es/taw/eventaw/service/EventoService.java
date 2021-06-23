@@ -114,4 +114,62 @@ public class EventoService {
         this.eventoRepository.save(evento);
         this.usuarioService.updateUsuario(usuario);
     }
+
+    public List<Integer> getEntradasPuedeComprar(Integer eventoId, UsuarioDTO userDTO) {
+        Evento evento = this.eventoRepository.findById(eventoId).orElse(new Evento());
+        Usuario usuario = this.usuarioService.findByUsuario(userDTO);
+        List<Entrada> entradastotales = (List<Entrada>) usuario.getUsuarioeventosById().getEntradasById();
+        int entradasLibres = evento.getAforo() - evento.getEntradasById().size();
+        int entradasUsuario = 0;
+
+        for(Entrada e : entradastotales){
+            if(e.getEventoByEvento().equals(evento)){
+                entradasUsuario++;
+            }
+        }
+
+        int puedoComprar = evento.getMaxentradasusuario() - entradasUsuario;
+
+        if(entradasLibres < puedoComprar){
+            puedoComprar = entradasLibres;
+        }
+
+        List<Integer> lista = new ArrayList<>();
+        for(int i = 1; i <= puedoComprar; i++){
+            lista.add(i);
+        }
+        return lista;
+    }
+
+    public void tramitarEntradas(UsuarioDTO usuarioDTO, EventoDTO eventoDTO, Integer numEntradas) {
+        Usuario usuario = this.usuarioService.findByUsuario(usuarioDTO);
+        Evento evento = this.eventoRepository.findById(eventoDTO.getId()).orElse(new Evento());
+
+        List<String> asientos = new ArrayList();
+
+        for (int i = 0; i < numEntradas; i++) {
+            Entrada entrada = new Entrada();
+
+            entrada.setUsuarioeventoByUsuario(usuario.getUsuarioeventosById());
+            entrada.setEventoByEvento(evento);
+
+            if (evento.getAsientosfila() != null && evento.getNumfilas() != null) {
+                String asientoSeleccionado = asientos.get(i);
+                String[] partes = asientoSeleccionado.split(" ");
+                String fila = partes[1];
+                String asiento = partes[3];
+
+                entrada.setNumfila(new Integer(fila));
+                entrada.setAsientofila(new Integer(asiento));
+            }
+
+            this.entradaService.save(entrada);
+
+            usuario.getUsuarioeventosById().getEntradasById().add(entrada);
+            evento.getEntradasById().add(entrada);
+        }
+
+        this.eventoRepository.save(evento);
+        this.usuarioService.updateUsuario(usuario);
+    }
 }

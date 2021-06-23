@@ -144,7 +144,7 @@
                     %>
 
                         <a class="btn  btn-primary"
-                           href="ServletEvento?id=<%= ev.getId()%>"> COMPRAR</a>
+                           href="/evento/comprarEntradas/<%= ev.getId()%>"> COMPRAR</a>
                         <% } else { %>
                         <a class="btn  btn-primary disabled" style="background-color:gray; border-color: gray"
                            href=""> COMPRAR</a>

@@ -4,7 +4,9 @@ import es.taw.eventaw.dto.UsuarioeventoDTO;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -134,7 +136,7 @@ public class Usuarioevento {
     }
 
     @Transient
-    public UsuarioeventoDTO getDTO() {
+    public UsuarioeventoDTO getDTO() throws ParseException {
         UsuarioeventoDTO dto = new UsuarioeventoDTO();
         dto.setId(this.id);
         dto.setNombre(this.nombre);
@@ -144,6 +146,7 @@ public class Usuarioevento {
         dto.setCiudad(this.ciudad);
         dto.setFechanacimiento(this.fechanacimiento);
         dto.setSexo(this.sexo);
+        dto.setEntradasDTO((List<Entrada>) this.entradasById);
         return dto;
     }
 }

@@ -5,6 +5,7 @@ import es.taw.eventaw.dto.AnalisisDTO;
 import es.taw.eventaw.dto.EntradaDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.entity.Entrada;
+import es.taw.eventaw.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,12 @@ import java.util.List;
 @Service
 public class EntradaService {
     private EntradaRepository entradaRepository;
+    private UsuarioService usuarioService;
+
+    @Autowired
+    public void setUsuarioService(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     @Autowired
     public void setEntradaRepository(EntradaRepository entradaRepository) {
@@ -110,12 +117,14 @@ public class EntradaService {
     }
 
     public List<EntradaDTO> getEntradasFuturas(UsuarioDTO userDTO) throws ParseException {
-        List<Entrada> entradasfuturas = this.entradaRepository.findEntradaByUsuarioeventoByUsuarioAndEventoByEventoAfter(userDTO.getId(), new Date());
+        Usuario usuario = this.usuarioService.findByUsuario(userDTO);
+        List<Entrada> entradasfuturas = this.entradaRepository.findEntradaByUsuarioeventoAndEventoByEventoAfter(usuario.getUsuarioeventosById().getId(), new Date());
         return this.listaToDto(entradasfuturas);
     }
 
     public List<EntradaDTO> getEntradasPasadas(UsuarioDTO userDTO) throws ParseException {
-        List<Entrada> entradasPasadas = this.entradaRepository.findEntradaByUsuarioeventoByUsuarioAndEventoByEventoBefore(userDTO.getId(), new Date());
+        Usuario usuario = this.usuarioService.findByUsuario(userDTO);
+        List<Entrada> entradasPasadas = this.entradaRepository.findEntradaByUsuarioeventoAndEventoByEventoBefore(usuario.getUsuarioeventosById().getId(), new Date());
         return this.listaToDto(entradasPasadas);
     }
 
@@ -123,5 +132,9 @@ public class EntradaService {
         for(Entrada e : entradas){
             this.entradaRepository.delete(e);
         }
+    }
+
+    public void save(Entrada entrada) {
+        this.entradaRepository.save(entrada);
     }
 }
