@@ -51,15 +51,15 @@ public class UsuarioeventoController {
     public String doGuardar(@ModelAttribute("userDTO") UsuarioDTO userDTO, Model model, HttpSession session) {
         String strTo = "perfilUsuario";
         if (userDTO.getContrasenya2().isEmpty() || userDTO.getContrasenya().equals(userDTO.getContrasenya2())) {
+            this.usuarioService.guardarUsuario(userDTO);
             if (userDTO.getId() == null) { //creando
-                this.usuarioService.guardarUsuario(userDTO);
-                session.setAttribute("userDTO", userDTO);
                 strTo = "redirect:/inicioUEvento";
+                userDTO.setContrasenya2("");
             } else {
-                this.usuarioService.guardarUsuario(userDTO);
                 model.addAttribute("guardado", true);
-                session.setAttribute("userDTO", userDTO);
+
             }
+            session.setAttribute("userDTO", userDTO);
 
         } else {
             model.addAttribute("errorLog", "Las contraseñas no coinciden");

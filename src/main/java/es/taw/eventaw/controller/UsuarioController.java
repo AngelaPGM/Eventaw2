@@ -1,5 +1,6 @@
 package es.taw.eventaw.controller;
 
+import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.entity.Usuario;
 import es.taw.eventaw.service.EventoService;
@@ -80,6 +81,7 @@ public class UsuarioController {
     @GetMapping("/inicioUEvento")
     public String doInicioUEvento(Model model) {
         model.addAttribute("eventosFuturos", this.eventoService.findEventosFuturos());
+        model.addAttribute("eventoDTO", new EventoDTO());
         return "inicioUEvento";
     }
 
