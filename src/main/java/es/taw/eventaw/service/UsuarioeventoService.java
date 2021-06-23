@@ -2,15 +2,20 @@ package es.taw.eventaw.service;
 
 import es.taw.eventaw.dao.UsuarioRepository;
 import es.taw.eventaw.dao.UsuarioeventoRepository;
+import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.dto.UsuarioeventoDTO;
+import es.taw.eventaw.entity.Entrada;
+import es.taw.eventaw.entity.Evento;
 import es.taw.eventaw.entity.Usuario;
 import es.taw.eventaw.entity.Usuarioevento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioeventoService {
@@ -50,4 +55,15 @@ public class UsuarioeventoService {
         this.usuarioeventoRepository.save(uevento);
         this.usuarioRepository.save(usuario);
     }
+    public UsuarioeventoDTO findUsuarioEventobyId(Integer id) throws ParseException {
+        Optional<Usuarioevento> optionalUsuarioevento = this.usuarioeventoRepository.findById(id);
+        if(optionalUsuarioevento.isPresent()){
+            Usuarioevento usuarioevento = optionalUsuarioevento.get();
+            return usuarioevento.getDTO();
+        }
+        return null;
+    }
+
+
+
 }

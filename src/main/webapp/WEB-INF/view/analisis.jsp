@@ -83,8 +83,8 @@
         <tr>
             <td><%= e.getEventoDTO().getFecha()%></td>
             <td><%= e.getEventoDTO().getPrecio()%></td>
-            <!--<td><%//e.getFechaUsuario() %></td>
-            <td><% //e.getSexo() %></td> -->
+            <td><%= e.getUsuarioeventoDTO().getFechanacimiento() %></td>
+            <td><%= e.getUsuarioeventoDTO().getSexo() %></td>
         </tr>
         <%
             }

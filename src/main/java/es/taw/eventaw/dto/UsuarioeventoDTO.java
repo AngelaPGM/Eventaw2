@@ -105,6 +105,7 @@ public class UsuarioeventoDTO {
             List<EntradaDTO> entradasDTO =  new ArrayList<>();
             for(Entrada e : entradas){
                 entradasDTO.add(e.getDTO());
+
             }
             this.entradasDTO = entradasDTO;
         }
