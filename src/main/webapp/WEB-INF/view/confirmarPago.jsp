@@ -38,18 +38,20 @@
 <!-- Barra navegacion -->
 <div class="topnav fixed-top">
     <ul>
-        <li><a href="ServletRedirectInicio">Inicio</a></li>
-        <li style="float:right"><a  href="ServletCierreSesion">Cerrar sesión</a></li>
-        <li style="float:right"><a href="perfilUsuario.jsp?editar=0">Mi perfil</a></li>
-        <li style="float:right"><a href="misEntradas.jsp?filtrado=0">MIS ENTRADAS</a></li>
+        <li><a href="/inicioUEvento">Inicio</a></li>
+        <li style="float:right"><a  href="/logout">Cerrar sesión</a></li>
+        <li style="float:right"><a href="/usuarioEvento/perfil">Mi perfil</a></li>
+        <li style="float:right"><a href="/usuarioEvento/misEntradas">MIS ENTRADAS</a></li>
     </ul>
 </div>
 
 <div class="fondo-pagina">
     <div class="container-perfil">
         <div class="wrap-registro justify-content-center text-center" >
-            <form:form class="register-form" action="ServletInscribir">
-                        <span class="bg-text" style="color: #7cc5e5">
+            <form:form class="register-form" action="/evento/confirmarPago" modelAttribute="eventoDTO">
+                    <form:hidden path="numfilas"/>
+                    <form:hidden path="maxentradasusuario"/>
+                    <span class="bg-text" style="color: #7cc5e5">
                             <h1><%= evento.getTitulo()%></h1>
                             <h4><%= evento.getDescripcion()%></h4>
                             <h4 style="padding-top: 1%;">en <%= evento.getCiudad()%> el <%= new SimpleDateFormat("dd/MM/yyyy").format(evento.getFecha())%></h4>
@@ -80,7 +82,7 @@
                             <h4>Se le realizará un cobro de <%= new DecimalFormat("#0.00").format(evento.getPrecio() * numEntradas)%>€ </h4>
                         </span>
 
-                    <input type="hidden" name="idEvento" value="<%= evento.getId()%>" />
+                <form:hidden path="id"/>
                     <input type="hidden" name="numEntradas" value="<%= new DecimalFormat("#0").format(numEntradas)%>" />
 
                     <span class="bg-text m-b-50">
@@ -91,17 +93,20 @@
                         for (int i = 0; i < numEntradas; i++) {
                     %>
                     <div class="row justify-content-center m-t-10" >
-                        <div class="col-4"><select class="custom-select" style="padding:10px" name="asiento<%= i%>">
-                            <%
+                        <div class="col-4">
+                            <form:select path="descripcion" class="custom-select" style="padding:10px" name="asiento<%= i%>">
+                                <form:options items="${asientos}"/>
+                            <%/*
                                 for (Integer j : asientos.keySet()) {
                                     for (Integer k : asientos.get(j)) {
-                            %>
-                            <option>Fila: <%= j%> Asiento: <%= k%></option>
-                            <%
+                            */%>
+                           <!-- <option>Fila: <% //j%> Asiento: <%// k%></option> -->
+                            <%/*
                                     }
                                 }
-                            %>
-                        </select></div></div>
+                            */%>
+                        </form:select>
+                        </div></div>
                     <%
                         }
                     %>

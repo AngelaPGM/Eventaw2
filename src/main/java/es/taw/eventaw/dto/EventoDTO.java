@@ -1,5 +1,7 @@
 package es.taw.eventaw.dto;
 
+import es.taw.eventaw.entity.Entrada;
+
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -122,7 +124,8 @@ public class EventoDTO {
         return entradasDTO;
     }
 
-    public void setEntradasDTO(List<EntradaDTO> entradasDTO) {
+    public void setEntradasDTO(List<EntradaDTO> entradasDTO){
+        if(entradasDTO == null) this.entradasDTO = new ArrayList<>();
         this.entradasDTO = entradasDTO;
     }
 

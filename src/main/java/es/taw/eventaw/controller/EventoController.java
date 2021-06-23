@@ -65,21 +65,30 @@ public class EventoController {
         return "ventaEntradas";
     }
 
-    @PostMapping("/aceptarPago")
+    @PostMapping("/aceptarPago/")
     public String cargarAceptarPago(@ModelAttribute("eventoDTO") EventoDTO eventoDTO, Model model, HttpSession session) throws ParseException {
         if(eventoDTO.getNumfilas() != null){
             model.addAttribute("evento", this.eventoService.findEventobyId(eventoDTO.getId()));
             model.addAttribute("numEntradas", new Double(eventoDTO.getMaxentradasusuario()));
-            model.addAttribute("error", "");
+            String error = eventoDTO.getTitulo();
+            if(error == null) error = "";
+            model.addAttribute("error", error);
+            model.addAttribute("asientos", this.eventoService.getAsientos(eventoDTO.getId()));
             return "confirmarPago";
         } else {
-            UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
-            return this.doConfirmarPago(usuarioDTO, this.eventoService.findEventobyId(eventoDTO.getId()), eventoDTO.getMaxentradasusuario());
+            return this.doConfirmarPago(eventoDTO, eventoDTO.getMaxentradasusuario(), session, model);
         }
     }
 
-    private String doConfirmarPago(UsuarioDTO usuarioDTO, EventoDTO eventoDTO, Integer numEntradas) {
-        this.eventoService.tramitarEntradas(usuarioDTO, eventoDTO, numEntradas);
-        return "redirect:/inicioUEvento";
+    @PostMapping("/confirmarPago")
+    private String doConfirmarPago(@ModelAttribute("eventoDTO") EventoDTO eventoDTO, Integer numEntradas, HttpSession session, Model model) throws ParseException {
+        UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
+        String error = this.eventoService.tramitarEntradas(usuarioDTO, eventoDTO, numEntradas);
+        if(error.equals("")){
+            return "redirect:/inicioUEvento";
+        } else {
+            eventoDTO.setTitulo(error);
+            return this.cargarAceptarPago(eventoDTO, model, session);
+        }
     }
 }

@@ -29,7 +29,7 @@ public class EntradaService {
         this.entradaRepository = entradaRepository;
     }
 
-    private List<EntradaDTO> listaToDto(List<Entrada> lista) throws ParseException {
+    public List<EntradaDTO> listaToDto(List<Entrada> lista) throws ParseException {
         if(lista == null){
             return null;
         }else{
