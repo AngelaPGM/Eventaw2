@@ -34,7 +34,7 @@
         <li><a href="/inicioUEvento">Inicio</a></li>
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
         <li style="float:right"><a class="active">Mi perfil</a></li>
-        <li style="float:right"><a href="sin hacer">MIS ENTRADAS</a></li>
+        <li style="float:right"><a href="/usuarioEvento/misEntradas">MIS ENTRADAS</a></li>
         <li style="float:right"><a href="sin hacer">CHAT TELEOPERADOR</a></li>
     </ul>
 </div>
