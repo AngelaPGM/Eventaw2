@@ -35,16 +35,17 @@ public class EventoService {
         this.eventoRepository = eventoRepository;
     }
 
-    public List<Evento> findAll() {
-        return this.eventoRepository.findAll();
+    public List<EventoDTO> findAll() throws ParseException {
+        List<Evento> listaEvento = this.eventoRepository.findAll();
+        return this.listaEventosToDTO(listaEvento);
     }
 
     public List<EventoDTO>  findEventosFuturos() throws ParseException {
         List<Evento> eventosFuturos = this.eventoRepository.findEventoByFechaAfter(new Date());
-        return this.toListaDTO(eventosFuturos);
+        return this.listaEventosToDTO(eventosFuturos);
     }
 
-    protected List<EventoDTO> toListaDTO(List<Evento> lista) throws ParseException {
+    protected List<EventoDTO> listaEventosToDTO(List<Evento> lista) throws ParseException {
         List<EventoDTO> listaDTO = null;
         if (lista != null) {
             listaDTO = new ArrayList<EventoDTO>();
@@ -64,7 +65,7 @@ public class EventoService {
             filtrados = this.eventoRepository.findEventoByFechaAfterAndFechaBefore(fechaIni, fechaFin);
         }
 
-        return this.toListaDTO(filtrados);
+        return this.listaEventosToDTO(filtrados);
     }
 
     public EventoDTO findEventobyId(Integer id) throws ParseException {

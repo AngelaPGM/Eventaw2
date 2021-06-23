@@ -47,15 +47,26 @@ public class EventoController {
     }
 
     @GetMapping("/borrar/{id}")
-    public String doBorrar(@PathVariable Integer id){
+    public String doBorrar(@PathVariable Integer id, HttpSession session){
+        UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
         this.eventoService.remove(id);
-        return "redirect:/inicioCreador";
+
+        if(usuarioDTO.getRolDTOByRol().getId() !=1 ) {
+            return "redirect:/inicioCreador";
+        }else{
+            return "redirect:/inicioAdmin";
+        }
     }
 
     @PostMapping("/guardar")
     public String doGuardar(@ModelAttribute("eventoDTO") EventoDTO eventoDTO, HttpSession session) throws ParseException {
-        this.eventoService.save(eventoDTO, (UsuarioDTO) session.getAttribute("userDTO"));
-        return "redirect:/inicioCreador";
+        UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
+        this.eventoService.save(eventoDTO, usuarioDTO);
+        if(usuarioDTO.getRolDTOByRol().getId() !=1 ) {
+            return "redirect:/inicioCreador";
+        }else {
+            return "redirect:/inicioAdmin";
+        }
     }
 
     @GetMapping("/comprarEntradas/{eventoId}")
