@@ -2,6 +2,7 @@ package es.taw.eventaw.dao;
 
 import es.taw.eventaw.entity.Evento;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
 import java.util.List;
@@ -11,13 +12,8 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
 
     List<Evento> findEventoByTitulo(String titulo);
 
+    @Query("select e from Evento e where lower(e.titulo) like concat('%', lower(:titulo), '%') and e.fecha >= :fechaIni and  e.fechacompra < :fechaFin")
     List<Evento> findEventoByTituloAndFechaAfterAndFechaBefore(String titulo, Date fechaIni, Date fechaFin);
 
-    List<Evento> findEventoByTituloAndFechaAfter(String titulo, Date fechaIni);
-
-    List<Evento> findEventoByTituloAndFechaBefore(String titulo, Date fechaFin);
-
     List<Evento> findEventoByFechaAfterAndFechaBefore(Date fechaIni, Date fechaFin);
-
-    List<Evento> findEventoByFechaBefore(Date fechaFin);
 }

@@ -1,6 +1,8 @@
 package es.taw.eventaw.dto;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +21,12 @@ public class EventoDTO {
     private List<EntradaDTO> entradasDTO;
     private UsuarioDTO creadorDTO;
 
-    public EventoDTO() {
+    public EventoDTO() throws ParseException {
         this.titulo = "";
         this.descripcion = "";
         this.ciudad = "";
+        this.fecha = new Date(new SimpleDateFormat().parse(new SimpleDateFormat().format(new java.util.Date())).getTime());
+        this.fechacompra = new Date(new SimpleDateFormat().parse(new SimpleDateFormat().format(new java.util.Date())).getTime());
     }
 
     public Integer getId() {

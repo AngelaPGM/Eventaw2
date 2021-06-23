@@ -22,12 +22,12 @@
     <!-- COPIAR ESTO PARA METER CSS Y BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/util.css">
+    <link rel="stylesheet" href="../../css/util.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <%
     List<EventoDTO> eventosFuturos = (List<EventoDTO>) request.getAttribute("eventosFuturos");
-    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyy");
+    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
     int plazasDisp;
 
 %>
@@ -69,10 +69,10 @@
                 <form:input path="titulo" class="input2" type="text" name="buscadorNombre" placeholder="Buscar eventos por nombre y/o fecha"/>
             </div>
                 <div class="col-2 wrap-input2 wrap-separacion10">
-                    <form:input path="fecha" class="input2" type="date" id="start" name="fechaInicio"/>
+                    <form:input path="fecha" class="input2" type="date" name="fechaInicio" min="<%=formato.format(new Date())%>"/>
                 </div>
                 <div class="col-2 wrap-input2 wrap-separacion10">
-                    <form:input path="fechacompra" class="input2" type="date" id="fin" name="fechaFin"/>
+                    <form:input path="fechacompra" class="input2" type="date" name="fechaFin" min="<%=formato.format(new Date())%>"/>
                 </div>
                 <div class="col-2">
                     <div class="wrap-login100-form-btn">

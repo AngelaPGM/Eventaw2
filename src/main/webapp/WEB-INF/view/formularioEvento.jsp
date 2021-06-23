@@ -101,7 +101,7 @@
                         <form:input path="maxentradasusuario" class="input2 text-center" type="number" name="max" min="1" required="required"/>
                     </div>
                     <div class="col-3 wrap-input2">
-                        <form:input path="fecha" class="input2" type="date" name="fecha" style="text-align: center" min="<%=formato.format(new Date())%>" required="fecha"/>
+                        <form:input path="fecha" class="input2" type="date" name="fecha" style="text-align: center" min="<%=formato.format(new Date())%>" required="required"/>
                     </div>
                     <div class="col-3 wrap-input2">
                         <form:input path="fechacompra" class="input2"   type="date"  name="fechaCompra" style="text-align: center" min="<%=formato.format(new Date())%>" required="required"/>

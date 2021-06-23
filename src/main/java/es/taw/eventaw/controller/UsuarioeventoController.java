@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +73,7 @@ public class UsuarioeventoController {
     }
 
     @GetMapping("/misEntradas")
-    public String doMisEntradas(Model model, HttpSession session) {
+    public String doMisEntradas(Model model, HttpSession session) throws ParseException {
         List<EntradaDTO> entradasFuturas = this.entradaService.getEntradasFuturas((UsuarioDTO) session.getAttribute("userDTO"));
         List<EntradaDTO> entradasPasadas = this.entradaService.getEntradasPasadas((UsuarioDTO) session.getAttribute("userDTO"));
         model.addAttribute("entradasFuturas", entradasFuturas);

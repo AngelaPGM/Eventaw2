@@ -41,12 +41,12 @@ public class EventoService {
         return this.eventoRepository.findAll();
     }
 
-    public List<EventoDTO>  findEventosFuturos() {
+    public List<EventoDTO>  findEventosFuturos() throws ParseException {
         List<Evento> eventosFuturos = this.eventoRepository.findEventoByFechaAfter(new Date());
         return this.toListaDTO(eventosFuturos);
     }
 
-    protected List<EventoDTO> toListaDTO(List<Evento> lista) {
+    protected List<EventoDTO> toListaDTO(List<Evento> lista) throws ParseException {
         List<EventoDTO> listaDTO = null;
         if (lista != null) {
             listaDTO = new ArrayList<EventoDTO>();
@@ -57,29 +57,19 @@ public class EventoService {
         return listaDTO;
     }
 
-    public List<EventoDTO> filtradoNombre(String titulo, Date fechaIni, Date fechaFin) {
+    public List<EventoDTO> filtrado(String titulo, Date fechaIni, Date fechaFin) throws ParseException {
         List<Evento> filtrados = new ArrayList<>();
 
-        if(titulo != null && fechaIni != null && fechaFin != null){//Filtrado completo
+        if(!titulo.equals("") && fechaIni != null && fechaFin != null){//Filtrado completo
             filtrados = this.eventoRepository.findEventoByTituloAndFechaAfterAndFechaBefore(titulo, fechaIni, fechaFin);
-        } else if(titulo != null && fechaIni != null && fechaFin == null){// Nombre y Fecha Inicio
-            filtrados = this.eventoRepository.findEventoByTituloAndFechaAfter(titulo, fechaIni);
-        } else if(titulo != null && fechaIni == null && fechaFin != null){// Nombre y Fecha Final
-            filtrados = this.eventoRepository.findEventoByTituloAndFechaBefore(titulo, fechaFin);
-        } else if(titulo != null && fechaIni == null && fechaFin == null){//Solo Nombre
-            filtrados = this.eventoRepository.findEventoByTitulo(titulo);
-        } else if(titulo == null && fechaIni != null && fechaFin != null){// Solo Fechas
+        } else if(titulo.equals("") && fechaIni != null && fechaFin != null){// Solo Fechas
             filtrados = this.eventoRepository.findEventoByFechaAfterAndFechaBefore(fechaIni, fechaFin);
-        } else if(titulo == null && fechaIni != null && fechaFin == null){// Solo Fecha Inicio
-            filtrados = this.eventoRepository.findEventoByFechaAfter(fechaIni);
-        } else if(titulo == null && fechaIni == null && fechaFin != null){// Solo Fecha Final
-            filtrados = this.eventoRepository.findEventoByFechaBefore(fechaFin);
         }
 
         return this.toListaDTO(filtrados);
     }
 
-    public EventoDTO findEventobyId(Integer id) {
+    public EventoDTO findEventobyId(Integer id) throws ParseException {
         Optional<Evento> eventoOpt = this.eventoRepository.findById(id);
         if(eventoOpt.isPresent()){
             Evento evento = eventoOpt.get();

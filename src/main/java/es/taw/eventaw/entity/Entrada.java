@@ -3,6 +3,7 @@ package es.taw.eventaw.entity;
 import es.taw.eventaw.dto.EntradaDTO;
 
 import javax.persistence.*;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Objects;
 
@@ -79,7 +80,7 @@ public class Entrada {
     }
 
     @Transient
-    public EntradaDTO getDTO() {
+    public EntradaDTO getDTO() throws ParseException {
         EntradaDTO dto = new EntradaDTO();
         dto.setId(id);
         dto.setNumfila(numfila);

@@ -4,6 +4,7 @@ import es.taw.eventaw.dto.EventoDTO;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -177,7 +178,7 @@ public class Evento {
     }
 
     @Transient
-    public EventoDTO getDTO() {
+    public EventoDTO getDTO() throws ParseException {
         EventoDTO dto = new EventoDTO();
         dto.setId(this.id);
         dto.setTitulo(this.titulo);

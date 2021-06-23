@@ -12,6 +12,7 @@ import es.taw.eventaw.entity.Usuarioevento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -66,7 +67,7 @@ public class UsuarioService {
         this.usuarioeventoService.guardarUsuarioevento(usuario, dto.getUsuarioeventoDTOById());
     }
 
-    public List<EventoDTO> getEventos(UsuarioDTO userDTO) {
+    public List<EventoDTO> getEventos(UsuarioDTO userDTO) throws ParseException {
         Optional<Usuario> usuarioOptional = this.usuarioRepository.findById(userDTO.getId());
         List<EventoDTO> eventosDTO = new ArrayList<>();
         if(usuarioOptional.isPresent()){
@@ -77,7 +78,7 @@ public class UsuarioService {
         return eventosDTO;
     }
 
-    private List<EventoDTO> listaToDto(List<Evento> lista){
+    private List<EventoDTO> listaToDto(List<Evento> lista) throws ParseException {
         if(lista == null){
             return new ArrayList<>();
         }else{

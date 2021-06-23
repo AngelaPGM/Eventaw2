@@ -8,6 +8,7 @@ import es.taw.eventaw.entity.Entrada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,7 @@ public class EntradaService {
         this.entradaRepository = entradaRepository;
     }
 
-    private List<EntradaDTO> listaToDto(List<Entrada> lista){
+    private List<EntradaDTO> listaToDto(List<Entrada> lista) throws ParseException {
         if(lista == null){
             return null;
         }else{
@@ -33,7 +34,7 @@ public class EntradaService {
         }
     }
 
-    public List<EntradaDTO> findAll(){
+    public List<EntradaDTO> findAll() throws ParseException {
         return listaToDto(this.entradaRepository.findAll());
     }
 
@@ -45,7 +46,7 @@ public class EntradaService {
         return aux;
     }
 
-    public List<EntradaDTO> findByAnalisis(AnalisisDTO analisisDTO){
+    public List<EntradaDTO> findByAnalisis(AnalisisDTO analisisDTO) throws ParseException {
         List<Entrada> listaEntradas = null;
 
         boolean activo = false;
@@ -108,12 +109,12 @@ public class EntradaService {
         return listaToDto(listaEntradas);
     }
 
-    public List<EntradaDTO> getEntradasFuturas(UsuarioDTO userDTO) {
+    public List<EntradaDTO> getEntradasFuturas(UsuarioDTO userDTO) throws ParseException {
         List<Entrada> entradasfuturas = this.entradaRepository.findEntradaByUsuarioeventoByUsuarioAndEventoByEventoAfter(userDTO.getId(), new Date());
         return this.listaToDto(entradasfuturas);
     }
 
-    public List<EntradaDTO> getEntradasPasadas(UsuarioDTO userDTO) {
+    public List<EntradaDTO> getEntradasPasadas(UsuarioDTO userDTO) throws ParseException {
         List<Entrada> entradasPasadas = this.entradaRepository.findEntradaByUsuarioeventoByUsuarioAndEventoByEventoBefore(userDTO.getId(), new Date());
         return this.listaToDto(entradasPasadas);
     }

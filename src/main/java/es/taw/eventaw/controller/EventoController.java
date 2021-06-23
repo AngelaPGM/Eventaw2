@@ -25,20 +25,21 @@ public class EventoController {
 
     @PostMapping("/filtrar")
     public String doFiltrarEventos(@ModelAttribute("eventoDTO") EventoDTO inputData, Model model) throws ParseException {
-        List<EventoDTO> filtrados = this.eventoService.filtradoNombre(inputData.getTitulo(), inputData.getFecha(), inputData.getFechacompra());
+        List<EventoDTO> filtrados = this.eventoService.filtrado(inputData.getTitulo(), inputData.getFecha(), inputData.getFechacompra());
         model.addAttribute("eventosFuturos",filtrados);
+        model.addAttribute("eventoDTO", inputData);
         return "inicioUEvento";
     }
 
     @GetMapping("/crear")
-    public String cargarCrear(Model model){
+    public String cargarCrear(Model model) throws ParseException {
         model.addAttribute("eventoDTO", new EventoDTO());
         model.addAttribute("error", "");
         return "formularioEvento";
     }
 
     @GetMapping("/editar/{id}")
-    public String cargarEditar(@PathVariable Integer id, Model model){
+    public String cargarEditar(@PathVariable Integer id, Model model) throws ParseException {
         EventoDTO eventoDTO = this.eventoService.findEventobyId(id);
         model.addAttribute("eventoDTO", eventoDTO);
         model.addAttribute("error", "");

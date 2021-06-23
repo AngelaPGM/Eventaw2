@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 
 
 @Controller
@@ -39,7 +40,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public String doLogin(@ModelAttribute("user") Usuario usuario, Model model, HttpSession session) {
+    public String doLogin(@ModelAttribute("user") Usuario usuario, Model model, HttpSession session) throws ParseException {
         UsuarioDTO userDTO = this.usuarioService.comprobarCredenciales(usuario.getCorreo(), usuario.getContrasenya());
         String strTo = "login";
 
@@ -79,14 +80,14 @@ public class UsuarioController {
     }
 
     @GetMapping("/inicioUEvento")
-    public String doInicioUEvento(Model model) {
+    public String doInicioUEvento(Model model) throws ParseException {
         model.addAttribute("eventosFuturos", this.eventoService.findEventosFuturos());
         model.addAttribute("eventoDTO", new EventoDTO());
         return "inicioUEvento";
     }
 
     @GetMapping("/inicioCreador")
-    public String doInicioCreador(Model model, HttpSession session){
+    public String doInicioCreador(Model model, HttpSession session) throws ParseException {
         model.addAttribute("misEventos", this.usuarioService.getEventos((UsuarioDTO) session.getAttribute("userDTO")));
         model.addAttribute("todosEventos", this.eventoService.findAll());
         return "inicioCreador";
