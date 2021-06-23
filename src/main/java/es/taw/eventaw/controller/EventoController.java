@@ -3,6 +3,7 @@ package es.taw.eventaw.controller;
 import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.service.EventoService;
+import es.taw.eventaw.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,17 +18,27 @@ import java.util.List;
 @RequestMapping("/evento")
 public class EventoController {
     private EventoService eventoService;
+    private UsuarioService usuarioService;
 
     @Autowired
     public void setEventoService(EventoService eventoService) {
         this.eventoService = eventoService;
     }
 
+    @Autowired
+    public void setUsuarioService(UsuarioService usuarioService) { this.usuarioService = usuarioService; }
+
     @PostMapping("/filtrar")
-    public String doFiltrarEventos(@ModelAttribute("eventoDTO") EventoDTO inputData, Model model) throws ParseException {
+    public String doFiltrarEventos(@ModelAttribute("eventoDTO") EventoDTO inputData, Model model, HttpSession session) throws ParseException {
+        UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
         List<EventoDTO> filtrados = this.eventoService.filtrado(inputData.getTitulo(), inputData.getFecha(), inputData.getFechacompra());
         model.addAttribute("eventosFuturos",filtrados);
         model.addAttribute("eventoDTO", inputData);
+        if(usuarioDTO.getRolDTOByRol().getId() == 1 ){ //Si soy Administrador.
+            model.addAttribute("usuarios",this.usuarioService.findAll());
+            model.addAttribute("usuarioFiltroDTO", new UsuarioDTO());
+            return "inicioAdministrador";
+        }
         return "inicioUEvento";
     }
 
