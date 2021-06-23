@@ -68,23 +68,6 @@ public class UsuarioService {
         }
     }
 
-    public void guardarUsuarioAdmin(UsuarioDTO dto){
-        Usuario usuario;
-
-        if(dto.getId() == null){
-            usuario = new Usuario();
-
-        }else{
-            usuario = this.usuarioRepository.findById(dto.getId()).orElse(new Usuario());
-        }
-        Rol r = this.rolRepository.findById(dto.getRolDTOByRol().getId()).orElse(new Rol());
-        usuario.setId(dto.getId());
-        usuario.setCorreo(dto.getCorreo());
-        usuario.setContrasenya(dto.getContrasenya());
-        usuario.setRolByRol(r);
-        usuario.setUsuarioeventosById(null);
-        this.usuarioRepository.save(usuario);
-    }
 
     public List<EventoDTO> getEventos(UsuarioDTO userDTO) throws ParseException {
         Optional<Usuario> usuarioOptional = this.usuarioRepository.findById(userDTO.getId());

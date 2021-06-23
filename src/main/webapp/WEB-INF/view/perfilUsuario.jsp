@@ -30,7 +30,17 @@
 <!-- Barra navegacion -->
 <div class="topnav fixed-top">
     <ul>
+        <%
+        if(usuarioDTO.getRolDTOByRol().getId() == 1){
+        %>
+        <li><a href="/inicioAdmin">Inicio</a></li>
+        <%
+        }else{
+        %>
         <li><a href="/inicioCreador">Inicio</a></li>
+        <%
+            }
+        %>
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
         <li style="float:right"><a class="active">Mi perfil</a></li>
         <%
@@ -47,7 +57,6 @@
         <div class="wrap-registro justify-content-center text-center">
             <form:form modelAttribute="userDTO" class="register-form" action="/guardar">
                 <form:hidden path="id"/>
-                <form:hidden path="rolDTOByRol.id"/>
                 <h1 class="bg-text">Datos de usuario</h1>
                 <%
                     if (errorLog != null && errorLog != "") {%>
@@ -89,6 +98,33 @@
                         <form:input class="input2" type="password" name="contrasenia1" path="contrasenya2"/>
                     </div>
                 </div>
+                <%
+                    if(usuarioDTO.getRolDTOByRol().getId() ==1){
+                %>
+                <div class="row justify-content-around m-t-20">
+                    <div class="col-3 text-center">Rol:<span style="color:#a64bf4"> (*)</span></div>
+                </div>
+                <div class="row justify-content-center" style="line-height: 1.2; height: 50px">
+                    <div class="col-6">
+                        <form:select class="custom-select" path="rolDTOByRol.id" name="rol" required = "required">
+                            <form:option value="3" label="Creador de Eventos"/>
+                            <form:option value="1" label="Administrador del Sistema" />
+                            <form:option value="4" label="Teleoperadores"/>
+                            <form:option value="5" label="Analista de Eventos"/>
+                        </form:select>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <%
+                    }
+                %>
                 <div class="row justify-content-center">
                     <div class="col-6">
                         <div class="container-login100-form-btn p-t-30 justify-content-center">
