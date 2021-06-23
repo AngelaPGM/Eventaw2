@@ -3,6 +3,7 @@ package es.taw.eventaw.service;
 import es.taw.eventaw.dao.EntradaRepository;
 import es.taw.eventaw.dto.AnalisisDTO;
 import es.taw.eventaw.dto.EntradaDTO;
+import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.entity.Entrada;
 import es.taw.eventaw.entity.Usuario;
@@ -10,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -118,13 +120,14 @@ public class EntradaService {
 
     public List<EntradaDTO> getEntradasFuturas(UsuarioDTO userDTO) throws ParseException {
         Usuario usuario = this.usuarioService.findByUsuario(userDTO);
-        List<Entrada> entradasfuturas = this.entradaRepository.findEntradaByUsuarioeventoAndEventoByEventoAfter(usuario.getUsuarioeventosById().getId(), new Date());
+        List<Entrada> entradasfuturas = this.entradaRepository.findEntradaByUsuarioeventoAndEventoByEventoAfter(usuario.getUsuarioeventosById().getId(), new Date(System.currentTimeMillis()));
         return this.listaToDto(entradasfuturas);
     }
 
     public List<EntradaDTO> getEntradasPasadas(UsuarioDTO userDTO) throws ParseException {
-        Usuario usuario = this.usuarioService.findByUsuario(userDTO);
-        List<Entrada> entradasPasadas = this.entradaRepository.findEntradaByUsuarioeventoAndEventoByEventoBefore(usuario.getUsuarioeventosById().getId(), new Date());
+        Date today = new Date(System.currentTimeMillis());
+        Integer id = userDTO.getUsuarioeventoDTOById().getId();
+        List<Entrada> entradasPasadas = this.entradaRepository.findEntradaByUsuarioeventoAndEventoByEventoBefore(id, today);
         return this.listaToDto(entradasPasadas);
     }
 
@@ -136,5 +139,16 @@ public class EntradaService {
 
     public void save(Entrada entrada) {
         this.entradaRepository.save(entrada);
+    }
+
+    public List<EntradaDTO> filtrado(EventoDTO eventoDTO, UsuarioDTO userDTO) throws ParseException {
+        List<Entrada> filtradas =  new ArrayList<>();
+        if(!eventoDTO.getTitulo().equals("") && !eventoDTO.getFecha().equals("") && !eventoDTO.getFechacompra().equals("")){ //Filtrado Completo
+            filtradas = this.entradaRepository.findEntradaByEvento(userDTO.getUsuarioeventoDTOById().getId(), eventoDTO.getTitulo(),
+                    eventoDTO.getFecha(), eventoDTO.getFechacompra());
+        } else if(eventoDTO.getTitulo().equals("") &&  !eventoDTO.getFecha().equals("") && !eventoDTO.getFechacompra().equals("")) {// Solo Fechas
+            filtradas = this.entradaRepository.findEntradaByEventoSoloFechas(userDTO.getUsuarioeventoDTOById().getId(), eventoDTO.getFecha(), eventoDTO.getFechacompra());
+        }
+        return this.listaToDto(filtradas);
     }
 }

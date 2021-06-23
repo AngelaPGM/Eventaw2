@@ -32,8 +32,14 @@ public interface EntradaRepository extends JpaRepository<Entrada, Integer> {
     public List<Entrada> findEntradasSexo(@Param("sexo") String sexo);
 
     @Query("select e from Entrada e where e.usuarioeventoByUsuario.id = :id and e.eventoByEvento.fecha >= :date")
-    public List<Entrada> findEntradaByUsuarioeventoAndEventoByEventoAfter(Integer id, java.util.Date date);
+    public List<Entrada> findEntradaByUsuarioeventoAndEventoByEventoAfter(Integer id, Date date);
 
     @Query("select e from Entrada e where e.usuarioeventoByUsuario.id = :id and e.eventoByEvento.fecha < :date")
-    public List<Entrada> findEntradaByUsuarioeventoAndEventoByEventoBefore(Integer id, java.util.Date date);
+    public List<Entrada> findEntradaByUsuarioeventoAndEventoByEventoBefore(Integer id, Date date);
+
+    @Query("select e from Entrada e where e.usuarioeventoByUsuario.id = :id and lower(e.eventoByEvento.titulo) like concat('%', lower(:titulo), '%') and e.eventoByEvento.fecha >= :fechaIni and e.eventoByEvento.fecha <= :fechaFin")
+    public List<Entrada> findEntradaByEvento(Integer id, String titulo, Date fechaIni, Date fechaFin);
+
+    @Query("select e from Entrada e where e.usuarioeventoByUsuario.id = :id and e.eventoByEvento.fecha >= :fechaIni and e.eventoByEvento.fecha <= :fechaFin")
+    public List<Entrada> findEntradaByEventoSoloFechas(Integer id, Date fechaIni, Date fechaFin);
 }

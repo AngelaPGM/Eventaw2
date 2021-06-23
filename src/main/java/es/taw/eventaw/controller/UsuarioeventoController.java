@@ -1,6 +1,7 @@
 package es.taw.eventaw.controller;
 
 import es.taw.eventaw.dto.EntradaDTO;
+import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.dto.UsuarioeventoDTO;
 import es.taw.eventaw.service.EntradaService;
@@ -78,6 +79,7 @@ public class UsuarioeventoController {
         List<EntradaDTO> entradasPasadas = this.entradaService.getEntradasPasadas((UsuarioDTO) session.getAttribute("userDTO"));
         model.addAttribute("entradasFuturas", entradasFuturas);
         model.addAttribute("entradasPasadas", entradasPasadas);
+        model.addAttribute("eventoDTO", new EventoDTO());
         return "entrada";
     }
 
