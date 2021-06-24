@@ -176,4 +176,8 @@ public class UsuarioService {
         return usuario.getRolByRol().getId();
     }
 
+    public Boolean getCorreoYaRegistrado(String correo) {
+        return (this.usuarioRepository.findUsuarioByCorreo(correo) != null);
+    }
+
 }

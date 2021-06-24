@@ -49,21 +49,33 @@ public class UsuarioeventoController {
         String strTo = "perfilUsuario";
         UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
         if (userDTO.getContrasenya2().isEmpty() || userDTO.getContrasenya().equals(userDTO.getContrasenya2())) {
-            this.usuarioService.guardarUsuario(userDTO, 2);
-            if (userDTO.getId() == null) { //creando
-                strTo = "redirect:/inicioUEvento";
-                userDTO = this.usuarioService.comprobarCredenciales(userDTO.getCorreo(), userDTO.getContrasenya());
-            } else {
-                if(usuarioDTO.getRolDTOByRol().getId() == 1){
-                    strTo = "redirect:/inicioAdmin";
-                } else if(usuarioDTO.getRolDTOByRol().getId() == 2) {
+            if (usuarioService.getCorreoYaRegistrado(userDTO.getCorreo())) {
+                model.addAttribute("errorLog", "Este correo ya existe. Por favor, utiliza otro correo.");
+
+                if (userDTO.getId() == null) { //creando
+                    strTo = "registroUsuario";
+                } else if (usuarioDTO.getRolDTOByRol().getId() == 2) {
                     strTo = "perfilUsuarioevento";
                 }
-                model.addAttribute("guardado", true);
+
+            } else {
+
+                this.usuarioService.guardarUsuario(userDTO, 2);
+                if (userDTO.getId() == null) { //creando
+                    strTo = "redirect:/inicioUEvento";
+                    userDTO = this.usuarioService.comprobarCredenciales(userDTO.getCorreo(), userDTO.getContrasenya());
+                } else {
+                    if (usuarioDTO.getRolDTOByRol().getId() == 1) {
+                        strTo = "redirect:/inicioAdmin";
+                    } else if (usuarioDTO.getRolDTOByRol().getId() == 2) {
+                        strTo = "perfilUsuarioevento";
+                    }
+                    model.addAttribute("guardado", true);
+
+                }
+                session.setAttribute("userDTO", userDTO);
 
             }
-            session.setAttribute("userDTO", userDTO);
-
         } else {
             model.addAttribute("errorLog", "Las contraseñas no coinciden");
 
@@ -91,10 +103,11 @@ public class UsuarioeventoController {
         model.addAttribute("userDTO", (UsuarioDTO) session.getAttribute("userDTO"));
         return "perfilUsuarioevento";
     }
+
     @GetMapping("/editar/{id}")
     public String cargarEditar(@PathVariable("id") Integer id, Model model) throws ParseException {
         UsuarioDTO usuario = this.usuarioService.findUsuarioEventobyId(id);
-        model.addAttribute("userDTO",usuario);
+        model.addAttribute("userDTO", usuario);
         return "perfilUsuario";
     }
 
