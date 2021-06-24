@@ -42,4 +42,7 @@ public interface EntradaRepository extends JpaRepository<Entrada, Integer> {
 
     @Query("select e from Entrada e where e.usuarioeventoByUsuario.id = :id and e.eventoByEvento.fecha >= :fechaIni and e.eventoByEvento.fecha <= :fechaFin")
     public List<Entrada> findEntradaByEventoSoloFechas(Integer id, Date fechaIni, Date fechaFin);
+
+    @Query("select count(e) from Entrada e")
+    public Integer numeroTotal();
 }
