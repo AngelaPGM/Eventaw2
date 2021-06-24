@@ -99,8 +99,8 @@
             <td>EMAIL</td>
             <td>CONTRASEÑA</td>
             <td>ROL</td>
-            <td>EDITAR</td>
-            <td>ELIMINAR</td>
+            <td></td>
+            <td></td>
         </tr>
         </thead>
         <tbody>
