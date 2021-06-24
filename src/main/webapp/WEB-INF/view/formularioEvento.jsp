@@ -54,7 +54,8 @@
     <ul>
         <li><a href="/inicioCreador">Inicio</a></li>
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
-        <li style="float:right"><a href="ServletCrudUsuario?id=<%= usuario.getId()%>">Mi perfil</a></li>
+        <li style="float:right"><a href="/perfil">Mi perfil</a></li>
+        <li style="float:right"><a href="Sin hacer">CHAT TELEOPERADOR</a></li>
     </ul>
 </div>
 <%
@@ -63,7 +64,7 @@
 <div class="fondo-pagina">
     <div class="container-perfil">
         <div class="wrap-registro justify-content-center text-center" style="width: 1200px">
-            <form:form method="POST" action="/evento/guardar" modelAttribute="eventoDTO">
+            <form:form method="POST" action="/evento/guardar" modelAttribute="eventoDTO" class="register-form">
                 <form:hidden path="id" />
                 <h1 class="bg-text" style="color: #a64bf4">
                     Datos del evento
