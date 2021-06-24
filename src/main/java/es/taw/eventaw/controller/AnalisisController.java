@@ -56,11 +56,16 @@ public class AnalisisController {
 
         List<EntradaDTO> listaEntradas = this.entradaService.findAll();
         model.addAttribute("listaEntradas", listaEntradas);
+
+        model.addAttribute("totales", this.entradaService.numeroTotal());
         return "analisis";
     }
 
     @PostMapping("/guardar")
     public String doGuardar(@ModelAttribute("analisis") AnalisisDTO a){
+        if(a.getSexo().equals("N")){
+            a.setSexo(null);
+        }
         Integer id = this.analisisService.doGuardar(a);
 
         return "redirect:/analisis/ver/"+id;
@@ -74,6 +79,7 @@ public class AnalisisController {
         List<EntradaDTO> listaEntradas = this.entradaService.findByAnalisis(analisis);
         model.addAttribute("listaEntradas", listaEntradas);
 
+        model.addAttribute("totales", this.entradaService.numeroTotal());
         return "analisis";
     }
 

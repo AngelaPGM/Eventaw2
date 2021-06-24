@@ -120,6 +120,10 @@ public class EntradaService {
         return listaToDto(listaEntradas);
     }
 
+    public Integer numeroTotal(){
+        return this.entradaRepository.numeroTotal();
+    }
+
     public List<EntradaDTO> getEntradasFuturas(UsuarioDTO userDTO) throws ParseException {
         Usuario usuario = this.usuarioService.findByUsuario(userDTO);
         List<Entrada> entradasfuturas = this.entradaRepository.findEntradaByUsuarioeventoAndEventoByEventoAfter(usuario.getUsuarioeventosById().getId(), new Date(System.currentTimeMillis()));

@@ -20,13 +20,14 @@
 <%
     List<EntradaDTO> listaEntradas = (List<EntradaDTO>) request.getAttribute("listaEntradas");
     AnalisisDTO a = (AnalisisDTO) request.getAttribute("analisis");
+    Integer totales = (Integer) request.getAttribute("totales");
 %>
 <body>
 
     <form:form action="/analisis/guardar" modelAttribute="analisis">
         <form:hidden path="id"></form:hidden>
-        Analisis: <form:input path="nombre"></form:input><br>
-
+        <h1>Analisis <form:input path="nombre"></form:input></h1>
+        <h2>Mostraremos las entradas con:</h2>
         Fecha superior a: <form:input path="fechamayor" type="date"></form:input><br>
         Fecha inferior a: <form:input path="fechamenor" type="date"></form:input><br>
 
@@ -38,22 +39,28 @@
 
         Sexo comprador:
         <%
-            if(a.getSexo() == null || a.getSexo().isEmpty()){
+            if(a.getSexo() == null){
         %>
-        H <form:radiobutton path="sexo" value="H"/>
-        M <form:radiobutton path="sexo" value="M"/><br>
+            H <form:radiobutton path="sexo" value="H"/>
+            M <form:radiobutton path="sexo" value="M"/>
+            Ambos <form:radiobutton path="sexo" value="N" checked="checked"/><br>
         <%
             }else{
-                if(a.getSexo().contains("H")){
+            switch (a.getSexo()){
+                case "H":
         %>
-        H <form:radiobutton path="sexo" value="H" checked="checked"/>
-        M <form:radiobutton path="sexo" value="M"/><br>
+            H <form:radiobutton path="sexo" value="H" checked="checked"/>
+            M <form:radiobutton path="sexo" value="M"/>
+            Ambos <form:radiobutton path="sexo" value="N"/><br>
         <%
-            }else if(a.getSexo().contains("M")){
+                break;
+                case "M":
         %>
-        H <form:radiobutton path="sexo" value="H"/>
-        M <form:radiobutton path="sexo" value="M" checked="checked"/><br>
+            H <form:radiobutton path="sexo" value="H"/>
+            M <form:radiobutton path="sexo" value="M" checked="checked"/>
+            Ambos <form:radiobutton path="sexo" value="N"/><br>
         <%
+                break;
                 }
             }
         %>
@@ -68,7 +75,7 @@
         if(listaEntradas != null){
     %>
     <h2>Estadísticas</h2>
-    Resultados mostrados: <%=listaEntradas.size()%>/
+    Resultados mostrados: <%=listaEntradas.size()%>/<%=totales%>
 
     <table border="1">
         <tr>
