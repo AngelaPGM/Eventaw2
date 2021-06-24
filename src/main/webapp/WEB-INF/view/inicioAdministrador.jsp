@@ -123,7 +123,7 @@
                 if(u.getRolDTOByRol().getId() == 2){
         %>
                     <td><a class="btn  btn-primaryazul" href="/usuarioEvento/editar/<%= u.getId()%>">Editar</a></td>
-                    <td><a class="btn  btn-primaryazul" href="/usuarioEvento/borrar/<%= u.getId()%>">Borrar</a></td>
+                    <td><a class="btn  btn-primaryazul" href="/borrar/<%= u.getId()%>">Borrar</a></td>
         <%
                 }else{
 
