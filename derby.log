@@ -1,10 +1,10 @@
 ----------------------------------------------------------------
-Thu Jun 24 01:51:31 CEST 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-017a-3b49-34dc-000006c836e0 
-on database directory C:\Users\Fran\Documents\GitHub\Eventaw2\eventawbd with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@1d44bcfa 
-Loaded from file:/C:/Users/Fran/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
-java.vendor=Oracle Corporation
-java.runtime.version=16.0.1+9-24
+Thu Jun 24 00:49:50 UTC 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.1.3 - (1853019): instance a816c00e-017a-3b7e-97a5-000007583d28 
+on database directory C:\Users\Fran\Documents\GitHub\Eventaw2\eventawbd with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7aec35a 
+Loaded from file:/C:/Users/Fran/AppData/Roaming/JetBrains/IntelliJIdea2021.1/jdbc-drivers/Apache%20Derby/10.15.1.3/derby-10.15.1.3.jar
+java.vendor=JetBrains s.r.o.
+java.runtime.version=11.0.10+9-b1341.41
 user.dir=C:\Users\Fran\Documents\GitHub\Eventaw2
 os.name=Windows 10
 os.arch=amd64

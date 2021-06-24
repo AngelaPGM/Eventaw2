@@ -2,6 +2,7 @@ package es.taw.eventaw.service;
 
 import es.taw.eventaw.dao.RolRepository;
 import es.taw.eventaw.dao.UsuarioRepository;
+import es.taw.eventaw.dao.UsuarioeventoRepository;
 import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.RolDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
@@ -19,8 +20,20 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
     private UsuarioRepository usuarioRepository;
+    private UsuarioeventoRepository usuarioeventoRepository;
     private RolRepository rolRepository;
     private UsuarioeventoService usuarioeventoService;
+    private EventoService eventoService;
+
+    @Autowired
+    public void setEventoService(EventoService eventoService) {
+        this.eventoService = eventoService;
+    }
+
+    @Autowired
+    public void setUsuarioeventoRepository(UsuarioeventoRepository usuarioeventoRepository) {
+        this.usuarioeventoRepository = usuarioeventoRepository;
+    }
 
     @Autowired
     public void setUsuarioeventoService(UsuarioeventoService usuarioeventoService) {
@@ -89,6 +102,31 @@ public class UsuarioService {
                 listaDto.add(e.getDTO());
             }
             return listaDto;
+        }
+    }
+
+    public void remove(Integer id) throws ParseException {
+        Optional<Usuario> usuarioOpt = this.usuarioRepository.findById(id);
+        if(usuarioOpt.isPresent()){
+            Usuario usuario = usuarioOpt.get();
+            if(usuario.getRolByRol().getId() == 1){
+                this.usuarioRepository.delete(usuario);
+            }else if(usuario.getDTO().getRolDTOByRol().getId() == 2){
+                if(usuario.getEventosById() != null){
+                    for(Evento e : usuario.getEventosById()){
+                        this.eventoService.remove(e.getId());
+                    }
+                }
+                this.usuarioeventoRepository.delete(usuario.getUsuarioeventosById());
+                this.usuarioRepository.delete(usuario);
+            }else if(usuario.getDTO().getRolDTOByRol().getId() == 3){
+                this.usuarioRepository.delete(usuario);
+            }else if(usuario.getDTO().getRolDTOByRol().getId() == 4){
+                this.usuarioRepository.delete(usuario);
+                //falta completar cuando se haga teleoperador eliminando mensajes y conversaciones.
+            }else{
+                this.usuarioRepository.delete(usuario);
+            }
         }
     }
 

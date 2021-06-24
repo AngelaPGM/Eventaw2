@@ -127,8 +127,10 @@ public class Usuario {
         dto.setRolDTOByRol(this.rolByRol.getDTO());
 
         if(dto.getRolDTOByRol().getId() == 2){
-            dto.setUsuarioeventoDTOById(this.usuarioeventosById.getDTO());
-            dto.getUsuarioeventoDTOById().setUsuarioDTO(dto);
+            if(this.usuarioeventosById != null) {
+                dto.setUsuarioeventoDTOById(this.usuarioeventosById.getDTO());
+                dto.getUsuarioeventoDTOById().setUsuarioDTO(dto);
+            }
         }
         return dto;
     }

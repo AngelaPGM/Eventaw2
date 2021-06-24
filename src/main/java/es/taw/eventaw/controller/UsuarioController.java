@@ -134,6 +134,13 @@ public class UsuarioController {
         return "perfilUsuario";
 
     }
+    @GetMapping("/borrar/{id}")
+    public String borrar(@PathVariable("id") Integer id, Model model) throws ParseException {
+        UsuarioDTO usuarioDTO = (UsuarioDTO) this.usuarioService.findUsuarioEventobyId(id);
+        this.usuarioService.remove(id);
+        return "redirect:/inicioAdmin";
+    }
+
     @GetMapping("/perfil")
     public String doPerfil(Model model, HttpSession session) {
         model.addAttribute("userDTO", (UsuarioDTO) session.getAttribute("userDTO"));
