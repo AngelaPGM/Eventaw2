@@ -75,10 +75,9 @@
                     </p>
 
                     <div class="col-2">
-                        <form:select path="maxentradasusuario">
+                        <form:select path="maxentradasusuario" class="custom-select text-center justify-content-center" style="padding: 5px" ame="numEntradas">
                             <form:options items="${entradas}"/>
                         </form:select>
-                        <!--<select  class="custom-select text-center justify-content-center" style="padding: 5px" name="numEntradas">
                             <%/*
                                 if (entradasLibres < puedeComprar) {
                                     puedeComprar = entradasLibres;

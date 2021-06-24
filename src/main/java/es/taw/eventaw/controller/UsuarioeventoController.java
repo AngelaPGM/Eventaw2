@@ -45,17 +45,19 @@ public class UsuarioeventoController {
     }
 
     @PostMapping("/guardar")
-    public String doGuardar(@ModelAttribute("userDTO") UsuarioDTO userDTO, Model model, HttpSession session) {
+    public String doGuardar(@ModelAttribute("userDTO") UsuarioDTO userDTO, Model model, HttpSession session) throws ParseException {
         String strTo = "perfilUsuario";
         UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
         if (userDTO.getContrasenya2().isEmpty() || userDTO.getContrasenya().equals(userDTO.getContrasenya2())) {
             this.usuarioService.guardarUsuario(userDTO, 2);
             if (userDTO.getId() == null) { //creando
                 strTo = "redirect:/inicioUEvento";
-                userDTO.setContrasenya2("");
+                userDTO = this.usuarioService.comprobarCredenciales(userDTO.getCorreo(), userDTO.getContrasenya());
             } else {
-                if(usuarioDTO.getRolDTOByRol().getId() ==1){
+                if(usuarioDTO.getRolDTOByRol().getId() == 1){
                     strTo = "redirect:/inicioAdmin";
+                } else if(usuarioDTO.getRolDTOByRol().getId() == 2) {
+                    strTo = "perfilUsuarioevento";
                 }
                 model.addAttribute("guardado", true);
 
@@ -67,6 +69,8 @@ public class UsuarioeventoController {
 
             if (userDTO.getId() == null) { //creando
                 strTo = "registroUsuario";
+            } else if (usuarioDTO.getRolDTOByRol().getId() == 2) {
+                strTo = "perfilUsuarioevento";
             }
         }
         return strTo;
