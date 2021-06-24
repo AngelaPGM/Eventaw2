@@ -27,8 +27,8 @@ public class EventoDTO {
         this.titulo = "";
         this.descripcion = "";
         this.ciudad = "";
-        this.fecha = new Date(new SimpleDateFormat().parse(new SimpleDateFormat().format(new java.util.Date())).getTime());
-        this.fechacompra = new Date(new SimpleDateFormat().parse(new SimpleDateFormat().format(new java.util.Date())).getTime());
+        this.fecha = new Date(System.currentTimeMillis());
+        this.fechacompra = new Date(System.currentTimeMillis());
     }
 
     public Integer getId() {

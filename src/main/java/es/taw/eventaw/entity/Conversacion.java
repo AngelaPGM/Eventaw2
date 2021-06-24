@@ -1,7 +1,11 @@
 package es.taw.eventaw.entity;
 
+import es.taw.eventaw.dto.ConversacionDTO;
+
 import javax.persistence.*;
+import java.text.ParseException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -64,9 +68,13 @@ public class Conversacion {
         this.mensajesById = mensajesById;
     }
 
-   /* @Transient
-    public ConversacionDTO getDTO() {
+    @Transient
+    public ConversacionDTO getDTO() throws ParseException {
         ConversacionDTO dto = new ConversacionDTO();
+        dto.setTeleoperadorConversacion(this.usuarioByTeleoperador.getDTO());
+        dto.setId(this.id);
+        dto.setUsuarioConversacion(this.usuarioByUsuario.getDTO());
+        dto.setMensajesById((List<Mensaje>) this.mensajesById);
         return dto;
-    }*/
+    }
 }

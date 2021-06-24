@@ -1,10 +1,12 @@
 package es.taw.eventaw.entity;
 
+import es.taw.eventaw.dto.MensajeDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 
 import javax.persistence.*;
 import java.text.ParseException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -125,7 +127,7 @@ public class Usuario {
         dto.setCorreo(this.correo);
         dto.setContrasenya(this.contrasenya);
         dto.setRolDTOByRol(this.rolByRol.getDTO());
-
+        dto.setMensajesDTO((List<Mensaje>)this.mensajesById);
         if(dto.getRolDTOByRol().getId() == 2){
             if(this.usuarioeventosById != null) {
                 dto.setUsuarioeventoDTOById(this.usuarioeventosById.getDTO());
