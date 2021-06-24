@@ -28,7 +28,7 @@ public class EventoController {
     @Autowired
     public void setUsuarioService(UsuarioService usuarioService) { this.usuarioService = usuarioService; }
 
-    @PostMapping("/filtrar")
+    @PostMapping("/filtrarUEvento")
     public String doFiltrarEventos(@ModelAttribute("eventoDTO") EventoDTO inputData, Model model, HttpSession session) throws ParseException {
         UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
         List<EventoDTO> filtrados = this.eventoService.filtrado(inputData.getTitulo(), inputData.getFecha(), inputData.getFechacompra());
@@ -40,6 +40,15 @@ public class EventoController {
             return "inicioAdministrador";
         }
         return "inicioUEvento";
+    }
+
+    @PostMapping("filtrarCreador")
+    public String doFiltrarEventosCreador(@ModelAttribute("eventoDTO") EventoDTO eventoDTO, Model model, HttpSession session) throws ParseException {
+        UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
+        List<EventoDTO> filtrados = this.eventoService.filtradoCreador(usuarioDTO.getId(), eventoDTO.getTitulo(), eventoDTO.getFecha(), eventoDTO.getFechacompra());
+        model.addAttribute("misEventos", filtrados);
+        model.addAttribute("todosEventos", this.eventoService.findAll());
+        return "inicioCreador";
     }
 
     @GetMapping("/crear")

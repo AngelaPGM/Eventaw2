@@ -1,8 +1,10 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="es.taw.eventaw.dto.UsuarioDTO" %>
 <%@ page import="es.taw.eventaw.dto.EventoDTO" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.text.DecimalFormat" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Date" %><%--
   Created by IntelliJ IDEA.
   User: Pepe
   Date: 08/06/2021
@@ -26,6 +28,7 @@
 </head>
 <%
     UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("userDTO");
+    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
     List<EventoDTO> misEventos = (List<EventoDTO>) request.getAttribute("misEventos");
     List<EventoDTO> todosEventos = (List<EventoDTO>) request.getAttribute("todosEventos");
 %>
@@ -62,16 +65,16 @@
             </div>
         </div>
 
-        <form action="ServletListadoEventos">
+        <form:form action="/evento/filtrarCreador" modelAttribute="eventoDTO">
             <div class="row m-t-10 justify-content-center">
                 <div class="col-5 wrap-input2">
-                    <input class="input2" type="text" placeholder="Introduzca el filtro..." name="buscador"/>
+                    <form:input path="titulo" class="input2" type="text" placeholder="Introduzca el filtro..." name="buscador"/>
                 </div>
                 <div class="col-2 wrap-input2 wrap-separacion10" >
-                    <input class="input2" type="date" id="start" name="fechaInicio">
+                    <form:input path="fecha" class="input2" type="date" id="start" name="fechaInicio" min="<%=formato.format(new Date())%>"/>
                 </div>
                 <div class="col-2 wrap-input2 wrap-separacion10" >
-                    <input class="input2" type="date" id="start2" name="fechaFinal">
+                    <form:input path="fechacompra" class="input2" type="date" id="start2" name="fechaFinal" min="<%=formato.format(new Date())%>"/>
                 </div>
                 <div class="col-2">
                     <div class="wrap-login100-form-btn">
@@ -82,7 +85,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </form:form>
     </div>
 </section>
 <%
