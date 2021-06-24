@@ -1,6 +1,7 @@
 package es.taw.eventaw.dto;
 
 import es.taw.eventaw.entity.Entrada;
+import es.taw.eventaw.entity.EventoEtiqueta;
 
 import java.sql.Date;
 import java.text.ParseException;
@@ -22,13 +23,14 @@ public class EventoDTO {
     private Integer asientosfila;
     private List<EntradaDTO> entradasDTO;
     private UsuarioDTO creadorDTO;
+    private List<EventoEtiquetaDTO> eventoEtiquetasDTOById;
 
     public EventoDTO() throws ParseException {
         this.titulo = "";
         this.descripcion = "";
         this.ciudad = "";
-        this.fecha = new Date(new SimpleDateFormat().parse(new SimpleDateFormat().format(new java.util.Date())).getTime());
-        this.fechacompra = new Date(new SimpleDateFormat().parse(new SimpleDateFormat().format(new java.util.Date())).getTime());
+        this.fecha = new Date(System.currentTimeMillis());
+        this.fechacompra = new Date(System.currentTimeMillis());
     }
 
     public Integer getId() {
@@ -135,5 +137,18 @@ public class EventoDTO {
 
     public void setCreadorDTO(UsuarioDTO creadorDTO) {
         this.creadorDTO = creadorDTO;
+    }
+
+    public List<EventoEtiquetaDTO> getEventoEtiquetasDTOById() {
+        return eventoEtiquetasDTOById;
+    }
+
+    public void setEventoEtiquetasDTOById(List<EventoEtiqueta> eventoEtiquetasById) throws ParseException {
+        List<EventoEtiquetaDTO> listaDTO = new ArrayList<>();
+        for (EventoEtiqueta e : eventoEtiquetasById) {
+            listaDTO.add(e.getDTO());
+
+        }
+        this.eventoEtiquetasDTOById = listaDTO;
     }
 }

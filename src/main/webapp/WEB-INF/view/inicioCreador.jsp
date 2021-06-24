@@ -4,7 +4,8 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Date" %><%--
+<%@ page import="java.util.Date" %>
+<%@ page import="es.taw.eventaw.dto.EventoEtiquetaDTO" %><%--
   Created by IntelliJ IDEA.
   User: Pepe
   Date: 08/06/2021
@@ -37,7 +38,7 @@
 <div class="topnav fixed-top">
     <ul>
         <li><a class="active">Inicio</a></li>
-        <li style="float:right"><a  href="/logout">Cerrar sesión</a></li>
+        <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
         <li style="float:right"><a href="/perfil">Mi perfil</a></li>
         <li style="float:right"><a href="Sin hacer">CHAT TELEOPERADOR</a></li>
     </ul>
@@ -68,13 +69,16 @@
         <form:form action="/evento/filtrarCreador" modelAttribute="eventoDTO">
             <div class="row m-t-10 justify-content-center">
                 <div class="col-5 wrap-input2">
-                    <form:input path="titulo" class="input2" type="text" placeholder="Introduzca el filtro..." name="buscador"/>
+                    <form:input path="titulo" class="input2" type="text" placeholder="Introduzca el filtro..."
+                                name="buscador"/>
                 </div>
-                <div class="col-2 wrap-input2 wrap-separacion10" >
-                    <form:input path="fecha" class="input2" type="date" id="start" name="fechaInicio" min="<%=formato.format(new Date())%>"/>
+                <div class="col-2 wrap-input2 wrap-separacion10">
+                    <form:input path="fecha" class="input2" type="date" id="start" name="fechaInicio"
+                                min="<%=formato.format(new Date())%>"/>
                 </div>
-                <div class="col-2 wrap-input2 wrap-separacion10" >
-                    <form:input path="fechacompra" class="input2" type="date" id="start2" name="fechaFinal" min="<%=formato.format(new Date())%>"/>
+                <div class="col-2 wrap-input2 wrap-separacion10">
+                    <form:input path="fechacompra" class="input2" type="date" id="start2" name="fechaFinal"
+                                min="<%=formato.format(new Date())%>"/>
                 </div>
                 <div class="col-2">
                     <div class="wrap-login100-form-btn">
@@ -93,7 +97,7 @@
 <div class="container justify-content-center text-center" style="margin-top: 10vh">
     <h1 class="bg-text" style="color: #9e9e9e; font-size: 3rem">No tienes eventos con ese filtro</h1>
 </div>
-<%  } else {
+<% } else {
 %>
 <div class="container">
     <table class="center table table-striped align-middle m-t-30" id="tabla-custom">
@@ -109,6 +113,7 @@
             <th>ENTRADAS POR USUARIO</th>
             <th>Nº FILAS</th>
             <th>ASIENTOS POR FILA</th>
+            <th>ETIQUETAS</th>
             <th></th>
             <th></th>
         </tr>
@@ -118,16 +123,28 @@
             for (EventoDTO e : misEventos) {
         %>
         <tr style="text-align: center; vertical-align: middle; font-size:1.2rem">
-            <td><%= e.getTitulo()%></td>
-            <td><%= e.getDescripcion()%></td>
-            <td><%= e.getCiudad()%></td>
-            <td><%= e.getFecha()%></td>
-            <td><%= e.getFechacompra()%></td>
-            <td>  <%= new DecimalFormat("#0.00").format(e.getPrecio())%>€ </td>
-            <td><%= e.getAforo()%></td>
-            <td><%= e.getMaxentradasusuario()%></td>
-            <td><%= (e.getNumfilas() == null ? "-" : e.getNumfilas())%></td>
-            <td><%= (e.getAsientosfila() == null ? "-" : e.getAsientosfila())%></td>
+            <td><%= e.getTitulo()%>
+            </td>
+            <td><%= e.getDescripcion()%>
+            </td>
+            <td><%= e.getCiudad()%>
+            </td>
+            <td><%= e.getFecha()%>
+            </td>
+            <td><%= e.getFechacompra()%>
+            </td>
+            <td><%= new DecimalFormat("#0.00").format(e.getPrecio())%>€</td>
+            <td><%= e.getAforo()%>
+            </td>
+            <td><%= e.getMaxentradasusuario()%>
+            </td>
+            <td><%= (e.getNumfilas() == null ? "-" : e.getNumfilas())%>
+            </td>
+            <td><%= (e.getAsientosfila() == null ? "-" : e.getAsientosfila())%>
+            </td>
+            <td><% for (EventoEtiquetaDTO eve : e.getEventoEtiquetasDTOById()) { %>
+                <%= eve.getEtiquetaDTOByEtiqueta().getNombre() %>
+                <% }%></td>
             <td><a class="btn  btn-primary" style="color: white" href="/evento/editar/<%=e.getId()%>">EDITAR</a></td>
             <td><a class="btn  btn-primary" style="color: white" href="/evento/borrar/<%=e.getId()%>">BORRAR</a></td>
         </tr>
@@ -139,7 +156,7 @@
     <% } %>
 </div>
 
-<%  } else { %>
+<% } else { %>
 <div class="container justify-content-center text-center" style="margin-top: 10vh">
     <h1 class="bg-text" style="color: #9e9e9e; font-size: 3rem">Actualmente no tienes eventos :(</h1>
     <h1 class="bg-text" style="color: #9e9e9e; font-size: 2.5rem">Prueba a crear uno.</h1>

@@ -198,6 +198,7 @@ public class Evento {
         //aux.add(dto);
         //dto.getCreadorDTO().setEventosDTO(aux);
         dto.getCreadorDTO().getEventosDTO().add(dto);
+        dto.setEventoEtiquetasDTOById((List<EventoEtiqueta>) this.eventoEtiquetasById);
         return dto;
     }
 }
