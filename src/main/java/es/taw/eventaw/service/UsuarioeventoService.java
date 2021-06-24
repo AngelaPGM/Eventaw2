@@ -33,7 +33,7 @@ public class UsuarioeventoService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public void guardarUsuarioevento(Usuario usuario, UsuarioeventoDTO ueventoDTO) {
+    public Usuarioevento guardarUsuarioevento(Usuario usuario, UsuarioeventoDTO ueventoDTO) {
         Usuarioevento uevento;
 
         if (ueventoDTO.getId() == null) {
@@ -54,6 +54,8 @@ public class UsuarioeventoService {
 
         this.usuarioeventoRepository.save(uevento);
         this.usuarioRepository.save(usuario);
+
+        return uevento;
     }
     public UsuarioeventoDTO findUsuarioEventobyId(Integer id) throws ParseException {
         Optional<Usuarioevento> optionalUsuarioevento = this.usuarioeventoRepository.findById(id);

@@ -61,11 +61,14 @@ public class UsuarioService {
         usuario.setCorreo(dto.getCorreo());
         usuario.setContrasenya(dto.getContrasenya());
         usuario.setRolByRol(r);
-
         this.usuarioRepository.save(usuario);
+
         if(usuario.getRolByRol().getId() == 2) {
-            this.usuarioeventoService.guardarUsuarioevento(usuario, dto.getUsuarioeventoDTOById());
+            Usuarioevento uevento = this.usuarioeventoService.guardarUsuarioevento(usuario, dto.getUsuarioeventoDTOById());
+            usuario.setUsuarioeventosById(uevento);
+            this.usuarioRepository.save(usuario);
         }
+
     }
 
 
