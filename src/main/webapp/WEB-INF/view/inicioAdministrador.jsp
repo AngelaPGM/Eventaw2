@@ -5,6 +5,8 @@
 <%@ page import="es.taw.eventaw.dto.UsuarioDTO" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="es.taw.eventaw.entity.EventoEtiqueta" %>
+<%@ page import="es.taw.eventaw.dto.EventoEtiquetaDTO" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -22,7 +24,7 @@
 </head>
 <%
     List<EventoDTO> eventosFuturos = (List<EventoDTO>) request.getAttribute("eventosFuturos");
-    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyy");
     List<UsuarioDTO> listaUsuarios = (List<UsuarioDTO>) request.getAttribute("usuarios");
     UsuarioDTO us = (UsuarioDTO) session.getAttribute("userDTO");
 %>
@@ -241,7 +243,11 @@
                     </td>
                     <td><%= ev.getAforo()%>
                     </td>
-                    <td></td>
+                    <td><%
+                        for (EventoEtiquetaDTO eve : ev.getEventoEtiquetasDTOById()) { %>
+                        <%= eve.getEtiquetaDTOByEtiqueta().getNombre() %>
+                        <% }
+                        %></td>
                     <td><a class="btn  btn-primaryazul" href="evento/editar/<%= ev.getId()%>">EDITAR</a></td>
                     <td><a class="btn  btn-primaryazul" href="evento/borrar/<%= ev.getId()%>">BORRAR</a></td>
                 </tr>
