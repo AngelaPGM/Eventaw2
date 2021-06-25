@@ -4,6 +4,7 @@ import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.RolDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
 import es.taw.eventaw.entity.Usuario;
+import es.taw.eventaw.service.ConversacionService;
 import es.taw.eventaw.service.EventoService;
 import es.taw.eventaw.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
 public class UsuarioController {
     private UsuarioService usuarioService;
     private EventoService eventoService;
+    private ConversacionService conversacionService;
 
     @Autowired
     public void setUsuarioService(UsuarioService usuarioService) {
@@ -31,6 +33,10 @@ public class UsuarioController {
         this.eventoService = eventoService;
     }
 
+    @Autowired
+    public void setConversacionService(ConversacionService conversacionService) {
+        this.conversacionService = conversacionService;
+    }
 
     @GetMapping("/")
     public String doInit(Model model) {
@@ -62,11 +68,11 @@ public class UsuarioController {
                     break;
 
                 case 4: //Teleoperador
-                    strTo = ""; //ESCRIBIR AQUI EL REDIRECT A TELEOPERADOR
+                    strTo = this.doInicioTeleoperador(model,session);
                     break;
 
                 default: //Analista
-                    strTo = "redirect:analisis/"; //ESCRIBIR AQUI EL REDIRECT A ANALISTA
+                    strTo = "redirect:analisis/";
                     break;
             }
         }
@@ -102,6 +108,14 @@ public class UsuarioController {
         return "inicioAdministrador";
     }
 
+    @GetMapping("/inicioTeleoperador")
+    public String doInicioTeleoperador(Model model, HttpSession session) throws ParseException {
+        model.addAttribute("todosChat", this.conversacionService.getChatsDto());
+        model.addAttribute("userDto",session.getAttribute("userDTO"));
+        return "teleoperador";
+    }
+
+
     @PostMapping("/filtrar")
     public String doFiltrarUsuarios(@ModelAttribute("usuarioFiltroDTO") UsuarioDTO inputData, Model model, HttpSession session) throws ParseException {
         UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
@@ -134,6 +148,13 @@ public class UsuarioController {
         return "perfilUsuario";
 
     }
+    @GetMapping("/borrar/{id}")
+    public String borrar(@PathVariable("id") Integer id, Model model) throws ParseException {
+        UsuarioDTO usuarioDTO = (UsuarioDTO) this.usuarioService.findUsuarioEventobyId(id);
+        this.usuarioService.remove(id);
+        return "redirect:/inicioAdmin";
+    }
+
     @GetMapping("/perfil")
     public String doPerfil(Model model, HttpSession session) {
         model.addAttribute("userDTO", (UsuarioDTO) session.getAttribute("userDTO"));

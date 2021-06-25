@@ -1,10 +1,13 @@
 package es.taw.eventaw.entity;
 
+import es.taw.eventaw.dto.EventoEtiquetaDTO;
+
 import javax.persistence.*;
+import java.text.ParseException;
 import java.util.Objects;
 
 @Entity
-@Table(name = "EVENTO_ETIQUETA", schema = "SAMPLETAWBD", catalog = "")
+@Table(name = "EVENTO_ETIQUETA", schema = "EVENTAWBD", catalog = "")
 public class EventoEtiqueta {
     private Integer id;
     private Evento eventoByEvento;
@@ -54,10 +57,11 @@ public class EventoEtiqueta {
         this.etiquetaByEtiqueta = etiquetaByEtiqueta;
     }
 
-   /* @Transient
-    public EventoEtiquetaDTO getDTO() {
+   @Transient
+    public EventoEtiquetaDTO getDTO() throws ParseException {
         EventoEtiquetaDTO dto = new EventoEtiquetaDTO();
-
+        dto.setId(this.getId());
+        dto.setEtiquetaDTOByEtiqueta(this.getEtiquetaByEtiqueta().getDTO());
         return dto;
-    }*/
+    }
 }

@@ -17,4 +17,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     @Query("SELECT u FROM Usuario u WHERE u.rolByRol.id = :idRol")
     public List<Usuario> findByRol (@Param("idRol") Integer idRol);
+
+    Usuario findUsuarioByCorreo(String correo);
 }

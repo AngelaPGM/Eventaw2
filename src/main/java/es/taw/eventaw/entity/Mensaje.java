@@ -1,5 +1,7 @@
 package es.taw.eventaw.entity;
 
+import es.taw.eventaw.dto.MensajeDTO;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
@@ -76,10 +78,12 @@ public class Mensaje {
         this.conversacionByConversacion = conversacionByConversacion;
     }
 
-    /*@Transient
+    @Transient
     public MensajeDTO getDTO() {
         MensajeDTO dto = new MensajeDTO();
-
+        dto.setId(this.id);
+        dto.setContenido(this.contenido);
+        dto.setFecha(this.fecha);
         return dto;
-    }*/
+    }
 }
