@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AnalisisService {
@@ -32,6 +33,11 @@ public class AnalisisService {
 
     public List<AnalisisDTO> listarAnalisis(){
         List<Analisis> listaAnalisis = this.analisisRepository.findAll();
+        return listaToDto(listaAnalisis);
+    }
+
+    public List<AnalisisDTO> filtrarAnalisis(String nombre){
+        List<Analisis> listaAnalisis = this.analisisRepository.filtrarByNombre(nombre);
         return listaToDto(listaAnalisis);
     }
 
@@ -67,5 +73,22 @@ public class AnalisisService {
     public void doBorrar(Integer id){
         Analisis analisis = this.analisisRepository.getById(id);
         this.analisisRepository.delete(analisis);
+    }
+
+    public AnalisisDTO doCopiar(Integer id){
+        Optional<Analisis> analisisOptional = this.analisisRepository.findById(id);
+        AnalisisDTO copia = new AnalisisDTO();
+        if(analisisOptional.isPresent()){
+            Analisis analisis = analisisOptional.get();
+            copia.setNombre(analisis.getNombre() + " copia");
+            copia.setFechamayor(analisis.getFechamayor());
+            copia.setFechamenor(analisis.getFechamenor());
+            copia.setPreciomayor(analisis.getPreciomayor());
+            copia.setPreciomenor(analisis.getPreciomenor());
+            copia.setNacimientomayor(analisis.getEdadmayor());
+            copia.setNacimientomenor(analisis.getEdadmenor());
+            copia.setSexo(analisis.getSexo());
+        }
+        return copia;
     }
 }

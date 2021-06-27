@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
@@ -122,6 +124,41 @@ public class EntradaService {
 
     public Integer numeroTotal(){
         return this.entradaRepository.numeroTotal();
+    }
+
+    private boolean mayorDeEdad(Date date){
+        LocalDate now = LocalDate.now();
+        Period periodo = Period.between(date.toLocalDate(), now);
+        if(periodo.getYears() >= 18){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public int[] estadistico(List<EntradaDTO> lista){
+        /*
+        Hombres
+        HombresMayoresEdad
+        Mujeres
+        MujeresMayoresEdad
+         */
+        int[] count = new int[4];
+        for(EntradaDTO e: lista){
+            if(e.getUsuarioeventoDTO().getSexo() == "H"){
+                count[0]++;
+                if(mayorDeEdad(e.getUsuarioeventoDTO().getFechanacimiento())){
+                    count[1]++;
+                }
+            }else{ //mujeres
+                count[2]++;
+                if(mayorDeEdad(e.getUsuarioeventoDTO().getFechanacimiento())){
+                    count[3]++;
+                }
+            }
+        }
+
+        return count;
     }
 
     public List<EntradaDTO> getEntradasFuturas(UsuarioDTO userDTO) throws ParseException {
