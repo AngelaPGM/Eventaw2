@@ -1,5 +1,7 @@
 package es.taw.eventaw.service;
 
+import ch.qos.logback.core.joran.spi.NoAutoStart;
+import com.sun.istack.NotNull;
 import es.taw.eventaw.dao.EventoRepository;
 import es.taw.eventaw.dao.RolRepository;
 import es.taw.eventaw.dao.UsuarioRepository;
@@ -75,6 +77,7 @@ public class UsuarioService {
         usuario.setCorreo(dto.getCorreo());
         usuario.setContrasenya(dto.getContrasenya());
         usuario.setRolByRol(r);
+        usuario.setMensajesById(new ArrayList<>());
         this.usuarioRepository.save(usuario);
 
         if(usuario.getRolByRol().getId() == 2) {
