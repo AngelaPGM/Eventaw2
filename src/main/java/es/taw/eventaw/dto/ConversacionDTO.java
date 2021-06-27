@@ -2,6 +2,7 @@ package es.taw.eventaw.dto;
 
 import es.taw.eventaw.entity.Mensaje;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,10 +45,12 @@ public class ConversacionDTO {
         return mensajesById;
     }
 
-    public void setMensajesById(List<Mensaje> lista) {
+    public void setMensajesById(List<Mensaje> lista) throws ParseException {
         List<MensajeDTO> listaDto = new ArrayList<>();
         for(Mensaje m : lista){
-            listaDto.add(m.getDTO());
+            MensajeDTO msj = m.getDTO();
+            msj.setEmisor(m.getUsuarioByEmisor().getDTO());
+            listaDto.add(msj);
         }
         this.mensajesById = listaDto;
     }

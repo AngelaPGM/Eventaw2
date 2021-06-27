@@ -5,6 +5,7 @@ import es.taw.eventaw.entity.Mensaje;
 import es.taw.eventaw.entity.Rol;
 import es.taw.eventaw.entity.Usuarioevento;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,11 +94,11 @@ public class UsuarioDTO {
         return mensajesDTO;
     }
 
-    public void setMensajesDTO(List<Mensaje> mensajes) {
+    public void setMensajesDTO(List<Mensaje> mensajes) throws ParseException {
         List<MensajeDTO> lista = new ArrayList<>();
         for(Mensaje m : mensajes){
             lista.add(m.getDTO());
         }
-        this.mensajesDTO = mensajesDTO;
+        this.mensajesDTO = lista;
     }
 }
