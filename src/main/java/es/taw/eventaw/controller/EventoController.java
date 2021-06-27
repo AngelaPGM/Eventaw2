@@ -62,7 +62,7 @@ public class EventoController {
     public String cargarCrear(Model model) throws ParseException {
         model.addAttribute("eventoDTO", new EventoDTO());
         model.addAttribute("error", "");
-        model.addAttribute("todasEtiquetas", this.etiquetaService.findAll());
+        model.addAttribute("todasEtiquetasString", this.etiquetaService.findAllString());
         return "formularioEvento";
     }
 
@@ -71,7 +71,6 @@ public class EventoController {
         EventoDTO eventoDTO = this.eventoService.findEventobyId(id);
         model.addAttribute("eventoDTO", eventoDTO);
         model.addAttribute("error", "");
-        model.addAttribute("todasEtiquetas", this.etiquetaService.findAll());
         model.addAttribute("todasEtiquetasString", this.etiquetaService.findAllString());
         return "formularioEvento";
     }
