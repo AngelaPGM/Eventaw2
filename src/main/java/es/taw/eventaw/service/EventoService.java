@@ -110,8 +110,10 @@ public class EventoService {
             Usuario usuario = evento.getUsuarioByCreador();
             usuario.getEventosById().remove(evento);
             List<Entrada> entradas = (List<Entrada>) evento.getEntradasById();
+            List<EventoEtiqueta> eventoEtiquetas = (List<EventoEtiqueta>) evento.getEventoEtiquetasById();
             this.usuarioService.updateUsuario(usuario);
             this.entradaService.removeAllFromList(entradas);
+            this.eventoEtiquetaService.removeAllFromList(eventoEtiquetas);
             this.eventoRepository.delete(evento);
         }
     }
@@ -141,8 +143,6 @@ public class EventoService {
 
         }
 
-        evento.setEventoEtiquetasById(this.eventoEtiquetaService.guardarEtiquetas(evento, listaEtiquetas));
-
 
 
         /*List<EventoEtiqueta> eventoEtiquetas = new ArrayList<>();
@@ -161,9 +161,10 @@ public class EventoService {
 
         evento.setEventoEtiquetasById(eventoEtiquetas);*/
         Usuario usuario = this.usuarioService.findByUsuario(creador);
-        usuario.getEventosById().add(evento);
         evento.setUsuarioByCreador(usuario);
         this.eventoRepository.save(evento);
+        evento.setEventoEtiquetasById(this.eventoEtiquetaService.guardarEtiquetas(evento, listaEtiquetas, eventoDTO.getId()));
+        usuario.getEventosById().add(evento);
         this.usuarioService.updateUsuario(usuario);
     }
 
