@@ -23,7 +23,9 @@ public class EventoDTO {
     private Integer asientosfila;
     private List<EntradaDTO> entradasDTO;
     private UsuarioDTO creadorDTO;
-    private List<EventoEtiquetaDTO> eventoEtiquetasDTOById;
+    //private List<EtiquetaDTO> etiquetasDTO;
+    private List<String> etiquetasString;
+    private String nuevaEtiqueta;
 
     public EventoDTO() throws ParseException {
         this.titulo = "";
@@ -122,12 +124,12 @@ public class EventoDTO {
     }
 
     public List<EntradaDTO> getEntradasDTO() {
-        if(entradasDTO == null) return new ArrayList<>();
+        if (entradasDTO == null) return new ArrayList<>();
         return entradasDTO;
     }
 
-    public void setEntradasDTO(List<EntradaDTO> entradasDTO){
-        if(entradasDTO == null) this.entradasDTO = new ArrayList<>();
+    public void setEntradasDTO(List<EntradaDTO> entradasDTO) {
+        if (entradasDTO == null) this.entradasDTO = new ArrayList<>();
         this.entradasDTO = entradasDTO;
     }
 
@@ -138,7 +140,7 @@ public class EventoDTO {
     public void setCreadorDTO(UsuarioDTO creadorDTO) {
         this.creadorDTO = creadorDTO;
     }
-
+/*
     public List<EventoEtiquetaDTO> getEventoEtiquetasDTOById() {
         return eventoEtiquetasDTOById;
     }
@@ -150,5 +152,29 @@ public class EventoDTO {
 
         }
         this.eventoEtiquetasDTOById = listaDTO;
+    }
+
+    public List<EtiquetaDTO> getEtiquetasDTO() {
+        return etiquetasDTO;
+    }
+
+    public void setEtiquetasDTO(List<EtiquetaDTO> etiquetasDTO) {
+        this.etiquetasDTO = etiquetasDTO;
+    }*/
+
+    public String getNuevaEtiqueta() {
+        return nuevaEtiqueta;
+    }
+
+    public void setNuevaEtiqueta(String nuevaEtiqueta) {
+        this.nuevaEtiqueta = nuevaEtiqueta;
+    }
+
+    public List<String> getEtiquetasString() {
+        return etiquetasString;
+    }
+
+    public void setEtiquetasString(List<String> etiquetasString) {
+        this.etiquetasString = etiquetasString;
     }
 }

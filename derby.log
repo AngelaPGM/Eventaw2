@@ -1,13 +1,31 @@
 ----------------------------------------------------------------
-Fri Jun 25 00:46:21 CEST 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-017a-4033-e5b0-000009c0f058 
-on database directory C:\Users\angep\IdeaProjects\Eventaw2\eventawbd with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@77556fd 
-Loaded from file:/C:/Users/angep/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
-java.vendor=Oracle Corporation
-java.runtime.version=11.0.8+10-LTS
+Sun Jun 27 14:58:33 UTC 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-017a-4dfa-af95-000007708d00 
+on database directory C:\Users\angep\IdeaProjects\Eventaw2\eventawbd with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7aec35a 
+Loaded from file:/C:/Users/angep/AppData/Roaming/JetBrains/IntelliJIdea2021.1/jdbc-drivers/Apache%20Derby/10.14.1.0/derby-10.14.1.0.jar
+java.vendor=JetBrains s.r.o.
+java.runtime.version=11.0.11+9-b1341.57
 user.dir=C:\Users\angep\IdeaProjects\Eventaw2
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
+Warning: While deleting a row from a table the index row for base table row (13,6) was not found in index with conglomerate id 1.729.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (13,6) was not found in index with conglomerate id 1.745.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (13,6) was not found in index with conglomerate id 1.761.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (14,6) was not found in index with conglomerate id 1.729.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (14,6) was not found in index with conglomerate id 1.745.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (14,6) was not found in index with conglomerate id 1.761.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (15,6) was not found in index with conglomerate id 1.729.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (15,6) was not found in index with conglomerate id 1.745.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (15,6) was not found in index with conglomerate id 1.761.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (16,6) was not found in index with conglomerate id 1.729.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (16,6) was not found in index with conglomerate id 1.745.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (16,6) was not found in index with conglomerate id 1.761.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (17,6) was not found in index with conglomerate id 1.729.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (17,6) was not found in index with conglomerate id 1.745.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (17,6) was not found in index with conglomerate id 1.761.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (10,6) was not found in index with conglomerate id 1.729.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (10,6) was not found in index with conglomerate id 1.745.  This problem has automatically been corrected as part of the delete operation.
+Warning: While deleting a row from a table the index row for base table row (10,6) was not found in index with conglomerate id 1.761.  This problem has automatically been corrected as part of the delete operation.

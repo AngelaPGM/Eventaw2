@@ -1,11 +1,14 @@
 package es.taw.eventaw.entity;
 
 import es.taw.eventaw.dto.EntradaDTO;
+import es.taw.eventaw.dto.EtiquetaDTO;
 import es.taw.eventaw.dto.EventoDTO;
+import es.taw.eventaw.dto.EventoEtiquetaDTO;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -194,11 +197,17 @@ public class Evento {
         dto.setNumfilas(this.numfilas);
         dto.setAsientosfila(this.asientosfila);
         dto.setCreadorDTO(this.usuarioByCreador.getDTO());
-        //List<EventoDTO> aux = dto.getCreadorDTO().getEventosDTO();
-        //aux.add(dto);
-        //dto.getCreadorDTO().setEventosDTO(aux);
+
         dto.getCreadorDTO().getEventosDTO().add(dto);
-        dto.setEventoEtiquetasDTOById((List<EventoEtiqueta>) this.eventoEtiquetasById);
+        //dto.setEtiquetasDTO(new ArrayList<>());
+        dto.setEtiquetasString(new ArrayList<>());
+
+        for(EventoEtiqueta eve: this.eventoEtiquetasById) {
+           //dto.getEtiquetasDTO().add(eve.getEtiquetaByEtiqueta().getDTO());
+           dto.getEtiquetasString().add(eve.getEtiquetaByEtiqueta().getNombre());
+        }
+
+
         return dto;
     }
 }
