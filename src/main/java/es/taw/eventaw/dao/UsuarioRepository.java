@@ -10,6 +10,7 @@ import java.util.List;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     Usuario findUsuarioByCorreoAndContrasenya(String correo, String contrasenya);
 
+    @Query("select u from Usuario u where u.id = :id")
     Usuario findUsuarioById(Integer id);
 
     @Query("SELECT u FROM Usuario u WHERE lower(u.correo) LIKE CONCAT('%', lower(:correo) , '%')")
