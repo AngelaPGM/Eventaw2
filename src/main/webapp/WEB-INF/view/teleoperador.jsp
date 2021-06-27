@@ -21,6 +21,16 @@
     <link rel="stylesheet" href="../../css/style.css">
     <title>Teleoperador</title>
 </head>
+
+<!-- Barra navegacion -->
+<div class="topnav fixed-top">
+    <ul>
+        <li><a class="active">Inicio</a></li>
+        <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
+        <li style="float:right"><a href="/perfil">Mi perfil</a></li>
+    </ul>
+</div>
+
 <header class="header-inicio text-center text-white">
     <div class="bg-text">
         <div class="container">
