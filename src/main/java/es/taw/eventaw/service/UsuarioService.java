@@ -24,6 +24,19 @@ public class UsuarioService {
     private RolRepository rolRepository;
     private UsuarioeventoService usuarioeventoService;
     private EventoService eventoService;
+    private ConversacionService conversacionService;
+    private EntradaService entradaService;
+
+
+    @Autowired
+    public void setEntradaService(EntradaService entradaService) {
+        this.entradaService = entradaService;
+    }
+
+    @Autowired
+    public void setConversacionService(ConversacionService conversacionService) {
+        this.conversacionService = conversacionService;
+    }
 
     @Autowired
     public void setEventoService(EventoService eventoService) {
@@ -49,6 +62,8 @@ public class UsuarioService {
     public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
+
+
 
     public UsuarioDTO comprobarCredenciales(String correo, String pass) throws ParseException {
         UsuarioDTO userDTO = null;
@@ -116,27 +131,40 @@ public class UsuarioService {
             Usuario usuario = optionalUsuario.get();
             if(usuario.getRolByRol().getId() == 1){
                 this.usuarioRepository.delete(usuario);
-            }else if(usuario.getDTO().getRolDTOByRol().getId() == 2){
-                if(usuario.getEventosById() != null){
-                    for(Evento e : usuario.getEventosById()){
-                        this.eventoService.remove(e.getId());
+            }else if(usuario.getDTO().getRolDTOByRol().getId() == 2){ //UsuarioEvento
+                if(usuario.getUsuarioeventosById().getEntradasById() != null){
+                        this.entradaService.removeAllFromList((List<Entrada>) usuario.getUsuarioeventosById().getEntradasById());
+                }
+
+                if(usuario.getConversacionsById_0() != null){
+                    for(Conversacion c : usuario.getConversacionsById_0()){
+                        this.conversacionService.borrar(c.getId());
                     }
                 }
+
                 this.usuarioeventoRepository.delete(usuario.getUsuarioeventosById());
                 this.usuarioRepository.delete(usuario);
-            }else if(usuario.getDTO().getRolDTOByRol().getId() == 3){
+            }else if(usuario.getDTO().getRolDTOByRol().getId() == 3){//Creador Eventos
                 if(usuario.getEventosById() != null){
                     for(Evento e : usuario.getEventosById()){
                         this.eventoService.remove(e.getId());
 
                     }
                 }
-
+                if(usuario.getConversacionsById_0() != null){
+                    for(Conversacion c : usuario.getConversacionsById_0()){
+                        this.conversacionService.borrar(c.getId());
+                    }
+                }
                 this.usuarioRepository.delete(usuario);
-            }else if(usuario.getDTO().getRolDTOByRol().getId() == 4){
+            }else if(usuario.getDTO().getRolDTOByRol().getId() == 4){ //Teleoperador
+                if(usuario.getConversacionsById_0() != null){
+                    for(Conversacion c : usuario.getConversacionsById_0()){
+                        this.conversacionService.borrar(c.getId());
+                    }
+                }
                 this.usuarioRepository.delete(usuario);
-                //falta completar cuando se haga teleoperador eliminando mensajes y conversaciones.
-            }else{
+            }else{ //Analista
                 this.usuarioRepository.delete(usuario);
             }
         }

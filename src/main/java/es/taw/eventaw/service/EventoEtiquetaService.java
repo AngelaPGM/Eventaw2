@@ -1,6 +1,7 @@
 package es.taw.eventaw.service;
 
 import es.taw.eventaw.dao.EventoEtiquetaRepository;
+import es.taw.eventaw.entity.Entrada;
 import es.taw.eventaw.entity.Etiqueta;
 import es.taw.eventaw.entity.Evento;
 import es.taw.eventaw.entity.EventoEtiqueta;
@@ -27,10 +28,12 @@ public class EventoEtiquetaService {
         this.etiquetaService = etiquetaService;
     }
 
-    public List<EventoEtiqueta> guardarEtiquetas(Evento e, List<String> etiquetasString) {
+    public List<EventoEtiqueta> guardarEtiquetas(Evento e, List<String> etiquetasString, Integer idEventoDTO) {
 
         List<EventoEtiqueta> eventoEtiquetasList = new ArrayList<>();
-        this.eventoEtiquetaRepository.deleteByEventoByEvento(e);
+        if(idEventoDTO != null){
+            this.eventoEtiquetaRepository.deleteByEventoByEvento(e);
+        }
         for (String s : etiquetasString) {
             EventoEtiqueta eventoEtiqueta = new EventoEtiqueta();
             eventoEtiqueta.setEventoByEvento(e);
@@ -41,4 +44,9 @@ public class EventoEtiquetaService {
         return eventoEtiquetasList;
     }
 
+    public void removeAllFromList(List<EventoEtiqueta> eventoEtiquetas) {
+        for(EventoEtiqueta e : eventoEtiquetas){
+            this.eventoEtiquetaRepository.delete(e);
+        }
+    }
 }

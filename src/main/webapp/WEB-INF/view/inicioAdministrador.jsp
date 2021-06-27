@@ -34,7 +34,7 @@
 <!-- Barra navegacion -->
 <div class="topnav fixed-top">
     <ul>
-        <li><a class="active">Inicio</a></li>
+        <li><a href="/inicioAdmin">Inicio</a></li>
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
         <li style="float:right"><a href="/perfil">Mi perfil</a></li>
     </ul>

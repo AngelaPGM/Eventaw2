@@ -30,7 +30,6 @@
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 <%
-    UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
     String error = (String) request.getAttribute("error");
     SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
     UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("userDTO");
@@ -43,7 +42,7 @@
 <!-- Barra navegacion -->
 <div class="topnav fixed-top">
     <ul>
-        <li><a  href="Sin hacer">Inicio</a></li>
+        <li><a  href="/inicioAdmin">Inicio</a></li>
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
         <li style="float:right"><a href="ServletCrudUsuario?id=<%= usuario.getId()%>">Mi perfil</a></li>
     </ul>
@@ -57,7 +56,7 @@
         <li><a href="/inicioCreador">Inicio</a></li>
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
         <li style="float:right"><a href="/perfil">Mi perfil</a></li>
-        <li style="float:right"><a href="Sin hacer">CHAT TELEOPERADOR</a></li>
+        <li style="float:right"><a href="/conversacion/iniciar">CHAT TELEOPERADOR</a></li>
     </ul>
 </div>
 <%
