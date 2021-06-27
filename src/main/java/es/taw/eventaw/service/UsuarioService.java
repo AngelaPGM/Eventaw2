@@ -24,6 +24,12 @@ public class UsuarioService {
     private RolRepository rolRepository;
     private UsuarioeventoService usuarioeventoService;
     private EventoService eventoService;
+    private ConversacionService conversacionService;
+
+    @Autowired
+    public void setConversacionService(ConversacionService conversacionService) {
+        this.conversacionService = conversacionService;
+    }
 
     @Autowired
     public void setEventoService(EventoService eventoService) {
@@ -49,6 +55,8 @@ public class UsuarioService {
     public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
+
+
 
     public UsuarioDTO comprobarCredenciales(String correo, String pass) throws ParseException {
         UsuarioDTO userDTO = null;
@@ -131,11 +139,14 @@ public class UsuarioService {
 
                     }
                 }
-
                 this.usuarioRepository.delete(usuario);
             }else if(usuario.getDTO().getRolDTOByRol().getId() == 4){
+                if(usuario.getConversacionsById() != null){
+                    for(Conversacion c : usuario.getConversacionsById()){
+                        this.conversacionService.borrar(c.getId());
+                    }
+                }
                 this.usuarioRepository.delete(usuario);
-                //falta completar cuando se haga teleoperador eliminando mensajes y conversaciones.
             }else{
                 this.usuarioRepository.delete(usuario);
             }
