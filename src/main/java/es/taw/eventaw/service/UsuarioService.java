@@ -58,18 +58,18 @@ public class UsuarioService {
         return userDTO;
     }
 
-    public void guardarUsuario(UsuarioDTO dto, Integer rol) {
+    public UsuarioDTO guardarUsuario(UsuarioDTO dto, Integer rol) {
         Usuario usuario;
         Rol r;
 
         if (dto.getId() == null) {
             usuario = new Usuario();
-            r = this.rolRepository.findById(rol).orElse(new Rol());
 
         } else {
             usuario = this.usuarioRepository.findById(dto.getId()).orElse(new Usuario());
-             r = this.rolRepository.findById(dto.getRolDTOByRol().getId()).orElse(new Rol());
         }
+        r = this.rolRepository.findById(rol).orElse(new Rol());
+        dto.setRolDTOByRol(r.getDTO());
 
         usuario.setId(dto.getId());
         usuario.setCorreo(dto.getCorreo());
@@ -83,6 +83,7 @@ public class UsuarioService {
             this.usuarioRepository.save(usuario);
         }
 
+        return dto;
     }
 
 

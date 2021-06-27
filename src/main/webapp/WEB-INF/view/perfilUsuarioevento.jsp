@@ -46,6 +46,7 @@
                 <form:hidden path="id"/>
                 <form:hidden path="rolDTOByRol.id"/>
                 <form:hidden path="usuarioeventoDTOById.id"/>
+                <form:hidden path="editar"/>
             <span class="login-form-title">
                             Modificar perfil
                         </span>

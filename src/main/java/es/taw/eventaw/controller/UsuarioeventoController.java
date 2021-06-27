@@ -49,7 +49,7 @@ public class UsuarioeventoController {
         String strTo = "perfilUsuario";
         UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
         if (userDTO.getContrasenya2().isEmpty() || userDTO.getContrasenya().equals(userDTO.getContrasenya2())) {
-            if (usuarioService.getCorreoYaRegistrado(userDTO.getCorreo())) {
+            if (usuarioService.getCorreoYaRegistrado(userDTO.getCorreo()) && !userDTO.isEditar()) {
                 model.addAttribute("errorLog", "Este correo ya existe. Por favor, utiliza otro correo.");
 
                 if (userDTO.getId() == null) { //creando
@@ -100,13 +100,16 @@ public class UsuarioeventoController {
 
     @GetMapping("/perfil")
     public String doPerfil(Model model, HttpSession session) {
-        model.addAttribute("userDTO", (UsuarioDTO) session.getAttribute("userDTO"));
+        UsuarioDTO userDTO = (UsuarioDTO) session.getAttribute("userDTO");
+        userDTO.setEditar(true);
+        model.addAttribute("userDTO", userDTO);
         return "perfilUsuarioevento";
     }
 
     @GetMapping("/editar/{id}")
     public String cargarEditar(@PathVariable("id") Integer id, Model model) throws ParseException {
         UsuarioDTO usuario = this.usuarioService.findUsuarioEventobyId(id);
+        usuario.setEditar(true);
         model.addAttribute("userDTO", usuario);
         return "perfilUsuario";
     }

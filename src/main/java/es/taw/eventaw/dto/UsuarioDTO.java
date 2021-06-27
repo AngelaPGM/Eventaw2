@@ -18,8 +18,10 @@ public class UsuarioDTO {
     private List<EventoDTO> eventosDTO;
     private List<ConversacionDTO> conversacionesDTO;
     private List<MensajeDTO> mensajesDTO;
+    private boolean editar;
 
     public UsuarioDTO() {
+        editar = false;
     }
 
     public Integer getId() {
@@ -99,5 +101,13 @@ public class UsuarioDTO {
             lista.add(m.getDTO());
         }
         this.mensajesDTO = mensajesDTO;
+    }
+
+    public boolean isEditar() {
+        return editar;
+    }
+
+    public void setEditar(boolean editar) {
+        this.editar = editar;
     }
 }
