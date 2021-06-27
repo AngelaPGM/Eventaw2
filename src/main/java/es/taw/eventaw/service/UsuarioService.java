@@ -25,6 +25,13 @@ public class UsuarioService {
     private UsuarioeventoService usuarioeventoService;
     private EventoService eventoService;
     private ConversacionService conversacionService;
+    private EntradaService entradaService;
+
+
+    @Autowired
+    public void setEntradaService(EntradaService entradaService) {
+        this.entradaService = entradaService;
+    }
 
     @Autowired
     public void setConversacionService(ConversacionService conversacionService) {
@@ -124,30 +131,40 @@ public class UsuarioService {
             Usuario usuario = optionalUsuario.get();
             if(usuario.getRolByRol().getId() == 1){
                 this.usuarioRepository.delete(usuario);
-            }else if(usuario.getDTO().getRolDTOByRol().getId() == 2){
-                if(usuario.getEventosById() != null){
-                    for(Evento e : usuario.getEventosById()){
-                        this.eventoService.remove(e.getId());
+            }else if(usuario.getDTO().getRolDTOByRol().getId() == 2){ //UsuarioEvento
+                if(usuario.getUsuarioeventosById().getEntradasById() != null){
+                        this.entradaService.removeAllFromList((List<Entrada>) usuario.getUsuarioeventosById().getEntradasById());
+                }
+
+                if(usuario.getConversacionsById() != null){
+                    for(Conversacion c : usuario.getConversacionsById()){
+                        this.conversacionService.borrar(c.getId());
                     }
                 }
+
                 this.usuarioeventoRepository.delete(usuario.getUsuarioeventosById());
                 this.usuarioRepository.delete(usuario);
-            }else if(usuario.getDTO().getRolDTOByRol().getId() == 3){
+            }else if(usuario.getDTO().getRolDTOByRol().getId() == 3){//Creador Eventos
                 if(usuario.getEventosById() != null){
                     for(Evento e : usuario.getEventosById()){
                         this.eventoService.remove(e.getId());
 
                     }
                 }
-                this.usuarioRepository.delete(usuario);
-            }else if(usuario.getDTO().getRolDTOByRol().getId() == 4){
                 if(usuario.getConversacionsById() != null){
                     for(Conversacion c : usuario.getConversacionsById()){
                         this.conversacionService.borrar(c.getId());
                     }
                 }
                 this.usuarioRepository.delete(usuario);
-            }else{
+            }else if(usuario.getDTO().getRolDTOByRol().getId() == 4){ //Teleoperador
+                if(usuario.getConversacionsById() != null){
+                    for(Conversacion c : usuario.getConversacionsById()){
+                        this.conversacionService.borrar(c.getId());
+                    }
+                }
+                this.usuarioRepository.delete(usuario);
+            }else{ //Analista
                 this.usuarioRepository.delete(usuario);
             }
         }
