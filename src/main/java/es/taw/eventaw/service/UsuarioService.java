@@ -6,10 +6,7 @@ import es.taw.eventaw.dao.EventoRepository;
 import es.taw.eventaw.dao.RolRepository;
 import es.taw.eventaw.dao.UsuarioRepository;
 import es.taw.eventaw.dao.UsuarioeventoRepository;
-import es.taw.eventaw.dto.EventoDTO;
-import es.taw.eventaw.dto.RolDTO;
-import es.taw.eventaw.dto.UsuarioDTO;
-import es.taw.eventaw.dto.UsuarioeventoDTO;
+import es.taw.eventaw.dto.*;
 import es.taw.eventaw.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -230,4 +227,12 @@ public class UsuarioService {
         return (this.usuarioRepository.findUsuarioByCorreo(correo) != null);
     }
 
+    public List<UsuarioDTO> getByRol(Integer idRol) throws ParseException {
+        List<UsuarioDTO> res = new ArrayList<>();
+        List<Usuario> usuarios = this.usuarioRepository.findByRol(idRol);
+        for(Usuario u : usuarios){
+            res.add(u.getDTO());
+        }
+        return res;
+    }
 }

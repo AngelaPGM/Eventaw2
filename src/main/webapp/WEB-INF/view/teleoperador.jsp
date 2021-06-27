@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="es.taw.eventaw.entity.Usuario" %>
 <%@ page import="es.taw.eventaw.dto.ConversacionDTO" %>
 <%@ page import="java.util.List" %><%--
@@ -14,15 +15,19 @@
 </head>
 <%
     Usuario u = (Usuario) session.getAttribute("userDto");
-    List<ConversacionDTO> listaChats = (List<ConversacionDTO>) request.getAttribute("todosChat");
+    List<ConversacionDTO> chats = (List<ConversacionDTO>) request.getAttribute("chats");
 
-        if(listaChats.isEmpty() || listaChats == null){
+        if(chats == null){
     %>
         Actualmente no tienes Chats.
     <%
         }else{
     %>
-        <table>
+    <form:form action="/conversacion/filtrar" modelAttribute="filtro" >
+        Correo:<form:input path="usuarioConversacion.correo"/>
+        <input type="submit" value="Filtrar"/>
+    </form:form>
+        <table border="1">
             <thead>
                 <tr>
                     <td>Teleoperador</td>
@@ -33,13 +38,13 @@
             </thead>
             <tbody>
                 <%
-                for(ConversacionDTO c : listaChats){
+                for(ConversacionDTO c : chats){
                 %>
                 <tr>
                     <td><%= c.getTeleoperadorConversacion().getCorreo() %></td>
                     <td><%= c.getUsuarioConversacion().getCorreo() %> </td>
-                    <td><a href="conversacion/verConversacion/<%= c.getId()%>">Ver</a> </td>
-                    <td><a href="conversacion/borrarConversacion/<%= c.getId()%>"></a>Eliminar</td>
+                    <td><a href="ver/<%= c.getId()%>">Ver</a> </td>
+                    <td><a href="borrar/<%= c.getId()%>">Eliminar</a></td>
                 </tr>
             <%
                 }
