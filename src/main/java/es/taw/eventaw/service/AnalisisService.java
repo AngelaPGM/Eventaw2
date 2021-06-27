@@ -55,7 +55,6 @@ public class AnalisisService {
             analisis = this.analisisRepository.findById(dto.getId()).orElse(new Analisis());
         }
 
-        analisis.setId(dto.getId());
         analisis.setNombre(dto.getNombre());
         analisis.setFechamayor(dto.getFechamayor());
         analisis.setFechamenor(dto.getFechamenor());
