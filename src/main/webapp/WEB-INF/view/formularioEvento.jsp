@@ -44,7 +44,7 @@
     <ul>
         <li><a href="/inicioAdmin">Inicio</a></li>
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
-        <li style="float:right"><a href="ServletCrudUsuario?id=<%= usuario.getId()%>">Mi perfil</a></li>
+        <li style="float:right"><a href="/perfil>">Mi perfil</a></li>
     </ul>
 </div>
 <%
@@ -57,11 +57,6 @@
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
         <li style="float:right"><a href="/perfil">Mi perfil</a></li>
         <li style="float:right"><a href="/conversacion/iniciar">CHAT TELEOPERADOR</a></li>
-        <%
-            if (usuario.getRolDTOByRol().getId() != 1) { %>
-        <li style="float:right"><a href="/conversacion/iniciar">CHAT TELEOPERADOR</a></li>
-        <% }
-        %>
     </ul>
 </div>
 <%

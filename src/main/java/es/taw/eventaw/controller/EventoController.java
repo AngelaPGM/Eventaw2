@@ -28,7 +28,9 @@ public class EventoController {
     }
 
     @Autowired
-    public void setUsuarioService(UsuarioService usuarioService) { this.usuarioService = usuarioService; }
+    public void setUsuarioService(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     @Autowired
     public void setEtiquetaService(EtiquetaService etiquetaService) {
@@ -39,10 +41,10 @@ public class EventoController {
     public String doFiltrarEventos(@ModelAttribute("eventoDTO") EventoDTO inputData, Model model, HttpSession session) throws ParseException {
         UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
         List<EventoDTO> filtrados = this.eventoService.filtrado(inputData.getTitulo(), inputData.getFecha(), inputData.getFechacompra());
-        model.addAttribute("eventosFuturos",filtrados);
+        model.addAttribute("eventosFuturos", filtrados);
         model.addAttribute("eventoDTO", inputData);
-        if(usuarioDTO.getRolDTOByRol().getId() == 1 ){ //Si soy Administrador.
-            model.addAttribute("usuarios",this.usuarioService.findAll());
+        if (usuarioDTO.getRolDTOByRol().getId() == 1) { //Si soy Administrador.
+            model.addAttribute("usuarios", this.usuarioService.findAll());
             model.addAttribute("usuarioFiltroDTO", new UsuarioDTO());
             return "inicioAdministrador";
         }
@@ -76,24 +78,31 @@ public class EventoController {
     }
 
     @GetMapping("/borrar/{id}")
-    public String doBorrar(@PathVariable Integer id, HttpSession session){
+    public String doBorrar(@PathVariable Integer id, HttpSession session) {
         UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
         this.eventoService.remove(id);
 
-        if(usuarioDTO.getRolDTOByRol().getId() !=1 ) {
+        if (usuarioDTO.getRolDTOByRol().getId() != 1) {
             return "redirect:/inicioCreador";
-        }else{
+        } else {
             return "redirect:/inicioAdmin";
         }
     }
 
     @PostMapping("/guardar")
-    public String doGuardar(@ModelAttribute("eventoDTO") EventoDTO eventoDTO, HttpSession session) throws ParseException {
+    public String doGuardar(@ModelAttribute("eventoDTO") EventoDTO eventoDTO, Model model, HttpSession session) throws ParseException {
         UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
+        if (!eventoDTO.getNumfilas().equals("") && !eventoDTO.getAsientosfila().equals("") &&
+                eventoDTO.getNumfilas() * eventoDTO.getAsientosfila() != eventoDTO.getAforo()) {
+            model.addAttribute("eventoDTO", new EventoDTO());
+            model.addAttribute("todasEtiquetasString", this.etiquetaService.findAllString());
+            model.addAttribute("error", "El aforo debe ser igual al numero de filas por asientos por fila");
+            return "formularioEvento";
+        }
         this.eventoService.save(eventoDTO, usuarioDTO);
-        if(usuarioDTO.getRolDTOByRol().getId() !=1 ) {
+        if (usuarioDTO.getRolDTOByRol().getId() != 1) {
             return "redirect:/inicioCreador";
-        }else {
+        } else {
             return "redirect:/inicioAdmin";
         }
     }
@@ -107,11 +116,11 @@ public class EventoController {
 
     @PostMapping("/aceptarPago/")
     public String cargarAceptarPago(@ModelAttribute("eventoDTO") EventoDTO eventoDTO, Model model, HttpSession session) throws ParseException {
-        if(eventoDTO.getNumfilas() != null){
+        if (eventoDTO.getNumfilas() != null) {
             model.addAttribute("evento", this.eventoService.findEventobyId(eventoDTO.getId()));
             model.addAttribute("numEntradas", new Double(eventoDTO.getMaxentradasusuario()));
             String error = eventoDTO.getTitulo();
-            if(error == null) error = "";
+            if (error == null) error = "";
             model.addAttribute("error", error);
             model.addAttribute("asientos", this.eventoService.getAsientos(eventoDTO.getId()));
             return "confirmarPago";
@@ -124,7 +133,7 @@ public class EventoController {
     private String doConfirmarPago(@ModelAttribute("eventoDTO") EventoDTO eventoDTO, Integer numEntradas, HttpSession session, Model model) throws ParseException {
         UsuarioDTO usuarioDTO = (UsuarioDTO) session.getAttribute("userDTO");
         String error = this.eventoService.tramitarEntradas(usuarioDTO, eventoDTO, numEntradas);
-        if(error.equals("")){
+        if (error.equals("")) {
             return "redirect:/inicioUEvento";
         } else {
             eventoDTO.setTitulo(error);
