@@ -31,10 +31,10 @@
     </ul>
 </div>
 
-<header class="header-inicio text-center text-white">
+<header class="header-inicio text-center text-white" style="height: 40%">
     <div class="bg-text">
         <div class="container">
-            <h1 style="font-size: 4rem"> Bienvenido de nuevo, </h1>
+            <h1 style="font-size: 4rem;"> Bienvenido de nuevo, </h1>
             <h2 style="font-size: 3rem"> teleoperador</h2>
         </div>
     </div>
@@ -57,12 +57,14 @@
                 <h1 class="bg-text" style=" color:#b997f6;"> Conversaciones: </h1>
             </div>
             <div class="col-4 wrap-input2 offset-2">
-                Correo:<form:input class="input2" type="text" placeholder="Introduzca el filtro..." path="usuarioConversacion.correo"/>
+                <form:input class="input2" type="text" placeholder="Introduzca el correo" path="usuarioConversacion.correo"/>
             </div>
             <div class="col-2">
                 <div class="wrap-login100-form-btn">
                     <div class="botones-pag"></div>
-                        <input type="submit" class="login100-form-btn" value="Filtrar"/>
+                    <button class="login100-form-btn" value="Filtrar" >
+                        FILTRAR
+                    </button>
                 </div>
             </div>
         </div>
@@ -71,7 +73,7 @@
 
 <div class="container m-t-20">
     </form:form>
-        <table class="center table table-striped align-middle">
+        <table class="center table table-striped align-middle" id="tabla-custom">
             <thead>
                 <tr>
                     <td>Teleoperador</td>
@@ -87,8 +89,8 @@
                 <tr>
                     <td><%= c.getTeleoperadorConversacion().getCorreo() %></td>
                     <td><%= c.getUsuarioConversacion().getCorreo() %> </td>
-                    <td><a href="ver/<%= c.getId()%>">Ver</a> </td>
-                    <td><a href="borrar/<%= c.getId()%>">Eliminar</a></td>
+                    <td><a class="btn  btn-primary" href="ver/<%= c.getId()%>">Ver</a> </td>
+                    <td><a class="btn  btn-primary" href="borrar/<%= c.getId()%>">Eliminar</a></td>
                 </tr>
             <%
                 }
