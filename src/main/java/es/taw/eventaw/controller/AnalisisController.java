@@ -128,6 +128,8 @@ public class AnalisisController {
 
         model.addAttribute("totales", this.entradaService.numeroTotal());
 
+        model.addAttribute("estadistico", this.entradaService.estadistico(listaEntradas));
+
         return "analisis";
     }
 

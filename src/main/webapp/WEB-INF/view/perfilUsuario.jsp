@@ -35,6 +35,10 @@
         %>
         <li><a href="/inicioAdmin">Inicio</a></li>
         <%
+        } else if(usuarioDTO.getRolDTOByRol().getId() == 5){
+        %>
+        <li><a href="/analisis/">Inicio</a></li>
+        <%
         }else{
         %>
         <li><a href="/inicioCreador">Inicio</a></li>

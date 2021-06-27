@@ -26,6 +26,7 @@
     <ul>
         <li><a class="active">Inicio</a></li>
         <li style="float:right"><a href="/analisis/logout">Cerrar sesión</a></li>
+        <li style="float:right"><a href="/perfil">Mi perfil</a></li>
     </ul>
 </div>
 
