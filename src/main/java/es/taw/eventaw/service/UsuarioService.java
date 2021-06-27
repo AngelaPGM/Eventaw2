@@ -1,5 +1,6 @@
 package es.taw.eventaw.service;
 
+import es.taw.eventaw.dao.EventoRepository;
 import es.taw.eventaw.dao.RolRepository;
 import es.taw.eventaw.dao.UsuarioRepository;
 import es.taw.eventaw.dao.UsuarioeventoRepository;
@@ -109,9 +110,9 @@ public class UsuarioService {
     }
 
     public void remove(Integer id) throws ParseException {
-        Optional<Usuario> usuarioOpt = this.usuarioRepository.findById(id);
-        if(usuarioOpt.isPresent()){
-            Usuario usuario = usuarioOpt.get();
+        Optional<Usuario> optionalUsuario = this.usuarioRepository.findById(id);
+        if(optionalUsuario.isPresent()){
+            Usuario usuario = optionalUsuario.get();
             if(usuario.getRolByRol().getId() == 1){
                 this.usuarioRepository.delete(usuario);
             }else if(usuario.getDTO().getRolDTOByRol().getId() == 2){
@@ -123,6 +124,13 @@ public class UsuarioService {
                 this.usuarioeventoRepository.delete(usuario.getUsuarioeventosById());
                 this.usuarioRepository.delete(usuario);
             }else if(usuario.getDTO().getRolDTOByRol().getId() == 3){
+                if(usuario.getEventosById() != null){
+                    for(Evento e : usuario.getEventosById()){
+                        this.eventoService.remove(e.getId());
+
+                    }
+                }
+
                 this.usuarioRepository.delete(usuario);
             }else if(usuario.getDTO().getRolDTOByRol().getId() == 4){
                 this.usuarioRepository.delete(usuario);

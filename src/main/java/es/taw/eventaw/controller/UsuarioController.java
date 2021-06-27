@@ -150,7 +150,7 @@ public class UsuarioController {
     }
     @GetMapping("/borrar/{id}")
     public String borrar(@PathVariable("id") Integer id, Model model) throws ParseException {
-        UsuarioDTO usuarioDTO = (UsuarioDTO) this.usuarioService.findUsuarioEventobyId(id);
+        //UsuarioDTO usuarioDTO = (UsuarioDTO) this.usuarioService.findUsuarioEventobyId(id);
         this.usuarioService.remove(id);
         return "redirect:/inicioAdmin";
     }
