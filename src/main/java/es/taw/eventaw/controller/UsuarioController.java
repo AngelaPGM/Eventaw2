@@ -57,7 +57,7 @@ public class UsuarioController {
             session.setAttribute("userDTO", userDTO);
             switch (userDTO.getRolDTOByRol().getId()) {
                 case 1: //Admin
-                    strTo = this.doInicioAdmin(model,session); //ESCRIBIR AQUI EL REDIRECT A ADMIN
+                    strTo = this.doInicioAdmin(model,session);
                     break;
 
                 case 2: //Usuarioevento
@@ -134,7 +134,7 @@ public class UsuarioController {
     @GetMapping("/editar/{id}")
     public String cargarEditar(@PathVariable("id") Integer id, Model model) throws ParseException {
         UsuarioDTO usuario = this.usuarioService.findUsuarioEventobyId(id);
-
+        usuario.setEditar(true);
         model.addAttribute("userDTO",usuario);
         //model.addAttribute("listaRolDTO",this.usuarioService.findAllRol());
         return "perfilUsuario";
@@ -149,14 +149,16 @@ public class UsuarioController {
     }
     @GetMapping("/borrar/{id}")
     public String borrar(@PathVariable("id") Integer id, Model model) throws ParseException {
-        UsuarioDTO usuarioDTO = (UsuarioDTO) this.usuarioService.findUsuarioEventobyId(id);
+        //UsuarioDTO usuarioDTO = (UsuarioDTO) this.usuarioService.findUsuarioEventobyId(id);
         this.usuarioService.remove(id);
         return "redirect:/inicioAdmin";
     }
 
     @GetMapping("/perfil")
     public String doPerfil(Model model, HttpSession session) {
-        model.addAttribute("userDTO", (UsuarioDTO) session.getAttribute("userDTO"));
+        UsuarioDTO userDTO = (UsuarioDTO) session.getAttribute("userDTO");
+        userDTO.setEditar(true);
+        model.addAttribute("userDTO", userDTO);
         return "perfilUsuario";
     }
 
@@ -170,7 +172,7 @@ public class UsuarioController {
             if(admin){
                 idRol = userDTO.getRolDTOByRol().getId();
             }
-            this.usuarioService.guardarUsuario(userDTO, idRol);
+            userDTO = this.usuarioService.guardarUsuario(userDTO, idRol);
             if (userDTO.getId() == null) { //creando
                 if(admin) {
                     strTo = "redirect:/inicioAdmin";

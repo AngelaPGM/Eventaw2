@@ -7,6 +7,7 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="es.taw.eventaw.entity.EventoEtiqueta" %>
 <%@ page import="es.taw.eventaw.dto.EventoEtiquetaDTO" %>
+<%@ page import="es.taw.eventaw.dto.EtiquetaDTO" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -35,7 +36,7 @@
     <ul>
         <li><a class="active">Inicio</a></li>
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
-        <li style="float:right"><a href="noestaCreado<%= us.getId()%>">Mi perfil</a></li>
+        <li style="float:right"><a href="/perfil">Mi perfil</a></li>
     </ul>
 </div>
 
@@ -243,11 +244,13 @@
                     </td>
                     <td><%= ev.getAforo()%>
                     </td>
-                    <td><%
-                        for (EventoEtiquetaDTO eve : ev.getEventoEtiquetasDTOById()) { %>
-                        <%= eve.getEtiquetaDTOByEtiqueta().getNombre() %>
+                    <td>
+                        <%
+                            for (String s : ev.getEtiquetasString()) { %>
+                        <%= s %>
                         <% }
-                        %></td>
+                        %>
+                    </td>
                     <td><a class="btn  btn-primaryazul" href="evento/editar/<%= ev.getId()%>">EDITAR</a></td>
                     <td><a class="btn  btn-primaryazul" href="evento/borrar/<%= ev.getId()%>">BORRAR</a></td>
                 </tr>

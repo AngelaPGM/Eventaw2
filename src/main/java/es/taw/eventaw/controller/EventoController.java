@@ -2,6 +2,7 @@ package es.taw.eventaw.controller;
 
 import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
+import es.taw.eventaw.service.EtiquetaService;
 import es.taw.eventaw.service.EventoService;
 import es.taw.eventaw.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.List;
 public class EventoController {
     private EventoService eventoService;
     private UsuarioService usuarioService;
+    private EtiquetaService etiquetaService;
 
     @Autowired
     public void setEventoService(EventoService eventoService) {
@@ -27,6 +29,11 @@ public class EventoController {
 
     @Autowired
     public void setUsuarioService(UsuarioService usuarioService) { this.usuarioService = usuarioService; }
+
+    @Autowired
+    public void setEtiquetaService(EtiquetaService etiquetaService) {
+        this.etiquetaService = etiquetaService;
+    }
 
     @PostMapping("/filtrarUEvento")
     public String doFiltrarEventos(@ModelAttribute("eventoDTO") EventoDTO inputData, Model model, HttpSession session) throws ParseException {
@@ -55,6 +62,7 @@ public class EventoController {
     public String cargarCrear(Model model) throws ParseException {
         model.addAttribute("eventoDTO", new EventoDTO());
         model.addAttribute("error", "");
+        model.addAttribute("todasEtiquetas", this.etiquetaService.findAll());
         return "formularioEvento";
     }
 
@@ -63,6 +71,8 @@ public class EventoController {
         EventoDTO eventoDTO = this.eventoService.findEventobyId(id);
         model.addAttribute("eventoDTO", eventoDTO);
         model.addAttribute("error", "");
+        model.addAttribute("todasEtiquetas", this.etiquetaService.findAll());
+        model.addAttribute("todasEtiquetasString", this.etiquetaService.findAllString());
         return "formularioEvento";
     }
 

@@ -1,5 +1,8 @@
 package es.taw.eventaw.service;
 
+import ch.qos.logback.core.joran.spi.NoAutoStart;
+import com.sun.istack.NotNull;
+import es.taw.eventaw.dao.EventoRepository;
 import es.taw.eventaw.dao.RolRepository;
 import es.taw.eventaw.dao.UsuarioRepository;
 import es.taw.eventaw.dao.UsuarioeventoRepository;
@@ -54,23 +57,24 @@ public class UsuarioService {
         return userDTO;
     }
 
-    public void guardarUsuario(UsuarioDTO dto, Integer rol) {
+    public UsuarioDTO guardarUsuario(UsuarioDTO dto, Integer rol) {
         Usuario usuario;
         Rol r;
 
         if (dto.getId() == null) {
             usuario = new Usuario();
-            r = this.rolRepository.findById(rol).orElse(new Rol());
 
         } else {
             usuario = this.usuarioRepository.findById(dto.getId()).orElse(new Usuario());
-             r = this.rolRepository.findById(dto.getRolDTOByRol().getId()).orElse(new Rol());
         }
+        r = this.rolRepository.findById(rol).orElse(new Rol());
+        dto.setRolDTOByRol(r.getDTO());
 
         usuario.setId(dto.getId());
         usuario.setCorreo(dto.getCorreo());
         usuario.setContrasenya(dto.getContrasenya());
         usuario.setRolByRol(r);
+        usuario.setMensajesById(new ArrayList<>());
         this.usuarioRepository.save(usuario);
 
         if(usuario.getRolByRol().getId() == 2) {
@@ -79,6 +83,7 @@ public class UsuarioService {
             this.usuarioRepository.save(usuario);
         }
 
+        return dto;
     }
 
 
@@ -106,9 +111,9 @@ public class UsuarioService {
     }
 
     public void remove(Integer id) throws ParseException {
-        Optional<Usuario> usuarioOpt = this.usuarioRepository.findById(id);
-        if(usuarioOpt.isPresent()){
-            Usuario usuario = usuarioOpt.get();
+        Optional<Usuario> optionalUsuario = this.usuarioRepository.findById(id);
+        if(optionalUsuario.isPresent()){
+            Usuario usuario = optionalUsuario.get();
             if(usuario.getRolByRol().getId() == 1){
                 this.usuarioRepository.delete(usuario);
             }else if(usuario.getDTO().getRolDTOByRol().getId() == 2){
@@ -120,6 +125,13 @@ public class UsuarioService {
                 this.usuarioeventoRepository.delete(usuario.getUsuarioeventosById());
                 this.usuarioRepository.delete(usuario);
             }else if(usuario.getDTO().getRolDTOByRol().getId() == 3){
+                if(usuario.getEventosById() != null){
+                    for(Evento e : usuario.getEventosById()){
+                        this.eventoService.remove(e.getId());
+
+                    }
+                }
+
                 this.usuarioRepository.delete(usuario);
             }else if(usuario.getDTO().getRolDTOByRol().getId() == 4){
                 this.usuarioRepository.delete(usuario);

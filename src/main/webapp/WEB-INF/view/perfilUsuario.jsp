@@ -57,6 +57,7 @@
         <div class="wrap-registro justify-content-center text-center">
             <form:form modelAttribute="userDTO" class="register-form" action="/guardar">
                 <form:hidden path="id"/>
+                <form:hidden path="editar"/>
                 <h1 class="bg-text">Datos de usuario</h1>
                 <%
                     if (errorLog != null && errorLog != "") {%>
