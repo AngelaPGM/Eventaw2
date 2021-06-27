@@ -136,8 +136,8 @@ public class UsuarioService {
                         this.entradaService.removeAllFromList((List<Entrada>) usuario.getUsuarioeventosById().getEntradasById());
                 }
 
-                if(usuario.getConversacionsById() != null){
-                    for(Conversacion c : usuario.getConversacionsById()){
+                if(usuario.getConversacionsById_0() != null){
+                    for(Conversacion c : usuario.getConversacionsById_0()){
                         this.conversacionService.borrar(c.getId());
                     }
                 }
@@ -151,15 +151,15 @@ public class UsuarioService {
 
                     }
                 }
-                if(usuario.getConversacionsById() != null){
-                    for(Conversacion c : usuario.getConversacionsById()){
+                if(usuario.getConversacionsById_0() != null){
+                    for(Conversacion c : usuario.getConversacionsById_0()){
                         this.conversacionService.borrar(c.getId());
                     }
                 }
                 this.usuarioRepository.delete(usuario);
             }else if(usuario.getDTO().getRolDTOByRol().getId() == 4){ //Teleoperador
-                if(usuario.getConversacionsById() != null){
-                    for(Conversacion c : usuario.getConversacionsById()){
+                if(usuario.getConversacionsById_0() != null){
+                    for(Conversacion c : usuario.getConversacionsById_0()){
                         this.conversacionService.borrar(c.getId());
                     }
                 }
