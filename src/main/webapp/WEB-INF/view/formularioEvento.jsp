@@ -5,7 +5,9 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="es.taw.eventaw.entity.Usuario" %>
 <%@ page import="es.taw.eventaw.dto.UsuarioDTO" %>
-<%@ page import="java.util.Date" %><%--
+<%@ page import="java.util.Date" %>
+<%@ page import="net.bytebuddy.implementation.bytecode.assign.TypeCasting" %>
+<%@ page import="es.taw.eventaw.dto.EtiquetaDTO" %><%--
   Created by IntelliJ IDEA.
   User: rafa
   Date: 5/6/21
@@ -132,6 +134,13 @@
                     </div>
                 </div>
                 <hr/>
+                <div class="row p-l-20" style="color: #a64bf4; font-size: 1.2rem"> Etiquetas: (selecciona al menos una) </div>
+                <div class="row p-l-20 justify-content-around" style="font-size:1.2rem">
+
+                    <form:checkboxes path="etiquetasString" items="${todasEtiquetasString}" />
+                    Nueva etiqueta:<div class="col wrap-input">
+                    <form:input class="input" style="width: 100%" type="text" name="nuevaEtiqueta"  path="nuevaEtiqueta"/></div>
+                </div>
                 <div class="row justify-content-center">
                     <div class="col-3">
                         <div class="container-login100-form-btn p-t-30 justify-content-center">

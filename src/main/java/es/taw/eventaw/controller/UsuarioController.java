@@ -56,7 +56,7 @@ public class UsuarioController {
             session.setAttribute("userDTO", userDTO);
             switch (userDTO.getRolDTOByRol().getId()) {
                 case 1: //Admin
-                    strTo = this.doInicioAdmin(model,session); //ESCRIBIR AQUI EL REDIRECT A ADMIN
+                    strTo = this.doInicioAdmin(model,session);
                     break;
 
                 case 2: //Usuarioevento

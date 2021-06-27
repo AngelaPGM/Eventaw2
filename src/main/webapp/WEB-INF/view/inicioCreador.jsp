@@ -5,7 +5,8 @@
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="es.taw.eventaw.dto.EventoEtiquetaDTO" %><%--
+<%@ page import="es.taw.eventaw.dto.EventoEtiquetaDTO" %>
+<%@ page import="es.taw.eventaw.dto.EtiquetaDTO" %><%--
   Created by IntelliJ IDEA.
   User: Pepe
   Date: 08/06/2021
@@ -142,9 +143,14 @@
             </td>
             <td><%= (e.getAsientosfila() == null ? "-" : e.getAsientosfila())%>
             </td>
-            <td><% for (EventoEtiquetaDTO eve : e.getEventoEtiquetasDTOById()) { %>
-                <%= eve.getEtiquetaDTOByEtiqueta().getNombre() %>
-                <% }%></td>
+            <td>
+                <%
+                    for(String s: e.getEtiquetasString()) { %>
+                        <%= s %>
+                <%    }
+                %>
+
+            </td>
             <td><a class="btn  btn-primary" style="color: white" href="/evento/editar/<%=e.getId()%>">EDITAR</a></td>
             <td><a class="btn  btn-primary" style="color: white" href="/evento/borrar/<%=e.getId()%>">BORRAR</a></td>
         </tr>

@@ -106,7 +106,8 @@
                     <th>PLAZAS DISPONIBLES</th>
                     <th>PRECIO</th>
                     <th>COMPRA HASTA</th>
-                    <th>COMPRAR ENTRADA</th>
+                    <th>ETIQUETA</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -138,6 +139,12 @@
                         PLAZO ACABADO
                         <% }
                         %></td>
+                    <td><%
+                        for (String s : ev.getEtiquetasString()) { %>
+                        <%= s %>
+                        <% }
+                        %></td>
+
                     <td><%
                         if (ev.getFechacompra().after(new Date()) && plazasDisp > 0) {
 
