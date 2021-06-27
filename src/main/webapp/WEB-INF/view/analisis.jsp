@@ -2,7 +2,7 @@
 <%@ page import="es.taw.eventaw.dto.EntradaDTO" %>
 <%@ page import="java.util.List" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -14,7 +14,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Analisis</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/util.css">
@@ -27,108 +27,142 @@
     int[] estadistico = (int[]) request.getAttribute("estadistico");
 %>
 <body>
-    <div class="topnav fixed-top">
-        <ul>
-            <li style="float:right"><a href="/analisis/logout">Cerrar sesión</a></li>
-        </ul>
-    </div>
-    <div class="fondo-pagina">
-        <div class="row justify-content-around">
-            <div class="container-perfil">
-                <form:form action="/analisis/guardar" modelAttribute="analisis">
-                    <form:hidden path="id"></form:hidden>
-                    <h1>Analisis <form:input path="nombre" class="input2"></form:input></h1>
-                    <h2>Mostraremos datos para eventos con</h2>
-                    Fecha superior a: <form:input path="fechamayor" type="date" class="input2"></form:input><br>
-                    Fecha inferior a: <form:input path="fechamenor" type="date" class="input2"></form:input><br>
-
-                    Precio superior a: <form:input path="preciomayor" class="input2"></form:input><br>
-                    Precio inferior a: <form:input path="preciomenor" class="input2"></form:input><br>
-
-                    <h2>a los que asistirán usuarios con</h2>
-
-                    Fecha nacimiento superior a: <form:input path="nacimientomayor" type="date" class="input2"></form:input><br>
-                    Fecha nacimiento inferior a: <form:input path="nacimientomenor" type="date" class="input2"></form:input><br>
-
-                    <div>
-                        Sexo:
-                        <%
-                            if(a.getSexo() == null){
-                        %>
-                        H <form:radiobutton path="sexo" value="H"/>
-                        M <form:radiobutton path="sexo" value="M"/>
-                        Ambos <form:radiobutton path="sexo" value="N" checked="checked"/><br>
-                        <%
-                        }else{
-                            switch (a.getSexo()){
-                                case "H":
-                        %>
-                        H <form:radiobutton path="sexo" value="H" checked="checked"/>
-                        M <form:radiobutton path="sexo" value="M"/>
-                        Ambos <form:radiobutton path="sexo" value="N"/><br>
-                        <%
-                                break;
-                            case "M":
-                        %>
-                        H <form:radiobutton path="sexo" value="H"/>
-                        M <form:radiobutton path="sexo" value="M" checked="checked"/>
-                        Ambos <form:radiobutton path="sexo" value="N"/><br>
-                        <%
-                                        break;
-                                }
-                            }
-                        %>
-
-                    </div>
-
-                    <input class="btn btn-primary btn-xl rounded-pill mt-0" type="submit" value="Guardar">
-                </form:form>
-            </div>
-            <div class="row justify-content-around">
-                <form:form method="get" action="/analisis/">
-                    <input class="btn btn-primary btn-xl rounded-pill mt-0" type="submit" value="Salir">
-                </form:form>
-            </div>
-            <div class="row justify-content-around">
-                <h3>Estadísticas</h3>
-                <br>
-                <%
-                    if(listaEntradas != null){
-                %>
-                Entradas mostradas: <%=listaEntradas.size()%>/<%=totales%> (<%= (totales==0)?0:listaEntradas.size()/totales *100%>%)<br>
-                Hombres: <%= estadistico[0]%>/<%=listaEntradas.size()%> (<%= (listaEntradas.size()==0)?0:estadistico[0]/listaEntradas.size() *100%>%).
-                Mayores de edad: <%=estadistico[1]%>/<%= estadistico[0]%> (<%= (estadistico[0]==0)?0:estadistico[1]/estadistico[0] *100%>%)<br>
-
-                Mujeres: <%= estadistico[2]%>/<%=listaEntradas.size()%> (<%= (listaEntradas.size()==0)?0:estadistico[2]/listaEntradas.size() *100%>%).
-                Mayores de edad: <%=estadistico[3]%>/<%= estadistico[2]%> (<%= (estadistico[3]==0)?0:estadistico[3]/estadistico[2] *100%>%)<br>
-
-                <table border="1" class="center table table-striped align-middle" id="tabla-custom">
-                    <tr>
-                        <th>ENTRADA</th>
-                        <th>FECHA EVENTO</th>
-                        <th>PRECIO EVENTO</th>
-                        <th>NACIMIENTO</th>
-                        <th>SEXO</th>
-                    </tr>
-                    <%
-                        for(EntradaDTO e: listaEntradas){
-                    %>
-                    <tr>
-                        <td><%= e.getId()%></td>
-                        <td><%= e.getEventoDTO().getFecha()%></td>
-                        <td><%= e.getEventoDTO().getPrecio()%></td>
-                        <td><%= e.getUsuarioeventoDTO().getFechanacimiento() %></td>
-                        <td><%= e.getUsuarioeventoDTO().getSexo() %></td>
-                    </tr>
-                    <%
-                        }
-                    %>
-                    <%
-                        }
-                    %>
-                </table>
-            </div>
+<!-- Barra navegacion -->
+<div class="topnav fixed-top">
+    <ul>
+        <li><a href="/analisis/">Inicio</a></li>
+        <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
+    </ul>
+</div>
+<header class="header-inicio text-center text-white" style="height: 30vh">
+    <div class="bg-text">
+        <div class="container">
+            <h1 style="font-size: 4rem"> An&aacute;lisis </h1>
         </div>
     </div>
+</header>
+<form:form action="/analisis/guardar" modelAttribute="analisis" class="register-form">
+    <form:hidden path="id"/>
+    <div class="row justify-content-center text-center">
+        <div class="col">
+            <form:input path="nombre" class="bg-text"/>
+        </div>
+        <hr/>
+    </div>
+    <span class="bg-text" style="font-size: 1.3rem; padding-left:12%"> Datos para eventos con:</span>
+
+    <div class="row pt-3 justify-content-center">
+        <div class="col-2" style="font-size: 1.3rem; display:flex;">Fecha superior a:</div>
+        <div class="col-2 wrap-input2"><form:input path="fechamayor" type="date" class="input2"/></div>
+        <div class="col-2 offset-1" style="font-size: 1.3rem; display:flex;">Fecha inferior a:</div>
+        <div class="col-2 wrap-input2"><form:input path="fechamenor" type="date" class="input2"/></div>
+    </div>
+
+    <div class="row pt-3  justify-content-center">
+        <div class="col-2" style="font-size: 1.3rem; display:flex;">Precio superior a:</div>
+        <div class="col-2 wrap-input2"><form:input path="preciomayor" class="input2"/></div>
+        <div class="col-2 offset-1" style="font-size: 1.3rem; display:flex;">Precio inferior a:</div>
+        <div class="col-2 wrap-input2"><form:input path="preciomenor" class="input2"/></div>
+    </div>
+
+    <div class="row pt-5"><span class="bg-text " style="font-size: 1.3rem; padding-left:12%"> A los que asistiran usuarios con:</span>
+    </div>
+    <div class="row pt-3  justify-content-center">
+        <div class="col-2" style="font-size: 1.3rem">Fecha nacimiento superior:</div>
+        <div class="col-2 wrap-input2"><form:input path="nacimientomayor" type="date" class="input2"/></div>
+        <div class="col-2 offset-1" style="font-size: 1.3rem; display:flex;">Fecha nacimiento inferior:</div>
+        <div class="col-2 wrap-input2"><form:input path="nacimientomenor" type="date" class="input2"/></div>
+    </div>
+    <div>
+        <span style="font-size: 1.3rem; padding-left:12%"> Datos: </span>
+        <%
+            if (a.getSexo() == null) {
+        %>
+        <form:radiobutton path="sexo" value="H" label="Hombre"/>
+        <form:radiobutton path="sexo" value="M" label="Mujer"/>
+        Ambos <form:radiobutton path="sexo" value="N" checked="checked" label="Ambos"/><br>
+        <%
+        } else {
+            switch (a.getSexo()) {
+                case "H":
+        %>
+        <form:radiobutton path="sexo" value="H" label="Hombre" checked="checked"/>
+        <form:radiobutton path="sexo" value="M" label="Mujer"/>
+        <form:radiobutton path="sexo" value="N" label="Ambos"/><br>
+        <%
+                break;
+            case "M":
+        %>
+        <form:radiobutton path="sexo" value="H" label="Hombre"/>
+        <form:radiobutton path="sexo" value="M" checked="checked" label="Mujer"/>
+        <form:radiobutton path="sexo" value="N" label="Ambos"/><br>
+        <%
+                        break;
+                }
+            }
+        %>
+
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-2 pt-2">
+            <input class="btn btn-primary btn-xl rounded-pill mt-0" type="submit" value="Guardar">
+        </div>
+    </div>
+    <hr>
+
+</form:form>
+
+<div class="container">
+
+    <div class="row">
+        <div class="row"><span class="bg-text " style="font-size: 2rem;"> Estad&iacute;sticas</span></div>
+        <%
+            if (listaEntradas != null) {
+        %>
+        Entradas mostradas: <%=listaEntradas.size()%>/<%=totales%>
+        (<%= (totales == 0) ? 0 : listaEntradas.size() / totales * 100%>%)<br>
+        Hombres: <%= estadistico[0]%>/<%=listaEntradas.size()%>
+        (<%= (listaEntradas.size() == 0) ? 0 : estadistico[0] / listaEntradas.size() * 100%>%).
+        Mayores de edad: <%=estadistico[1]%>/<%= estadistico[0]%>
+        (<%= (estadistico[0] == 0) ? 0 : estadistico[1] / estadistico[0] * 100%>%)<br>
+
+        Mujeres: <%= estadistico[2]%>/<%=listaEntradas.size()%>
+        (<%= (listaEntradas.size() == 0) ? 0 : estadistico[2] / listaEntradas.size() * 100%>%).
+        Mayores de edad: <%=estadistico[3]%>/<%= estadistico[2]%>
+        (<%= (estadistico[3] == 0) ? 0 : estadistico[3] / estadistico[2] * 100%>%)<br>
+        <br/>
+        <table border="1" class="center table table-striped align-middle" id="tabla-custom">
+            <tr>
+                <th>ENTRADA</th>
+                <th>FECHA EVENTO</th>
+                <th>PRECIO EVENTO</th>
+                <th>NACIMIENTO</th>
+                <th>SEXO</th>
+            </tr>
+            <%
+                for (EntradaDTO e : listaEntradas) {
+            %>
+            <tr>
+                <td><%= e.getId()%>
+                </td>
+                <td><%= e.getEventoDTO().getFecha()%>
+                </td>
+                <td><%= e.getEventoDTO().getPrecio()%>
+                </td>
+                <td><%= e.getUsuarioeventoDTO().getFechanacimiento() %>
+                </td>
+                <td><%= e.getUsuarioeventoDTO().getSexo() %>
+                </td>
+            </tr>
+            <%
+                }
+            %>
+            <%
+                }
+            %>
+        </table>
+    </div>
+</div>
+<div class="container p-b-100"></div>
 </body>
 </html>
