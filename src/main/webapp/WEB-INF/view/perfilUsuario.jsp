@@ -46,7 +46,7 @@
         <%
             if (usuarioDTO.getRolDTOByRol().getId() == 3) {
         %>
-        <li style="float:right"><a href="Sin hacer">CHAT TELEOPERADOR</a></li>
+        <li style="float:right"><a href="/conversacion/iniciar">CHAT TELEOPERADOR</a></li>
         <% }
         %>
     </ul>
