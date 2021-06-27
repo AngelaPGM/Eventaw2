@@ -42,6 +42,7 @@
         <li style="float:right"><a  href="/logout">Cerrar sesión</a></li>
         <li style="float:right"><a href="/usuarioEvento/perfil">Mi perfil</a></li>
         <li style="float:right"><a href="/usuarioEvento/misEntradas">MIS ENTRADAS</a></li>
+        <li style="float:right"><a href="/conversacion/iniciar">CHAT TELEOPERADOR</a></li>
     </ul>
 </div>
 

@@ -27,7 +27,7 @@
 </head>
 <%
     List<EventoDTO> eventosFuturos = (List<EventoDTO>) request.getAttribute("eventosFuturos");
-    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     int plazasDisp;
 
 %>

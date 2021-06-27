@@ -37,12 +37,12 @@
 %>
 <body>
 <%
-    if(usuario.getId() == 1){
+    if (usuario.getId() == 1) {
 %>
 <!-- Barra navegacion -->
 <div class="topnav fixed-top">
     <ul>
-        <li><a  href="/inicioAdmin">Inicio</a></li>
+        <li><a href="/inicioAdmin">Inicio</a></li>
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
         <li style="float:right"><a href="ServletCrudUsuario?id=<%= usuario.getId()%>">Mi perfil</a></li>
     </ul>
@@ -57,6 +57,11 @@
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
         <li style="float:right"><a href="/perfil">Mi perfil</a></li>
         <li style="float:right"><a href="/conversacion/iniciar">CHAT TELEOPERADOR</a></li>
+        <%
+            if (usuario.getRolDTOByRol().getId() != 1) { %>
+        <li style="float:right"><a href="/conversacion/iniciar">CHAT TELEOPERADOR</a></li>
+        <% }
+        %>
     </ul>
 </div>
 <%
@@ -66,7 +71,7 @@
     <div class="container-perfil">
         <div class="wrap-registro justify-content-center text-center" style="width: 1200px">
             <form:form method="POST" action="/evento/guardar" modelAttribute="eventoDTO" class="register-form">
-                <form:hidden path="id" />
+                <form:hidden path="id"/>
                 <h1 class="bg-text" style="color: #a64bf4">
                     Datos del evento
                 </h1>
@@ -94,20 +99,25 @@
                     <div class="col-2">Ciudad: <span style="color:#a64bf4">(*)</span></div>
                     <div class="col-3">Entradas por usuario: <span style="color:#a64bf4">(*)</span></div>
                     <div class="col-3 text-center">Fecha del evento: <span style="color:#a64bf4">(*)</span></div>
-                    <div class="col-3 text-center">Fecha l&iacute;mite compra: <span style="color:#a64bf4">(*)</span></div>
+                    <div class="col-3 text-center">Fecha l&iacute;mite compra: <span style="color:#a64bf4">(*)</span>
+                    </div>
                 </div>
                 <div class="row p-b-20 justify-content-around">
                     <div class="col-2 wrap-input2">
                         <form:input path="ciudad" class="input2" type="text" name="ciudad" required="required"/>
                     </div>
                     <div class="col-3 wrap-input2 ">
-                        <form:input path="maxentradasusuario" class="input2 text-center" type="number" name="max" min="1" required="required"/>
+                        <form:input path="maxentradasusuario" class="input2 text-center" type="number" name="max"
+                                    min="1" required="required"/>
                     </div>
                     <div class="col-3 wrap-input2">
-                        <form:input path="fecha" class="input2" type="date" name="fecha" style="text-align: center" min="<%=formato.format(new Date())%>" required="required"/>
+                        <form:input path="fecha" class="input2" type="date" name="fecha" style="text-align: center"
+                                    min="<%=formato.format(new Date())%>" required="required"/>
                     </div>
                     <div class="col-3 wrap-input2">
-                        <form:input path="fechacompra" class="input2"   type="date"  name="fechaCompra" style="text-align: center" min="<%=formato.format(new Date())%>" required="required"/>
+                        <form:input path="fechacompra" class="input2" type="date" name="fechaCompra"
+                                    style="text-align: center" min="<%=formato.format(new Date())%>"
+                                    required="required"/>
                     </div>
                     <!-- -->
 
@@ -120,25 +130,32 @@
                 </div>
                 <div class="row p-b-20 justify-content-around">
                     <div class="col-2 wrap-input2">
-                        <form:input path="precio" class="input2 text-center" type="number" min="0" name="precio" step="0.01" required="required"/>
+                        <form:input path="precio" class="input2 text-center" type="number" min="0" name="precio"
+                                    step="0.01" required="required"/>
                     </div>
                     <div class="col-2 wrap-input2 ">
-                        <form:input path="aforo" class="input2 text-center" type="number" name="aforo" min="1" required="required"/>
+                        <form:input path="aforo" class="input2 text-center" type="number" name="aforo" min="1"
+                                    required="required"/>
                     </div>
                     <div class="col-2 wrap-input2">
-                        <form:input path="numfilas" class="input2 text-center" type="number" name="numFilas"  min="1"/>
+                        <form:input path="numfilas" class="input2 text-center" type="number" name="numFilas" min="1"/>
                     </div>
                     <div class="col-4 wrap-input2">
-                        <form:input path="asientosfila" class="input2 text-center" type="number" name="asientos" min="1"/>
+                        <form:input path="asientosfila" class="input2 text-center" type="number" name="asientos"
+                                    min="1"/>
                     </div>
                 </div>
                 <hr/>
-                <div class="row p-l-20" style="color: #a64bf4; font-size: 1.2rem"> Etiquetas: (selecciona al menos una) </div>
+                <div class="row p-l-20" style="color: #a64bf4; font-size: 1.2rem"> Etiquetas: (selecciona al menos
+                    una)
+                </div>
                 <div class="row p-l-20 justify-content-around" style="font-size:1.2rem">
 
-                    <form:checkboxes path="etiquetasString" items="${todasEtiquetasString}" />
-                    Nueva etiqueta:<div class="col wrap-input">
-                    <form:input class="input" style="width: 100%" type="text" name="nuevaEtiqueta"  path="nuevaEtiqueta"/></div>
+                    <form:checkboxes path="etiquetasString" items="${todasEtiquetasString}"/>
+                    Nueva etiqueta:
+                    <div class="col wrap-input">
+                        <form:input class="input" style="width: 100%" type="text" name="nuevaEtiqueta"
+                                    path="nuevaEtiqueta"/></div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-3">

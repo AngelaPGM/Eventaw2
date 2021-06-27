@@ -30,7 +30,7 @@
 </head>
 <%
     UsuarioDTO usuario = (UsuarioDTO) session.getAttribute("userDTO");
-    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/YYYY");
     List<EventoDTO> misEventos = (List<EventoDTO>) request.getAttribute("misEventos");
     List<EventoDTO> todosEventos = (List<EventoDTO>) request.getAttribute("todosEventos");
 %>
@@ -130,9 +130,9 @@
             </td>
             <td><%= e.getCiudad()%>
             </td>
-            <td><%= e.getFecha()%>
+            <td><%= formato.format(e.getFecha()) %>
             </td>
-            <td><%= e.getFechacompra()%>
+            <td><%= formato.format(e.getFechacompra())%>
             </td>
             <td><%= new DecimalFormat("#0.00").format(e.getPrecio())%>€</td>
             <td><%= e.getAforo()%>
