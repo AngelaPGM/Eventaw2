@@ -55,7 +55,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-5 wrap-input2 offset-1">
+        <div class="col-5 wrap-input2 offset-3">
             <form:input path="nombre" class="input2" placeholder="Introduzca el filtro por nombre..."/>
         </div>
         <div class="col-2">
@@ -86,12 +86,11 @@
             </td>
             <td><%=a.getNombre()%>
             </td>
-            <td><a class="btn btn-primary btn-primary rounded-pill mt-3" href="/analisis/ver/<%=a.getId()%>">Ver
+            <td><a class="btn btn-primary" href="/analisis/ver/<%=a.getId()%>">Ver
                 resultados</a></td>
-            <td><a class="btn btn-primary btn-primary rounded-pill mt-3"
-                   href="/analisis/borrar/<%=a.getId()%>">Eliminar</a>
+            <td><a class="btn btn-primary" href="/analisis/borrar/<%=a.getId()%>">Eliminar</a></td>
             </td>
-            <td><a class="btn btn-primary btn-primary rounded-pill mt-3"
+            <td><a class="btn btn-primary"
                    href="/analisis/copiar/<%=a.getId()%>">Duplicar</a>
             </td>
         </tr>
