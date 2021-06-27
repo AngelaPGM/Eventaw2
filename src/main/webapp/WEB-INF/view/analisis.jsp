@@ -32,6 +32,7 @@
     <ul>
         <li><a href="/analisis/">Inicio</a></li>
         <li style="float:right"><a href="/logout">Cerrar sesión</a></li>
+        <li style="float:right"><a href="/perfil">Mi perfil</a></li>
     </ul>
 </div>
 <header class="header-inicio text-center text-white" style="height: 30vh">
@@ -43,22 +44,24 @@
 </header>
 <form:form action="/analisis/guardar" modelAttribute="analisis" class="register-form">
     <form:hidden path="id"/>
-    <div class="row justify-content-center text-center">
-        <div class="col">
-            <form:input path="nombre" class="bg-text"/>
+    <div class="row justify-content-center text-center d-flex align-items-center" >
+        <div class="col-1" style="font-size: 1.3rem; display:flex;">Nombre:</div>
+        <div class="col-2 wrap-input2">
+            <form:input path="nombre" class="input2"/>
         </div>
-        <hr/>
+
+        <hr class="mt-3">
     </div>
     <span class="bg-text" style="font-size: 1.3rem; padding-left:12%"> Datos para eventos con:</span>
 
-    <div class="row pt-3 justify-content-center">
+    <div class="row pt-3 justify-content-center  d-flex align-items-center">
         <div class="col-2" style="font-size: 1.3rem; display:flex;">Fecha superior a:</div>
         <div class="col-2 wrap-input2"><form:input path="fechamayor" type="date" class="input2"/></div>
         <div class="col-2 offset-1" style="font-size: 1.3rem; display:flex;">Fecha inferior a:</div>
         <div class="col-2 wrap-input2"><form:input path="fechamenor" type="date" class="input2"/></div>
     </div>
 
-    <div class="row pt-3  justify-content-center">
+    <div class="row pt-3  justify-content-center  d-flex align-items-center">
         <div class="col-2" style="font-size: 1.3rem; display:flex;">Precio superior a:</div>
         <div class="col-2 wrap-input2"><form:input path="preciomayor" class="input2"/></div>
         <div class="col-2 offset-1" style="font-size: 1.3rem; display:flex;">Precio inferior a:</div>
@@ -67,7 +70,7 @@
 
     <div class="row pt-5"><span class="bg-text " style="font-size: 1.3rem; padding-left:12%"> A los que asistiran usuarios con:</span>
     </div>
-    <div class="row pt-3  justify-content-center">
+    <div class="row pt-3  justify-content-center  d-flex align-items-center">
         <div class="col-2" style="font-size: 1.3rem">Fecha nacimiento superior:</div>
         <div class="col-2 wrap-input2"><form:input path="nacimientomayor" type="date" class="input2"/></div>
         <div class="col-2 offset-1" style="font-size: 1.3rem; display:flex;">Fecha nacimiento inferior:</div>
@@ -80,7 +83,7 @@
         %>
         <form:radiobutton path="sexo" value="H" label="Hombre"/>
         <form:radiobutton path="sexo" value="M" label="Mujer"/>
-        Ambos <form:radiobutton path="sexo" value="N" checked="checked" label="Ambos"/><br>
+        <form:radiobutton path="sexo" value="N" checked="checked" label="Ambos"/><br>
         <%
         } else {
             switch (a.getSexo()) {

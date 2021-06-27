@@ -34,17 +34,19 @@
         <%
             if (u.getRolDTOByRol().getId() == 3) {%>
         <li style="float:right"><a href="/perfil">Mi perfil</a></li>
+        <li style="float:right"><a class="active">CHAT TELEOPERADOR</a></li>
         <li><a href="/inicioCreador">Inicio</a></li>
         <% } else if (u.getRolDTOByRol().getId() == 2) { %>
         <li style="float:right"><a href="/usuarioEvento/perfil">Mi perfil</a></li>
         <li style="float:right"><a href="/usuarioEvento/misEntradas">MIS ENTRADAS</a></li>
+        <li style="float:right"><a class="active">CHAT TELEOPERADOR</a></li>
         <li><a href="/inicioUEvento">Inicio</a></li>
         <% } else if (u.getRolDTOByRol().getId() == 4) { %>
         <li style="float:right"><a href="/perfil">Mi perfil</a></li>
         <li><a href="/conversacion/verChats">Inicio</a></li>
         <% }
         %>
-        <li style="float:right"><a class="active">CHAT TELEOPERADOR</a></li>
+
     </ul>
 </div>
 <div class="fondo-pagina">

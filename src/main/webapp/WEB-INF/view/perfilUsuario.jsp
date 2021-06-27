@@ -31,15 +31,17 @@
 <div class="topnav fixed-top">
     <ul>
         <%
-        if(usuarioDTO.getRolDTOByRol().getId() == 1){
+            if (usuarioDTO.getRolDTOByRol().getId() == 1) {
         %>
         <li><a href="/inicioAdmin">Inicio</a></li>
         <%
-        } else if(usuarioDTO.getRolDTOByRol().getId() == 5){
+        } else if (usuarioDTO.getRolDTOByRol().getId() == 5) {
         %>
         <li><a href="/analisis/">Inicio</a></li>
         <%
-        }else{
+        } else if (usuarioDTO.getRolDTOByRol().getId() == 4) { %>
+        <li><a href="/conversacion/verChats">Inicio</a></li>
+        <% } else {
         %>
         <li><a href="/inicioCreador">Inicio</a></li>
         <%
@@ -104,27 +106,21 @@
                     </div>
                 </div>
                 <%
-                    if(usuarioDTO.getRolDTOByRol().getId() ==1){
+                    if (usuarioDTO.getRolDTOByRol().getId() == 1) {
                 %>
                 <div class="row justify-content-around m-t-20">
                     <div class="col-3 text-center">Rol:<span style="color:#a64bf4"> (*)</span></div>
                 </div>
                 <div class="row justify-content-center" style="line-height: 1.2; height: 50px">
                     <div class="col-6">
-                        <form:select class="custom-select" path="rolDTOByRol.id" name="rol" required = "required">
+                        <form:select class="custom-select" path="rolDTOByRol.id" name="rol" required="required">
                             <form:option value="3" label="Creador de Eventos"/>
-                            <form:option value="1" label="Administrador del Sistema" />
+                            <form:option value="1" label="Administrador del Sistema"/>
                             <form:option value="4" label="Teleoperadores"/>
                             <form:option value="5" label="Analista de Eventos"/>
                         </form:select>
                     </div>
                 </div>
-
-
-
-
-
-
 
 
                 <%
