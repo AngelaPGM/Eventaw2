@@ -2,7 +2,7 @@ package es.taw.eventaw.dto;
 
 import es.taw.eventaw.entity.Mensaje;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class MensajeDTO {
     private Integer id;

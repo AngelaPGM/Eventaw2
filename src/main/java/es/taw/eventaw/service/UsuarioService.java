@@ -6,10 +6,7 @@ import es.taw.eventaw.dao.EventoRepository;
 import es.taw.eventaw.dao.RolRepository;
 import es.taw.eventaw.dao.UsuarioRepository;
 import es.taw.eventaw.dao.UsuarioeventoRepository;
-import es.taw.eventaw.dto.EventoDTO;
-import es.taw.eventaw.dto.RolDTO;
-import es.taw.eventaw.dto.UsuarioDTO;
-import es.taw.eventaw.dto.UsuarioeventoDTO;
+import es.taw.eventaw.dto.*;
 import es.taw.eventaw.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +24,12 @@ public class UsuarioService {
     private RolRepository rolRepository;
     private UsuarioeventoService usuarioeventoService;
     private EventoService eventoService;
+    private ConversacionService conversacionService;
+
+    @Autowired
+    public void setConversacionService(ConversacionService conversacionService) {
+        this.conversacionService = conversacionService;
+    }
 
     @Autowired
     public void setEventoService(EventoService eventoService) {
@@ -52,6 +55,8 @@ public class UsuarioService {
     public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
+
+
 
     public UsuarioDTO comprobarCredenciales(String correo, String pass) throws ParseException {
         UsuarioDTO userDTO = null;
@@ -134,11 +139,14 @@ public class UsuarioService {
 
                     }
                 }
-
                 this.usuarioRepository.delete(usuario);
             }else if(usuario.getDTO().getRolDTOByRol().getId() == 4){
+                if(usuario.getConversacionsById() != null){
+                    for(Conversacion c : usuario.getConversacionsById()){
+                        this.conversacionService.borrar(c.getId());
+                    }
+                }
                 this.usuarioRepository.delete(usuario);
-                //falta completar cuando se haga teleoperador eliminando mensajes y conversaciones.
             }else{
                 this.usuarioRepository.delete(usuario);
             }
@@ -230,4 +238,12 @@ public class UsuarioService {
         return (this.usuarioRepository.findUsuarioByCorreo(correo) != null);
     }
 
+    public List<UsuarioDTO> getByRol(Integer idRol) throws ParseException {
+        List<UsuarioDTO> res = new ArrayList<>();
+        List<Usuario> usuarios = this.usuarioRepository.findByRol(idRol);
+        for(Usuario u : usuarios){
+            res.add(u.getDTO());
+        }
+        return res;
+    }
 }

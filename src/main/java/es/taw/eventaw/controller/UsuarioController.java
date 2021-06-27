@@ -1,5 +1,6 @@
 package es.taw.eventaw.controller;
 
+import es.taw.eventaw.dto.ConversacionDTO;
 import es.taw.eventaw.dto.EventoDTO;
 import es.taw.eventaw.dto.RolDTO;
 import es.taw.eventaw.dto.UsuarioDTO;
@@ -110,9 +111,7 @@ public class UsuarioController {
 
     @GetMapping("/inicioTeleoperador")
     public String doInicioTeleoperador(Model model, HttpSession session) throws ParseException {
-        model.addAttribute("todosChat", this.conversacionService.getChatsDto());
-        model.addAttribute("userDto",session.getAttribute("userDTO"));
-        return "teleoperador";
+        return "redirect:/conversacion/verChats";
     }
 
 
